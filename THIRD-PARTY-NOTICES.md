@@ -135,3 +135,11 @@ checksum-verified archive inputs. Their exact members/hashes are in the same
 PROVENANCE.json. native/WINDOWS-BUILD-INPUTS.json records declared configuration
 references; unresolved cached Git revisions are not replaced with guessed commits.
 These source inputs and notices do not complete the Windows dependency inventory.
+
+
+AndroidX graphics-path1.0.1 release sources, including its native C++ module,
+were collected at the official release-notes revision. The four published Maven
+Kotlin source files match byte-exact. Its original root Apache license is retained
+under third-party/native-components/androidx-graphics-path/LICENSE.txt; original
+source files retain AOSP and embedded math code copyright headers. Source pin,
+module members and correspondence boundaries are in native/SOURCE-INVENTORY.json.

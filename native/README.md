@@ -55,7 +55,7 @@ a new package must be checked rather than inheriting the old verification.
 Windows mpv and FFmpeg exact commits were confirmed against the upstream x86_64
 build job that generated the20261007 archive. Build repository source is pinned
 as well. This partial inventory is not a complete corresponding-source bundle:
-Windows static dependency commit resolution and Android NDK/runtime/native path
+Windows static dependency commit resolution and Android NDK/runtime
 source assembly remain release preparation work. Android primary dependency and
 build-submodule source archives/notices have now been collected locally. Do not equate an
 upstream link or checksum match with a completed distribution requirement.
@@ -72,3 +72,15 @@ was interrupted without receiving bytes and remains unresolved. Original notices
 for the four verified inputs are retained under third-party/native-components;
 configuration inclusion or job mention alone does not prove every input is linked
 into the distributed DLL. No complete-source/distribution claim is made.
+
+
+Graphics-path1.0.1 source was resolved from the official AndroidX release notes
+commit range endpoint8a05a22af450d589ef911d772a001a49dcb05b71. All four Maven
+Kotlin source files match that tree byte-exact. The retained module archive also
+contains12 native C++/header/CMake/map files and the Gradle compiler configuration;
+all10 quoted local include edges resolve inside the archive. Original root
+AndroidX Apache license is retained. This identifies release source and closes
+the previously missing C++ source collection; no binary rebuild or exact NDK/
+toolchain correspondence is asserted. SOURCE-INVENTORY.json records the URLs,
+members and local integrity hashes. Android NDK/runtime material and Windows
+cached Git dependency revision evidence remain incomplete.

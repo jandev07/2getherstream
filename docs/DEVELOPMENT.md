@@ -5735,3 +5735,26 @@ Native owner free/absent, control runner absent. Offered0.1.7 and public/Desktop
 hold16Oct00:00IST preserved; physical/WAN gates/estimates75%35% unchanged. New
 SavedState/source-notices integration still requires the exact final candidate;
 no historical evidence combined into current app acceptance.
+
+
+## Android graphics-path native source collection — 15 October 2026
+
+Official AndroidX graphics-path1.0.1 release notes link a source commit range
+ending8a05a22af450d589ef911d772a001a49dcb05b71. Collected exact module archive;
+all4 Kotlin files match the Google Maven source JAR byte-exact. Its12 native
+C++/header/CMake/map inputs and Gradle compiler flags are now retained locally;
+all10 quoted local include edges resolve. Original AndroidX root Apache license
+collected byte-exact and mapped in PROVENANCE.json. All34 upstream notice hashes
+verified in staged Git blobs, preserving upstream line endings. No upstream code
+edited or new app dependency imported. Source receipt via
+work/source-validation/graphics-path-native-source-directory.txt, exact public
+URLs/member hashes in SOURCE-INVENTORY.json. LocalSHA256 is integrity evidence,
+not an upstream signed/checksum/reproducible binary assertion.
+
+This closes the missing graphics-path C++ source collection, not complete native
+source assembly: Android NDK/runtime and Windows cached Git dependency pins stay
+open. No app build/native/device/provider/GUI/WAN test or unchanged suite rerun.
+No public APK/metadata/Worker/Desktop publication; offered0.1.7/publichold remain.
+Twitch untouched. Next useful exact app boundary is final internal candidate
+including current SavedState/source-notices code; prior candidate proofs remain
+separate. No percentage/gate increase (75%35%, physical/WAN still open).

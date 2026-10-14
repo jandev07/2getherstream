@@ -229,5 +229,12 @@
     "member": "xvidcore/LICENSE",
     "notice_file": "third-party/native-components/windows-xvidcore/LICENSE",
     "sha256": "2ab06d2335f9781f1a485c78a557e6c61b6c24e118caad4d4210c46426bbce95"
+  },
+  {
+    "project": "androidx.graphics:graphics-path:1.0.1",
+    "source_url": "https://android.googlesource.com/platform/frameworks/support/+/8a05a22af450d589ef911d772a001a49dcb05b71/LICENSE.txt",
+    "upstream_commit": "8a05a22af450d589ef911d772a001a49dcb05b71",
+    "notice_file": "third-party/native-components/androidx-graphics-path/LICENSE.txt",
+    "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
   }
 ]
