@@ -55,6 +55,20 @@ a new package must be checked rather than inheriting the old verification.
 Windows mpv and FFmpeg exact commits were confirmed against the upstream x86_64
 build job that generated the20261007 archive. Build repository source is pinned
 as well. This partial inventory is not a complete corresponding-source bundle:
-Windows static dependency sources/configuration and Android non-mpv dependency
-source/notice collection remain release preparation work. Do not equate an
+Windows static dependency commit resolution and Android NDK/runtime/native path
+source assembly remain release preparation work. Android primary dependency and
+build-submodule source archives/notices have now been collected locally. Do not equate an
 upstream link or checksum match with a completed distribution requirement.
+
+
+WINDOWS-BUILD-INPUTS.json retains hashes and declared source references for all108
+package configuration files in the exact Windows build repository archive. This
+is a configuration inventory, not a resolved binary dependency graph: cached Git
+sources and moving branches require actual revision evidence. Four archive inputs
+mentioned in the x86_64 job (libiconv, libopenmpt, LZO and Xvid) were collected and
+checked against the configuration's upstream checksums. LZO uses its configured
+SHA1 as well as a local SHA256 integrity hash. The Opus model archive download
+was interrupted without receiving bytes and remains unresolved. Original notices
+for the four verified inputs are retained under third-party/native-components;
+configuration inclusion or job mention alone does not prove every input is linked
+into the distributed DLL. No complete-source/distribution claim is made.

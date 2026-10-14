@@ -127,3 +127,11 @@ partial attribution/source inventory, not a declaration that corresponding-sourc
 assembly for every static dependency, NDK/runtime and native build is complete.
 The unmodified upstream licenses keep their individual terms. Source archives
 remain local release-preparation materials until publication is allowed.
+
+
+Windows build preparation additionally retains original libiconv COPYING and
+COPYING.LIB, libopenmpt LICENSE, LZO COPYING and Xvid LICENSE from the four
+checksum-verified archive inputs. Their exact members/hashes are in the same
+PROVENANCE.json. native/WINDOWS-BUILD-INPUTS.json records declared configuration
+references; unresolved cached Git revisions are not replaced with guessed commits.
+These source inputs and notices do not complete the Windows dependency inventory.

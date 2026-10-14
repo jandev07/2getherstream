@@ -82,6 +82,7 @@ try {
     $TogetherApkHeader=@(& $TogetherAapt dump badging (Join-Path $TogetherPackage '2gether-PrivateAlpha.apk'))[0]
     if($LASTEXITCODE -ne 0 -or $TogetherApkHeader -notmatch "^package: name='(app\.together\.v2)' versionCode='([0-9]+)' versionName='([a-zA-Z0-9.\-]+)' "){throw 'Candidate APK identity could not be verified'}
     $TogetherAndroidIdentity=[ordered]@{application_id=$Matches[1];version_code=[int]$Matches[2];version_name=$Matches[3]}
+    Copy-Item -LiteralPath (Join-Path $TogetherRoot 'LICENSE') -Destination $TogetherPackage
     Copy-Item -LiteralPath (Join-Path $TogetherRoot 'THIRD-PARTY-NOTICES.md') -Destination $TogetherPackage
     Copy-Item -LiteralPath (Join-Path $TogetherRoot 'docs/ANDROID-UPDATES-AND-LOGS.md') -Destination $TogetherPackage
     Copy-Item -LiteralPath (Join-Path $TogetherRoot 'third-party') -Destination (Join-Path $TogetherPackage 'third-party') -Recurse
