@@ -5553,3 +5553,31 @@ Windows exact upstream build workflow/log retrieved; source bundle still in work
 work/source-validation/native-source-archive-validation.json. No public APK,
 metadata/Worker deployment or Desktop replacement. Alpha0.1.7 preserved; planning
 75%playback/35%beta and physical/WAN gates unchanged.
+
+
+## 2026-10-15 — revised rendered source selection and native source inventory
+
+Fresh internal candidate20261014-205824-625179ea compilede286263 after source-flow
+change; build passed, candidate receipt/source/hash preserved. Actual normal
+packaged Windows rendered review connected existing encrypted Stremio account,
+loaded20Popular titles, displayed1ready plus cached choices for selected title.
+Source panel visibly replaced grid; Choose another title restored20loaded titles.
+No Watch/Prepare submission or provider creation. Exact owned review directory
+is recorded by work/source-validation/discover-visible-directory.txt; ui-review
+receipt ties EXE SHA to source. Window closed through normal UI, exact process
+absence verified before lease release. Native/control owners now free/absent.
+This is rendered UI/read-only provider evidence, not new native playback proof;
+previous747c2af emulator/provider receipts retain their own scope.
+
+Official source archives collected for all11 primary Android native projects,
+plus wrapper/build scripts previously pinned. mpv/FFmpeg upstream checksums
+verified; other archives have local integrity hashes only.18unmodified upstream
+license/notice documents retained with exact member hashes. Lua top-level README
+only references license; full original doc/readme.html included as well. Windows
+build source/mpv/FFmpeg exact archives collected, refs matched published x86_64
+job and DLL version. Static dependency/NDK/runtime source assembly still pending;
+no completeness/legal-compliance guarantee inferred from hashes or upstreamlinks.
+Public native/SOURCE-INVENTORY.json is explicitly partial. No credentials, user
+logs or binary/source archives exported by source commit. No public APK/metadata/
+Worker or Desktop Alpha delivery before requested16Oct00:00IST. Offered0.1.7
+unchanged; physical/WAN and75%/35% planning unchanged.

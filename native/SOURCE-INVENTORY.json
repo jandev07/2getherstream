@@ -1,0 +1,325 @@
+{
+  "status": "partial-source-inventory-not-distribution-completion",
+  "android": {
+    "wrapper": {
+      "project": "yuroyami/libmpvKt",
+      "version": "0.3.0",
+      "commit": "b001dd97538e7d3e700df80029fd72be99ceba3f",
+      "release": "https://github.com/yuroyami/libmpvKt/releases/tag/v0.3.0"
+    },
+    "native_build_info": {
+      "arm64-v8a": {
+        "libmpvkt": "0.3.0",
+        "abi": "arm64-v8a",
+        "ndk": "29.0.14206865",
+        "api": "21",
+        "mpv": "0.41.0 41f6a645068483470267271e1d09966ca3b9f413",
+        "ffmpeg": "9.0.1 bf1b838f2ab88b4f8fd83443325c782ea0e0f7fa",
+        "libass": "0.17.5 4a05d8127f525943ebf45fdc6497c9e665947f0d",
+        "libplacebo": "7.360.1 cee9b076f2c63104ccfd497fa79c39a867293ec4",
+        "dav1d": "1.5.4 54706fc6bc0cdecab7e9593974a4039cc038fca7",
+        "mbedtls": "3.6.7 068ff080b369adfac81509f9b57b2afabaf82dc5",
+        "harfbuzz": "14.4.0 36cb489cb02ce4b92099669ba9f9bea348eff93f",
+        "freetype2": "2.14.3 0a0221a1347e2f1e07c395263540026e9a0aa7c7",
+        "fribidi": "1.0.16 68162babff4f39c4e2dc164a5e825af93bda9983",
+        "unibreak": "7.0 https://github.com/adah1972/libunibreak/releases/download/libunibreak_7_0/libunibreak-7.0.tar.gz",
+        "lua": "5.2.4 https://www.lua.org/ftp/lua-5.2.4.tar.gz"
+      },
+      "x86_64": {
+        "libmpvkt": "0.3.0",
+        "abi": "x86_64",
+        "ndk": "29.0.14206865",
+        "api": "21",
+        "mpv": "0.41.0 41f6a645068483470267271e1d09966ca3b9f413",
+        "ffmpeg": "9.0.1 bf1b838f2ab88b4f8fd83443325c782ea0e0f7fa",
+        "libass": "0.17.5 4a05d8127f525943ebf45fdc6497c9e665947f0d",
+        "libplacebo": "7.360.1 cee9b076f2c63104ccfd497fa79c39a867293ec4",
+        "dav1d": "1.5.4 54706fc6bc0cdecab7e9593974a4039cc038fca7",
+        "mbedtls": "3.6.7 068ff080b369adfac81509f9b57b2afabaf82dc5",
+        "harfbuzz": "14.4.0 36cb489cb02ce4b92099669ba9f9bea348eff93f",
+        "freetype2": "2.14.3 0a0221a1347e2f1e07c395263540026e9a0aa7c7",
+        "fribidi": "1.0.16 68162babff4f39c4e2dc164a5e825af93bda9983",
+        "unibreak": "7.0 https://github.com/adah1972/libunibreak/releases/download/libunibreak_7_0/libunibreak-7.0.tar.gz",
+        "lua": "5.2.4 https://www.lua.org/ftp/lua-5.2.4.tar.gz"
+      }
+    },
+    "published_source_archives": [
+      {
+        "name": "mpv-v0.41.0-source.tar.gz",
+        "bytes": 7262018,
+        "sha256": "ee21092a5ee427353392360929dc64645c54479aefdb5babc5cfbb5fad626209",
+        "upstream_checksum_matches": true
+      },
+      {
+        "name": "ffmpeg-n9.0.1-source.tar.gz",
+        "bytes": 17306989,
+        "sha256": "195d54bebe1a27f84d77f4b989d193466f305b355da92292766a69f16880b18a",
+        "upstream_checksum_matches": true
+      }
+    ],
+    "native_libraries": [
+      {
+        "abi": "arm64-v8a",
+        "library": "libavcodec.so",
+        "apk_sha256": "09eb1a513a726332250de96c33b3b1fba56deecc3948e82fae2ec79ab9ac6360",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libavdevice.so",
+        "apk_sha256": "a75aa369c6e1bb8dc888b7c6f5876cf54fe81dcdae8cb45baa8bce8d476679ef",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libavfilter.so",
+        "apk_sha256": "a4ac3cc14fe609b1a9ceb548d3502a169643537f643054d40404e8a44d530f0b",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libavformat.so",
+        "apk_sha256": "6dff6c334537ac4d5da805486db1a95db75747c6801b866be4362411fab59b55",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libavutil.so",
+        "apk_sha256": "c8fe9e02646a38e7f8672cc408c337763a21be85ed65d5cffb5823c4a096de56",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libc++_shared.so",
+        "apk_sha256": "7d32ac342ef0c04bd0ecb6215eb6af4de9932ff726a04294fb9d8534297bf9b3",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libmpv.so",
+        "apk_sha256": "e8ff53f7f5a05693a92a9ef5da225a76f1d8901d36991faa44ba2c65e8332347",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libmpvkt_jni.so",
+        "apk_sha256": "dc09f9f6faebc9c3003dfd6338dbd95030c4ffbdfed427a1f1e4fd127c50f111",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libswresample.so",
+        "apk_sha256": "502bf0f081876f56bc931bcf0206cb741df16e88ac0e80ae30686c789d79bcc5",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libswscale.so",
+        "apk_sha256": "e7ece361aa40232cd55e7c36785ebfcd2802ea10219b446130489c8eb5bd0126",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libavcodec.so",
+        "apk_sha256": "e4df265ce7265fd2a30048f1de195212d7149127288976e66a2421fb586d215c",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libavdevice.so",
+        "apk_sha256": "de9d747c385b3b61e0d0f99efae81cf10984dde41847a6cb7a9a77b8d5f9cc43",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libavfilter.so",
+        "apk_sha256": "6bdf0c03eec864da0362f7705a493048b6c59648b110d8238d3e98e6699cc25a",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libavformat.so",
+        "apk_sha256": "f107516f90cbe860888d7e4a7d2b8da4f3ee296ec43913fbdb38c3ca28112f44",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libavutil.so",
+        "apk_sha256": "971c09ddba2ec851643cafd9e821185fa01636ccedacc00ccf1b141654da5dde",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libc++_shared.so",
+        "apk_sha256": "2927cb60d92ac09597dec19f1708ef4b73b746ce80a955e603a381234bcdc9f7",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libmpv.so",
+        "apk_sha256": "9a1e07770927c94d1fa1890eeabe8002094aaf4a1b6fb96f860d715f2f63b35a",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libmpvkt_jni.so",
+        "apk_sha256": "65762233cf4b166ad861ab260c744581fdde702318bf09ceebcc93aba0faf609",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libswresample.so",
+        "apk_sha256": "060f5b8388d6bf9fa5ab908cbb7fef21948b5e93f6d5bab3e43539503318c026",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libswscale.so",
+        "apk_sha256": "437eca3b7e9b62d95ab79f044b375269bb9472c21c28be2237da7715b2864227",
+        "aar_matches": 1,
+        "apk_matches_aar": true,
+        "apk_matches_release": true
+      },
+      {
+        "abi": "arm64-v8a",
+        "library": "libandroidx.graphics.path.so",
+        "sha256": "41e9a793c43a0f4fddb19e33f346bace464f30f888ba7b9eaf96294ea115bfb6",
+        "maven": "androidx.graphics:graphics-path:1.0.1",
+        "aar_matches": true
+      },
+      {
+        "abi": "x86_64",
+        "library": "libandroidx.graphics.path.so",
+        "sha256": "4e56c996f13670e70082658de7880c4020eabf4f25e43387f88ed78a713fc9f0",
+        "maven": "androidx.graphics:graphics-path:1.0.1",
+        "aar_matches": true
+      }
+    ],
+    "verified_candidate_id": "20261014-195818-f829095c",
+    "verified_apk_sha256": "9b847ed6ce1f247b34bbc1a87a54aad22f2007fe5aa049ec8e1c340a58623c60",
+    "dependency_source_archives": [
+      {
+        "project": "libass",
+        "commit": "4a05d8127f525943ebf45fdc6497c9e665947f0d",
+        "url": "https://codeload.github.com/libass/libass/tar.gz/4a05d8127f525943ebf45fdc6497c9e665947f0d",
+        "bytes": 351823,
+        "sha256": "3546ecc8748c62e100a9dd18e52ea2d17d7facedf89cfcad97000ad60b1bce2b",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      },
+      {
+        "project": "mbedtls",
+        "commit": "068ff080b369adfac81509f9b57b2afabaf82dc5",
+        "url": "https://codeload.github.com/Mbed-TLS/mbedtls/tar.gz/068ff080b369adfac81509f9b57b2afabaf82dc5",
+        "bytes": 5681475,
+        "sha256": "ca6bd316bbec49ef20088f39b8755fcaec0b7e45781506de55b17cd191ae6937",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      },
+      {
+        "project": "harfbuzz",
+        "commit": "36cb489cb02ce4b92099669ba9f9bea348eff93f",
+        "url": "https://codeload.github.com/harfbuzz/harfbuzz/tar.gz/36cb489cb02ce4b92099669ba9f9bea348eff93f",
+        "bytes": 38408938,
+        "sha256": "0afa12c8ef4bc4ffebd99e5d2a4a2c56dfe329c661feda08a9bc878b7352be89",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      },
+      {
+        "project": "fribidi",
+        "commit": "68162babff4f39c4e2dc164a5e825af93bda9983",
+        "url": "https://codeload.github.com/fribidi/fribidi/tar.gz/68162babff4f39c4e2dc164a5e825af93bda9983",
+        "bytes": 2144204,
+        "sha256": "fa34a057a414c85f7e1f3c0fd717bc93d74d370ed474ef2feca90868b4938f72",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      },
+      {
+        "project": "libplacebo",
+        "url": "https://code.videolan.org/videolan/libplacebo/-/archive/cee9b076f2c63104ccfd497fa79c39a867293ec4/libplacebo-cee9b076f2c63104ccfd497fa79c39a867293ec4.tar.gz",
+        "bytes": 863019,
+        "sha256": "6f8fa218cbafd8e5f50b8a82d918e1d8bbb92f9f980820bc0b34d92e9b79e484",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      },
+      {
+        "project": "dav1d",
+        "url": "https://code.videolan.org/videolan/dav1d/-/archive/54706fc6bc0cdecab7e9593974a4039cc038fca7/dav1d-54706fc6bc0cdecab7e9593974a4039cc038fca7.tar.gz",
+        "bytes": 1751896,
+        "sha256": "9edb11a2108b375cc58370354e705feebc93430bb780130363815c1e1ac0c250",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      },
+      {
+        "project": "freetype",
+        "url": "https://gitlab.freedesktop.org/freetype/freetype/-/archive/0a0221a1347e2f1e07c395263540026e9a0aa7c7/freetype-0a0221a1347e2f1e07c395263540026e9a0aa7c7.tar.gz",
+        "bytes": 2517889,
+        "sha256": "11cd478953fc1d382f20a233b8e2aed6c31b47cbf0568c4bdb3334bcc1550698",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      },
+      {
+        "project": "libunibreak",
+        "url": "https://github.com/adah1972/libunibreak/releases/download/libunibreak_7_0/libunibreak-7.0.tar.gz",
+        "bytes": 885859,
+        "sha256": "8c9a6e121736cd0d5c890ae3ae96f3f4010a19aa040f1dbded833a62a87717d3",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      },
+      {
+        "project": "lua",
+        "url": "https://www.lua.org/ftp/lua-5.2.4.tar.gz",
+        "bytes": 252651,
+        "sha256": "b9e2e4aad6789b3b63a056d442f7b39f0ecfca3ae0f1fc0ae4e9614401b69f4b",
+        "status": "downloaded",
+        "checksum_scope": "local integrity hash; not independent upstream signed checksum"
+      }
+    ]
+  },
+  "windows": {
+    "release": "https://github.com/shinchiro/mpv-winbuild-cmake/releases/tag/20261007",
+    "build_repository_commit": "b2856ee6deed6957380b32465f359e67f67fafd8",
+    "mpv_commit": "eb0ee1031590b3f369a5b783e8aa91eeaaded7e6",
+    "ffmpeg_commit": "c0c7684d08d22d9b5c16c7beaf538f439d3f43bf",
+    "dll_sha256": "872827614ed0adfca11e68def5273bcfcaea6acf38bbf1950c35980b59f43a5f",
+    "dependency_source_graph_complete": false
+  }
+}

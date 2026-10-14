@@ -110,3 +110,20 @@ The adapted Rust and Kotlin drift controllers now drive the respective native pl
 - Apache License2.0 (third-party/cloudflared/LICENSE.txt).
 - Unmodified binary; Cloudflare contributors. Used only for HTTPS/WSS control,
   not video proxying, VPN adapters, system DNS or system routing changes.
+
+
+## Native component source and notices inventory
+
+Unmodified upstream notices for Android native mpv, FFmpeg, libass, libplacebo,
+dav1d, Mbed TLS, HarfBuzz, FreeType, FriBidi, libunibreak and Lua are retained
+under third-party/native-components. PROVENANCE.json maps each copied file to
+its original source-archive member and SHA256. Lua's full license is in
+lua/readme.html; its top-level README alone only links to that document.
+
+native/SOURCE-INVENTORY.json records the exact libmpvKt BUILD-INFO source pins,
+Android native object correspondence and Windows build/mpv/FFmpeg pins. AndroidX
+graphics-path1.0.1 supplies the two additional native path libraries. This is a
+partial attribution/source inventory, not a declaration that corresponding-source
+assembly for every static dependency, NDK/runtime and native build is complete.
+The unmodified upstream licenses keep their individual terms. Source archives
+remain local release-preparation materials until publication is allowed.
