@@ -8,6 +8,7 @@ private-alpha-account-links = ["together-source-resolver/private-alpha-account-l
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
 [dependencies]
+qrcodegen = "=1.8.0"
 zeroize = "1"
 tauri = { version = "2", features = [] }
 together-session-server = { path = "../../../crates/session-server" }

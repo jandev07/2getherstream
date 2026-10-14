@@ -5,7 +5,6 @@ import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import app.together.v2.session.PairingStore
 import kotlinx.coroutines.*
 import java.io.File
 
@@ -25,15 +24,11 @@ import java.io.File
     OutlinedButton(enabled=!busy,onClick={scope.launch {
         busy=true;progress=-1
         try {
-            val pairing=withContext(Dispatchers.IO) {PairingStore(context).load()}
-            if(pairing==null) {message="Connect to your Windows app first so we can check for updates."}
-            else {
-                val found=updater.check(pairing)
+                val found=updater.check()
                 apk?.delete();apk=null;release=found
                 message=if(found==null) "You're up to date." else "Version ${found.name} is available (${found.bytes/1048576} MB). Your connection settings will be kept."
-            }
         } catch(e:CancellationException) {throw e}
-        catch(_:Exception) {message="Could not check for updates. Make sure your Windows app is open and connected, then try again."}
+        catch(_:Exception) {message="Could not check for updates. Check your internet connection and try again later."}
         finally {busy=false}
     }}) {Text("Check for updates")}
     release?.let {candidate ->

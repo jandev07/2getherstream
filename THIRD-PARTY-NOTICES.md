@@ -94,6 +94,13 @@ Android now uses libmpvKt 0.3.0, the wrapper selected by Synkplay. Its copied li
 ## Connected native proof update
 The adapted Rust and Kotlin drift controllers now drive the respective native player workers under Together authority. libmpvKt core/options are used with an original Together TextureView lifecycle adapter; no upstream source was edited. Short PC/emulator session tests passed, preserving the above license and provenance notices. Earlier unintegrated-state notes describe historical checkpoints only.
 
+## QR Code generator
+
+- Project Nayuki qrcodegen 1.8.0, pinned Rust dependency, MIT License.
+- Upstream: https://www.nayuki.io/page/qr-code-generator-library
+- Unmodified library used to generate the fixed Android download QR symbol.
+- Copyright and permission notice: third-party/qrcodegen/LICENSE.txt.
+
 ## Cloudflare cloudflared private Alpha connector
 
 - Upstream: https://github.com/cloudflare/cloudflared

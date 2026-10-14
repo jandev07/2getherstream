@@ -5448,3 +5448,49 @@ poll/backend publication/grant change. Exact source/log hashes, initial15checks,
 final18checks, baselines and boundaries:work/source-validation/seek-controls-validation.json.
 No release APKEXE/provider/emulator/JNI/nativepair/WAN/physical test/userlog/key
 change. Offered Alpha0.1.7 unchanged; planning75%playback/35%fullbeta unchanged.
+
+
+## 2026-10-15 — reviewed source publication and Alpha 0.1.8 preparation
+
+Human resumed background development during Kosmi and authorized the public
+GitHub repository jandev07/2getherstream, ongoing validated source commits and one
+significant revised Alpha for both devices. GitHub source checkpoint b289e4a was
+imported as31d3515 without private local Git history. Static source assets/wrapper
+are included; credentials/signers/.wrangler/work logs/payloads/caches excluded.
+Synthetic AWS example was the sole key-shaped audit match. GitHub CLI normal
+device authorization completed; keyring credentials remain private.
+
+External reviews informed narrowly justified changes: explicit known-action
+queued-control carry, not a broad actor/protocol rewrite or speculative fault
+counter. Six queued-token JVM checks passed, including READY/Executed/unknown
+refusal of hypothetical generation advance while preserving current intent.
+This clarifies the existing server contract, not a reproduced bad wire ACK.
+Main/instrumentation compiled only at this checkpoint.
+
+Public updater metadata no longer requires a paired PC. Windows has one-time QR
+generation and a fixed download page, with qrcodegen1.8.0 MIT notice included.
+Separate APK-only redirect helper permits canonical GitHub release/CDN HTTPS
+redirects (three hops, loop detection, one15minute cooperative budget), with fresh
+requests and shared cancellation-safe response ownership. Metadata/control remain
+no-redirect; APK size/hash/package/higher-version/installed-signer checks retained.
+Seven redirect JVM +onepublic-request +threerelease tests passed. Actual isolated
+loopback redirect/stalled-body test uses TEST-ONLY address mapping; not real GitHub
+TLS/CDN, PackageManager install or Android device playback evidence. Initial test
+constructed NUL response header rejected by OkHttp before decoder ownership;
+corrected direct-policy assertion, failed log/JUnit retained.
+
+Chunked Worker APK prototype removed before deployment; original source/tests and
+prior12Node/7ordinaryfile receipts retained in work. Revised small Worker serves
+only page/metadata and points to immutable GitHub Release APK. SixWorker and
+sixordinaryfile staging checks passed, including OS publication lock/idempotence/
+retained version/downgrade/hash rejection. No APK staged/uploaded or Worker deployed
+at this checkpoint. No Range resume feature, account secret or media proxy added.
+Windows productioncheck passed; Svelte0errors0warnings. Earlier QR geometry/render/
+decode receipt remains separate source evidence, not phone-camera/rendered-app.
+Exact logs/hash/scope:work/source-validation/github-download-validation.json.
+
+Android versionCode9/0.1.8-private-alpha and Windows0.1.8 prepared. Candidate must
+run installed native/normal pairing/recovery validation before delivery. Newly
+compiled native pending-fault regression added to expected executed identities;
+no old receipt relabelled. Alpha0.1.7 remains untouched, physicalphone/twohour/WAN
+open, blocked public playback-tunnel test not retried. Planning75%/35% unchanged.

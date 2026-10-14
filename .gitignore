@@ -23,3 +23,6 @@ apps/android/app/src/main/assets/clock-test.mp4
 
 __pycache__/
 *.pyc
+
+# Cloudflare local state is private development data, never source or releases.
+.wrangler/

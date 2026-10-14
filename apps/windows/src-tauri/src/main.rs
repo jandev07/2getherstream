@@ -9,6 +9,7 @@ mod stremio;
 mod frontend_assets;
 mod startup_proof;
 mod owned_transition;
+mod android_download;
 struct TemporaryConnection {owner:Option<together_session_server::tunnel::QuickTunnel>,origin:Option<String>,error:Option<&'static str>}
 struct AppLifecycle {
     public_origin:Option<String>,
@@ -336,6 +337,6 @@ fn main() {
             });
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![startup_proof::startup_proof_enabled,startup_proof::startup_frontend_ready,session_snapshot, player_status, player_intent, video_bounds,open_pairing,cancel_pairing,diagnostic_health,export_session_log,tunnel_status,pairing_connection,start_temporary_connection,stop_temporary_connection,torbox_videos,torbox_select,torbox_refresh,private_alpha_account_links,stremio_connect,stremio_browser,stremio_browse,stremio_options,stremio_select,stremio_copied_source,stremio_prepare,stremio_episodes,stremio_back,stremio_cancel_lookup])
+        .invoke_handler(tauri::generate_handler![android_download::android_download_info,android_download::open_android_download,startup_proof::startup_proof_enabled,startup_proof::startup_frontend_ready,session_snapshot, player_status, player_intent, video_bounds,open_pairing,cancel_pairing,diagnostic_health,export_session_log,tunnel_status,pairing_connection,start_temporary_connection,stop_temporary_connection,torbox_videos,torbox_select,torbox_refresh,private_alpha_account_links,stremio_connect,stremio_browser,stremio_browse,stremio_options,stremio_select,stremio_copied_source,stremio_prepare,stremio_episodes,stremio_back,stremio_cancel_lookup])
         .build(context).expect("Together 2.0 startup").run(lifecycle_event);
 }

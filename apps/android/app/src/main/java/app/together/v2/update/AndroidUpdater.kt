@@ -31,9 +31,14 @@ class AndroidUpdater(private val context:Context) {
         return signatures?.map {sha256(it.toByteArray())}?.toSet() ?: emptySet()
     }
     @Suppress("DEPRECATION") fun installedCode()=version(context.packageManager.getPackageInfo(context.packageName,flags))
+    /** Public release metadata contains no pairing or provider credentials. */
+    suspend fun check():UpdateRelease? = checkRelease(publicUpdateRequest())
     suspend fun check(pairing:Pairing):UpdateRelease? {
         val base=pairingBase(pairing.baseUrl)
         val request=Request.Builder().url("$base/updates/android").header("Authorization","Bearer ${pairing.token}").header("Cache-Control","no-store").build()
+        return checkRelease(request)
+    }
+    private suspend fun checkRelease(request:Request):UpdateRelease? {
         val release=fetch(request,timeoutMillis=UPDATE_METADATA_TIMEOUT_MS) {response,active ->
             if(response.code==503) throw IOException("Updates are not available yet. Try again later.")
             require(response.code==200)
@@ -51,7 +56,7 @@ class AndroidUpdater(private val context:Context) {
         directory.mkdirs()
         val file=File(directory,"${UUID.randomUUID()}.apk")
         try {
-            fetch(Request.Builder().url(release.url).header("Accept-Encoding","identity").build()) {response,active ->writeUpdateArtifact(file,active) {
+            client.awaitApkDownload(release.url) {response,active ->writeUpdateArtifact(file,active) {
                 require(response.code==200)
                 val body=checkNotNull(response.body)
                 require(body.contentLength()==-1L || body.contentLength()==release.bytes)

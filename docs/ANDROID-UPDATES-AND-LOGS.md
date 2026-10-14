@@ -100,3 +100,10 @@ The update flow is not accepted end to end until a real signed higher-version
 APK has been downloaded/installed on a phone and persistence checked. Rejection
 tests and compilation alone do not prove successful updates. Playback's physical
 phone/two-hour gate and actual safe TorBox delivery remain separate requirements.
+
+
+2026-10-15 source update: normal App updates now checks the public stable release
+metadata independently of pairing/PC uptime. The authenticated PC metadata method
+is retained for compatibility. APK-only GitHub release redirects are bounded and
+unauthenticated; metadata/control redirects remain disabled. See RELEASE-HOSTING.md
+for publication order, security checks, no-resume behavior and current evidence.

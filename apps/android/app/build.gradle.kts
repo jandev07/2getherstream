@@ -2,7 +2,7 @@ plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id(
 android {
     namespace = "app.together.v2"
     compileSdk = 36
-    defaultConfig { applicationId = "app.together.v2"; minSdk = 26; targetSdk = 36; versionCode = 8; versionName = "0.1.7-private-alpha"; testInstrumentationRunner = "app.together.v2.MutedTestRunner"; ndk { abiFilters += listOf("arm64-v8a", "x86_64") } }
+    defaultConfig { applicationId = "app.together.v2"; minSdk = 26; targetSdk = 36; versionCode = 9; versionName = "0.1.8-private-alpha"; testInstrumentationRunner = "app.together.v2.MutedTestRunner"; ndk { abiFilters += listOf("arm64-v8a", "x86_64") } }
     buildFeatures { compose = true; buildConfig = true }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
     // libmpvKt packages the native engine for both proof/device ABIs.

@@ -57,8 +57,18 @@ class QueuedControlTest {
             assertSame(fresh,fresh.afterSuccessfulCommand(sent,"room-a",8L))
             assertSame(pending,pending.afterSuccessfulCommand(sent,"room-a",7L))
         }
-        for(kind in listOf("ready","buffering","player_recovered","executed")) {
+        for(kind in listOf("play","pause","seek","buffering","player_recovered")) {
             assertNotNull(pending.afterSuccessfulCommand(QueuedControl("room-a",7L,kind),"room-a",8L))
+        }
+    }
+    @Test fun reportsThatCannotAdvanceGenerationCannotCarryAnOlderIntent() {
+        val pending=QueuedControl("room-a",7L,"pause")
+        for(kind in listOf("ready","executed","unknown")) {
+            val sent=QueuedControl("room-a",7L,kind)
+            assertNull(pending.afterSuccessfulCommand(sent,"room-a",8L))
+            assertSame(pending,pending.afterSuccessfulCommand(sent,"room-a",7L))
+            val current=QueuedControl("room-a",8L,"pause")
+            assertSame(current,current.afterSuccessfulCommand(sent,"room-a",8L))
         }
     }
 }

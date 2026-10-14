@@ -120,7 +120,8 @@ Use the Together cloudflared control tunnel for remote-phone testing. Movie byte
 must go directly from the CDN, never through the control tunnel. No VPN adapter or
 system network changes are required. This candidate has compilation/unit checks,
 not proof of real Stremio preparation, native paired playback, WAN recovery or a
-physical-phone two-hour soak. Automatic update hosting is not configured here.
+physical-phone two-hour soak. The stable download page and updater metadata use the separate release host.
+Hosting must be verified separately before delivery; a built QR does not prove it is live.
 The source archive and notices accompany this private candidate. Native dependency
 binary-to-source correspondence remains an outstanding public-release check.
 

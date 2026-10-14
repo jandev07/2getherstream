@@ -1,0 +1,11 @@
+{
+  "name": "2gether-download",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-14",
+  "workers_dev": true,
+  "assets": {
+    "directory": "../../work/android-download-assets",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  }
+}
