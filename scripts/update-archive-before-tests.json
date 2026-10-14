@@ -1,0 +1,22 @@
+[
+  [
+    "app.together.v2.UpdateAndLogsTest",
+    "releasePolicyRejectsCredentialsAndInvalidMetadata"
+  ],
+  [
+    "app.together.v2.UpdateAndLogsTest",
+    "corruptedApkCannotOpenAsUpdate"
+  ],
+  [
+    "app.together.v2.UpdateAndLogsTest",
+    "phoneLogsContainOnlyBoundedStructuredValues"
+  ],
+  [
+    "app.together.v2.UpdateAndLogsTest",
+    "phoneLogsRejectCoercedJsonTypesAndMissingNullableField"
+  ],
+  [
+    "app.together.v2.UpdateArchiveTest",
+    "higherSignedArchiveAndContentProviderAreVerifiedBeforeUpgrade"
+  ]
+]

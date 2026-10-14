@@ -23,7 +23,7 @@ try {
     $TogetherExit=$LASTEXITCODE
     $TogetherResult | Set-Content -LiteralPath (Join-Path $TogetherRoot 'work/update-and-logs-result.txt')
     if($TogetherExit -ne 0){throw 'Update/log instrumentation failed'}
-    & python -B (Join-Path $PSScriptRoot 'verify_instrumentation.py') (Join-Path $TogetherRoot 'work/update-and-logs-result.txt') --expected-tests 3 --expected-identities (Join-Path $PSScriptRoot 'update-and-logs-tests.json')
+    & python -B (Join-Path $PSScriptRoot 'verify_instrumentation.py') (Join-Path $TogetherRoot 'work/update-and-logs-result.txt') --expected-tests (@(Get-Content (Join-Path $PSScriptRoot 'update-and-logs-tests.json') -Raw | ConvertFrom-Json).Count) --expected-identities (Join-Path $PSScriptRoot 'update-and-logs-tests.json')
     if($LASTEXITCODE -ne 0){throw 'Update/log exact test verification failed'}
     $null=Assert-AndroidProofBuild -Root $TogetherRoot
     $TogetherReceipt.status='passed';$TogetherReceipt.phase='complete'

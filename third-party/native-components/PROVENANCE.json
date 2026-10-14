@@ -124,5 +124,75 @@
     "member": "lua-5.2.4/doc/readme.html",
     "notice_file": "third-party/native-components/lua/readme.html",
     "sha256": "a686d9158c8878ee4c6e1c90d719949c2b70031b74d6e945e6e218a063ebcb20"
+  },
+  {
+    "project": "mbedtls-framework",
+    "source_archive": "mbedtls-framework-dde0c4a0e448a0552f18817dcea633bb851fd288.tar.gz",
+    "member": "mbedtls-framework-dde0c4a0e448a0552f18817dcea633bb851fd288/LICENSE",
+    "notice_file": "third-party/native-components/mbedtls-framework/LICENSE",
+    "sha256": "11402351e38392230bb8934ba1095c0c0049a296c0f8821f76e4672dff54b490"
+  },
+  {
+    "project": "Vulkan-Headers",
+    "source_archive": "Vulkan-Headers-450bd2232225d6c7728a4108055ac2e37cef6475.tar.gz",
+    "member": "Vulkan-Headers-450bd2232225d6c7728a4108055ac2e37cef6475/LICENSE.md",
+    "notice_file": "third-party/native-components/Vulkan-Headers/LICENSE.md",
+    "sha256": "ac24e5ea920e4318e4d02c4086ae51f53cfb03feed06c18df1019e7ada1ec7bc"
+  },
+  {
+    "project": "fast_float",
+    "source_archive": "fast_float-97b54ca9e75f5303507699d27c6b4f4efe4641a1.tar.gz",
+    "member": "fast_float-97b54ca9e75f5303507699d27c6b4f4efe4641a1/LICENSE-APACHE",
+    "notice_file": "third-party/native-components/fast_float/LICENSE-APACHE",
+    "sha256": "097a889aa954d04e088b790b10a4014d6189561d0a6013935a73ce3d4ddaaf06"
+  },
+  {
+    "project": "fast_float",
+    "source_archive": "fast_float-97b54ca9e75f5303507699d27c6b4f4efe4641a1.tar.gz",
+    "member": "fast_float-97b54ca9e75f5303507699d27c6b4f4efe4641a1/LICENSE-BOOST",
+    "notice_file": "third-party/native-components/fast_float/LICENSE-BOOST",
+    "sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b"
+  },
+  {
+    "project": "fast_float",
+    "source_archive": "fast_float-97b54ca9e75f5303507699d27c6b4f4efe4641a1.tar.gz",
+    "member": "fast_float-97b54ca9e75f5303507699d27c6b4f4efe4641a1/LICENSE-MIT",
+    "notice_file": "third-party/native-components/fast_float/LICENSE-MIT",
+    "sha256": "e562f3f974ced7e69dd1db77b820b36bcf8f30377f1aa105723fba449c53c4e6"
+  },
+  {
+    "project": "glad",
+    "source_archive": "glad-73db193f853e2ee079bf3ca8a64aa2eaf6459043.tar.gz",
+    "member": "glad-73db193f853e2ee079bf3ca8a64aa2eaf6459043/LICENSE",
+    "notice_file": "third-party/native-components/glad/LICENSE",
+    "sha256": "cbb325cd4ac5bd06717ffa34a322b984f9d285e4c67c8ca1b7380d6ef08c2a77"
+  },
+  {
+    "project": "jinja",
+    "source_archive": "jinja-15206881c006c79667fe5154fe80c01c65410679.tar.gz",
+    "member": "jinja-15206881c006c79667fe5154fe80c01c65410679/LICENSE.txt",
+    "notice_file": "third-party/native-components/jinja/LICENSE.txt",
+    "sha256": "3b49dcee4105eb37bac10faf1be260408fe85d252b8e9df2e0979fc1e094437b"
+  },
+  {
+    "project": "markupsafe",
+    "source_archive": "markupsafe-297fc8e356e6836a62087949245d09a28e9f1b13.tar.gz",
+    "member": "markupsafe-297fc8e356e6836a62087949245d09a28e9f1b13/LICENSE.txt",
+    "notice_file": "third-party/native-components/markupsafe/LICENSE.txt",
+    "sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea"
+  },
+  {
+    "project": "nuklear",
+    "source_archive": "nuklear-242f35efa067a46c595645eeda7b1771ea1f83b1.tar.gz",
+    "member": "Nuklear-242f35efa067a46c595645eeda7b1771ea1f83b1/LICENSE",
+    "notice_file": "third-party/native-components/nuklear/LICENSE",
+    "sha256": "e7315972a81b1883b33877e7c90b78e0e93ad67d1e5f9b723fd13c9ad3e2ec94"
+  },
+  {
+    "project": "dlg",
+    "source_archive": "dlg-395ccad2c1e0daae535c4d20bb0a3f2424648e17.tar.gz",
+    "member": "dlg-395ccad2c1e0daae535c4d20bb0a3f2424648e17/LICENSE",
+    "notice_file": "third-party/native-components/dlg/LICENSE",
+    "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
   }
 ]

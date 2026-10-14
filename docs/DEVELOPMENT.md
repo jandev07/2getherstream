@@ -5605,3 +5605,50 @@ when remaining release source materials are ready. User16Oct00:00IST public/Desk
 hold maintained. GitHub source publication remains authorized. No new dependencies,
 provider requests/emulator/native/WAN/physical tests or user logs/credentials changed.
 Owners free after source compile; Alpha0.1.7 preserved; estimates75%/35% unchanged.
+
+
+## 2026-10-15 — real Android archive verification and owned upgrade retention
+
+Owned run1a834e76-b897-4093-9727-1e26e3bd76b1 completed21:19:05UTC at73ff192.
+Internal source-associated lower8 build is validation-only; higher9 is same-source
+normal version. Both isolated outputs preserve offered packages. Actual Android
+PackageManager verified higher APK package/code/installed signer plus size/hash;
+real FileProvider served its bytes. Wrong version/hash/size and appended artifact
+rejected. Four UpdateAndLogs cases now actually executed, including JSONObject
+coercion/privacy assertions; stale legacy expected3 corrected to exact4derived
+count. Before5/after1validation identities all raw verified, plus1owned cleanup.
+
+Actual adb install-r8→9 retained isolated synthetic AES-GCM/Keystore pairing and
+SharedPreferences setting. Normal pairing compared privately before/after without
+mutation/export; presence not recorded, so no claim actual normal pairing was
+nonempty or a restored Activity connected. No HTTP/public GitHubCDNdownload,
+installer permission/confirmation flow, native playback or physical/WAN acceptance.
+Exact immutable APK/init/source association/logs/raw results/receipt under
+work/update-archive-proof/1a834e76...; summary update-archive-integration-validation.json.
+
+Review found new runner's cleanup-notmatch expression returned filtered text,
+truthy even when target serial present. Original passed receipt retains that
+incorrectly typed field; it is not silently rewritten. Real device inventory
+independently confirms absence. Fixed actual AST assignment6cases: own device/
+offline/error preserve ownership, absent/other serial clear; errors cannot authorize
+new boot. Failed stop retains explicit unverified owner marker. This corrects the
+new test runner, not an application upgrade bug or observed emulator orphan.
+Exact update-archive-cleanup-boolean-validation.json. No unchanged device rerun.
+
+Native source collection found archive download omits required gitlinks. Exact
+MbedTLSframework, FreeType dlg and six libplacebo submodules now retained (8total),
+API pins recorded/local archive hashes checked, no nested .gitmodules present.
+Initial recursive API page returned100entries only; no absence conclusion taken;
+explicit submodule-directory pages verified complete.28original notice files now
+retained, including build/demo sources without claiming every one ships in APK.
+Windows static dependency/NDK/runtime source assembly still pending; public
+SOURCE-INVENTORY.json remains explicitly partial. No upstream product code edited.
+
+Human asleep, Twitch drops stream must stay open/unminimized/untouched. Background
+work preferred; no UI focus used this pass. Antigravity questions authorized if
+needed, no message sent yet. Existing automation exact prompt replaced per human,
+verified ACTIVE20min/currentchat/default notifications; no schedule/service repair
+claim from config alone. Keep prompt verbatim; update DEVELOPMENT for handoffs.
+GitHub source pushes authorized; no public APK/Worker/Desktop delivery before
+16Oct00:00IST. Owners free/absent; no new deps, network changes, credentials/userlog
+exports or provider activity; Alpha0.1.7 unchanged,75%/35% planning unchanged.
