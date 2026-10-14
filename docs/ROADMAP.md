@@ -39,8 +39,11 @@ source tests and compilation do not establish app usability.
 
 ## 2. Validate one revised candidate end to end
 
-Status:waiting for current Alpha feedback or explicit build request. Existing
-Alpha0.1.7 native PC/emulator proof is historical evidence for its own payload.
+Status:explicitly authorized 15 October. Revised Alpha0.1.8 candidate
+20261014-195818-f829095c is built from747c2af; hidden packaged startup,12native
+emulator fixture tests and normal pairing/save/restore passed. Direct TorBox,
+public download/update and physical/WAN acceptance still require their own checks.
+Alpha0.1.7 remains offered and preserved until revised delivery is ready.
 
 After build authorization:
 

@@ -5494,3 +5494,26 @@ run installed native/normal pairing/recovery validation before delivery. Newly
 compiled native pending-fault regression added to expected executed identities;
 no old receipt relabelled. Alpha0.1.7 remains untouched, physicalphone/twohour/WAN
 open, blocked public playback-tunnel test not retried. Planning75%/35% unchanged.
+
+
+## 2026-10-15 — revised installed fixture/normal pairing checkpoint
+
+Candidate20261014-195818-f829095c compiled747c2af, Androidcode9/same application
+identity and Windows0.1.8.160JVM tests/43suites/0failures and embedded frontend check
+passed. Exact hidden packaged startup+Android emulator fixture+normal pairing run
+94d57728-32de-44e3-9f40-08713d6a73ac PASSED20:02:44UTC.12exact native identities
+executed, including new pendingUnexpectedEndAfterLoadAdmissionSurvivesWorkerCommitBoundary;
+normal code-entry/encrypted save/new Activity restore1case passed. New pendingfault
+case uses real adapter/native worker and deliberately invoked unexpectedEnd notice,
+not spontaneous EOF/decoder crash. Runtime now exercises checked Android native
+option/property writes, source-load fault gate and current native adapter lifecycle.
+No claim all fault interleavings, frame timing, camera QR, physical/WAN acceptance.
+
+Immutable candidate/receipt/logs and narrower summary:
+work/source-validation/alpha-018-integration-validation.json. Alpha0.1.7 unchanged;
+revised candidate not delivered/published yet. Independent current-source native
+TorBox host example rebuilt with association/hash recorded before distinct revised
+provider-pair run. No unchanged historical provider proof relabelled or repeated.
+GitHub source mirror747c2af→0d017167 tree verified equal; normal CLI authorization
+succeeded. Future publisher checks remote head to preserve Antigravity/contributor
+changes and never exports private original Git history.

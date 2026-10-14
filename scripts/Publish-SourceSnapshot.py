@@ -33,13 +33,15 @@ def audit(source):
         path = Path(name.decode("utf-8"))
         if kind != "blob" or mode not in {"100644", "100755"}:
             raise RuntimeError("Unsupported source entry: " + str(path))
-        if set(path.parts) & PROTECTED or path.suffix.lower() in {".apk", ".exe", ".dll", ".jks", ".keystore", ".mp4", ".pem"} or path.name in {"local.properties", "toolchains.local.json", ".env"}:
+        if set(path.parts) & PROTECTED or path.suffix.lower() in {".apk", ".exe", ".dll", ".jks", ".keystore", ".mp4", ".pem", ".log", ".jsonl", ".db", ".sqlite", ".zip", ".7z"} or path.name in {"local.properties", "toolchains.local.json", ".env"}:
             raise RuntimeError("Protected file in source tree: " + str(path))
         data = git("cat-file", "blob", sha)
         for pattern in [rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----", rb"\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,})\b", rb"\bAKIA[A-Z0-9]{16}\b"]:
             matches = re.findall(pattern, data)
             if any(value != b"AKIAIOSFODNN7EXAMPLE" for value in matches):
                 raise RuntimeError("Potential credential in source file: " + str(path))
+        if re.search(rb'''(?im)(?:api[_-]?key|secret|password|access[_-]?token)\s*[:=]\s*["']([A-Za-z0-9+/=_-]{32,})["']''', data):
+            raise RuntimeError("Potential assigned credential in source file: " + str(path))
         count += 1
     return count
 
