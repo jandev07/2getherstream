@@ -24,3 +24,17 @@ See `AGENTS.md`, `docs/ROADMAP.md`, `docs/MILESTONE-1.md`, `native/README.md` an
 Playback correctness and native-device validation come before extra features or a full visual redesign. Changes should state what was verified and distinguish source tests from installed-app and physical-device results.
 
 The user-facing name is **2gether**. Existing Together2 repository paths and internal package identifiers remain unchanged.
+
+
+## License and source
+
+2gether project code is licensed under **GNU AGPL version3 only**, matching the
+existing adapted drift-controller modules. See [LICENSE](LICENSE). Third-party
+code, native engines and tools retain their original licenses and notices; see
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). This project license does not
+replace or relicense upstream dependencies.
+
+The apps provide a manual Source code and licenses link to these records.
+[native/SOURCE-INVENTORY.json](native/SOURCE-INVENTORY.json) identifies verified
+native artifacts and source pins. Its partial status is intentional: collecting
+these facts does not complete all native corresponding-source release work.

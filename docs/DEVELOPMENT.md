@@ -5581,3 +5581,27 @@ Public native/SOURCE-INVENTORY.json is explicitly partial. No credentials, user
 logs or binary/source archives exported by source commit. No public APK/metadata/
 Worker or Desktop Alpha delivery before requested16Oct00:00IST. Offered0.1.7
 unchanged; physical/WAN and75%/35% planning unchanged.
+
+
+## 2026-10-15 — accessible project source and license entry
+
+Both apps now expose manual Source code and licenses entry to fixed public
+GitHub notice/source page. No caller URL, pairing/media/account data or automatic
+browser launch. Windows shares its existing fixed public-page opener; Android
+uses ordinary ACTION_VIEW with fixed failure feedback. Existing lifecycle handles
+user leaving Android; no playback poll, permission, dependency or URI guard change.
+Project LICENSE now explicitAGPL-3.0-only, consistent with already-derived AGPL
+modules; upstream terms preserved, not relicensed. Complete native source bundle
+still required; no legal/source-completeness guarantee from new entry.
+
+Windows production cargo check, Svelte0/0,138related component checks and Android
+main/instrumentation Kotlin compile passed. No rendered click/Android intent/browser
+or new native-device test for this addition; internal rendered Discover candidate
+e286263 remains its own earlier source boundary. Exact source hashes/logs/receipt:
+work/source-validation/source-notices-directory.txt. Initial edit cp1252 decode
+failed before Svelte/Android mutation; UTF8 corrected, no test/build failure.
+No new candidate/package for this addition yet; final candidate should include it
+when remaining release source materials are ready. User16Oct00:00IST public/Desktop
+hold maintained. GitHub source publication remains authorized. No new dependencies,
+provider requests/emulator/native/WAN/physical tests or user logs/credentials changed.
+Owners free after source compile; Alpha0.1.7 preserved; estimates75%/35% unchanged.

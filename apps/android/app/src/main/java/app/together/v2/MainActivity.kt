@@ -104,6 +104,7 @@ class MainActivity : ComponentActivity() {
                         }
                         app.together.v2.update.UpdateControls()
                         app.together.v2.diagnostics.LogControls(controller.logs)
+                        SourceNotices()
                         if(forgetConfirm) AlertDialog(onDismissRequest={forgetConfirm=false},title={Text("Change your connection?")},
                             text={Text("This disconnects your current session. You'll need a new code from Windows to connect again.")},
                             confirmButton={TextButton(enabled=!pairingBusy,onClick={forgetConfirm=false;setupScope.launch {pairingSetup.run {

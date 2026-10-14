@@ -18,12 +18,6 @@ pub fn android_download_info() -> Result<DownloadInfo, &'static str> {
     Ok(DownloadInfo {url:DOWNLOAD_PAGE,qr_svg:format!("<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 {size} {size}\" shape-rendering=\"crispEdges\"><rect width=\"100%\" height=\"100%\" fill=\"white\"/><path d=\"{path}\" fill=\"black\"/></svg>")})
 }
 
-#[tauri::command]
-pub fn open_android_download() -> Result<(), &'static str> {
-    // Fixed public release address only; no caller URL, media or control bearer.
-    std::process::Command::new("explorer.exe").arg(DOWNLOAD_PAGE).spawn()
-        .map(|_|()).map_err(|_|"Could not open the Android download page")
-}
 
 #[cfg(test)] mod tests {
     use super::*;

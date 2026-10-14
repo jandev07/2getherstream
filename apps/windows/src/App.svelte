@@ -12,6 +12,8 @@ type Connection={error?:string|null;emulator_address:string;phone_address:string
 type AndroidDownload={url:string;qr_svg:string};
 let androidDownload=$state<AndroidDownload|null>(null);let downloadError=$state('');
 async function openAndroidDownload(){try{await invoke('open_android_download');downloadError=''}catch{downloadError='Could not open the download page. Scan the code or copy the address below.'}}
+let sourceNoticeError=$state('');
+async function openSourceNotices(){try{await invoke('open_source_notices');sourceNoticeError=''}catch{sourceNoticeError='Could not open the source and licenses page. Visit github.com/jandev07/2getherstream.'}}
 let connection=$state<Connection|null>(null);let connectionBusy=$state(false);let connectionPolled=0;let connectionRequest=0;
 let connectionRefresh:Promise<void>|null=null;let connectionRefreshAgain=false;
 let visibleKind=$state('all');
@@ -203,6 +205,7 @@ onMount(()=>{
 <button disabled={pairingBusy || connectionBusy || phoneConnected()} onclick={pairPhone}>{pairingBusy ? 'Opening…' : pairingCode ? 'Generate a new code' : 'Generate pairing code'}</button>
 {#if phoneConnected()}<p role="status">An Android device is already connected. Close the emulator or disconnect that device before pairing another phone.</p>{/if}
 {#if pairingCode}<div class="pairing-card"><p>Enter this code in Android:</p><strong class="pairing-code">{pairingCode}</strong><p>Works once and expires in five minutes. The code disappears here after the phone connects.</p><button disabled={pairingBusy || connectionBusy} onclick={closePairing}>Cancel code</button></div>{/if}<p>After pairing, Android saves the connection securely and reconnects automatically. To change PCs, use “Connect to a different PC” on Android.</p></section>
+<p><button onclick={openSourceNotices}>Source code and licenses</button></p>{#if sourceNoticeError}<p role="status">{sourceNoticeError}</p>{/if}
 <footer>Private Alpha · Physical-phone and two-hour stability testing remain outstanding.</footer>
 </main>
 <style>
