@@ -1,0 +1,1 @@
+[["app.together.v2.UpdateAndLogsTest","releasePolicyRejectsCredentialsAndInvalidMetadata"],["app.together.v2.UpdateAndLogsTest","corruptedApkCannotOpenAsUpdate"],["app.together.v2.UpdateAndLogsTest","phoneLogsContainOnlyBoundedStructuredValues"]]

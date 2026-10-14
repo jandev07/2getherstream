@@ -1,0 +1,9 @@
+# Separate Together 2.0 named tunnel. Fill in your own hostname/credentials.
+# No tunnel is deployed by this file. Do not use legacy credentials.
+tunnel: REPLACE_WITH_TOGETHER2_TUNNEL_ID
+credentials-file: REPLACE_WITH_CREDENTIALS_FILE_PATH
+ingress:
+  - hostname: REPLACE_WITH_TOGETHER2_HOSTNAME
+    path: ^/(session|pair|health|media|updates/android|diagnostics/phone)$
+    service: http://127.0.0.1:47820
+  - service: http_status:404

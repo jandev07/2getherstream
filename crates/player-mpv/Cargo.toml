@@ -1,0 +1,8 @@
+[package]
+name = "together-player-mpv"
+version.workspace = true
+edition.workspace = true
+[dependencies]
+anyhow.workspace = true
+libloading = "0.8"
+url = "2"

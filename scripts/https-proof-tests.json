@@ -1,0 +1,4 @@
+[
+  ["app.together.v2.NativeHttpsTest", "newerSourceReceiptRejectsQueuedHttpsLoad"],
+  ["app.together.v2.NativeHttpsTest", "verifiedHttpsLoadsPlaysPausesAndSeeks"]
+]

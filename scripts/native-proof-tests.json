@@ -1,0 +1,13 @@
+[
+  ["app.together.v2.PairingStoreTest", "separateOwnersShareAtomicFileAndKeystoreOwnership"],
+  ["app.together.v2.PairingStoreTest", "keystoreRoundTripTamperDetectionAndExplicitForget"],
+  ["app.together.v2.PairingStoreTest", "oversizedReplacementPreservesSavedPairingAndBoundedLoadRejectsInvalidFiles"],
+  ["app.together.v2.PairingStoreTest", "pairingRejectsCredentialUrlsAndInsecureRemoteAddresses"],
+  ["app.together.v2.PairingConnectionTest", "oneTimeClaimEncryptedPersistenceAndAuthenticatedConnection"],
+  ["app.together.v2.NativeTlsTest", "concurrentTrustBundleInstallationPublishesCompleteFiles"],
+  ["app.together.v2.SessionIdentityTest", "unresolvedIdentityIsRejectedEvenWhenPreviousSourceIsLoaded"],
+  ["app.together.v2.NativePlayerTest", "closeWhileCreationIsBlockedReleasesLateNativeHandleExactlyOnce"],
+  ["app.together.v2.NativePlayerTest", "newerSourceReceiptRejectsQueuedLoadWithoutCommandInvalidation"],
+  ["app.together.v2.NativePlayerTest", "loadPlayPauseExactSeekRotateAndResume"],
+  ["app.together.v2.SessionPlaybackTest", "authoritativeStartPauseSeekSpamBackgroundReconnectAndResume"]
+]

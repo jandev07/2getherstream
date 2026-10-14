@@ -1,0 +1,40 @@
+[package]
+name = "together-source-resolver"
+version.workspace = true
+edition.workspace = true
+[features]
+# PC-only investigation; not enabled by either application.
+experimental-t3 = ["dep:hmac", "dep:sha1", "dep:base64", "dep:httpdate", "dep:quick-xml"]
+experimental-download-redirect = []
+experimental-stream-audit = []
+# Explicit user-authorized private Alpha exception; never a default release feature.
+private-alpha-account-links = []
+[dependencies]
+together-sync-core = { path = "../sync-core" }
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+anyhow.workspace = true
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "stream"] }
+zeroize = "1"
+hex = "0.4"
+percent-encoding = "2"
+hmac = { version = "0.12", optional = true }
+sha1 = { version = "0.10", optional = true }
+base64 = { version = "0.22", optional = true }
+httpdate = { version = "1", optional = true }
+quick-xml = { version = "0.42", features = ["serialize"], optional = true }
+[[example]]
+name = "t3-proof"
+required-features = ["experimental-t3"]
+[[example]]
+name = "download-redirect-proof"
+required-features = ["experimental-download-redirect"]
+[[example]]
+name = "stream-audit"
+required-features = ["experimental-stream-audit"]
+[[example]]
+name = "private-alpha-delivery-proof"
+required-features = ["private-alpha-account-links"]
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_Security_Cryptography", "Win32_System_Memory"] }

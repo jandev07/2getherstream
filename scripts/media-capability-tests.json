@@ -1,0 +1,6 @@
+[
+  ["app.together.v2.MediaCapabilityTest","authenticatedGrantIsBoundToCanonicalFileAndReturnedWithoutMediaProxy"],
+  ["app.together.v2.MediaCapabilityTest","staleEpochGenerationAndDifferentFileAreRejected"],
+  ["app.together.v2.MediaCapabilityTest","redirectedControlAndOversizedMetadataAreRejected"],
+  ["app.together.v2.MediaCapabilityTest","apiOriginAndMalformedPayloadCannotReachNativePlayer"]
+]
