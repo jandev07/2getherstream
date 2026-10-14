@@ -1,3 +1,31 @@
+# Latest human instructions — 15 October 2026 IST
+
+Development is ACTIVE while the user sleeps. Continue sustained, grounded source
+implementation and validation and push validated commits to the public GitHub
+repository jandev07/2getherstream using the audited source snapshot publisher.
+Preserve collaborator changes; no private history, credentials, signers or logs
+in source uploads. Consult Antigravity if a specific independent review is useful;
+its app is available, but no message is required merely to demonstrate activity.
+Use mature open-source code only where necessary and retain provenance/licenses.
+
+The user has a Twitch stream open for drops. Do not close, minimize or interact
+with it. Prefer background tools and hidden, player-muted tests; never change
+system volume. Earlier Kosmi restrictions describe past sessions, not a current
+movie. The user permits computer control, but preserving Twitch is explicit.
+
+The significant revised Alpha is authorized for internal preparation/validation.
+Public APK/release metadata and Desktop delivery are held until **16 October
+2026 00:00 IST**, **15 October18:30 UTC**. Check config/alpha-delivery.json and
+scripts/AlphaDeliveryWindow.ps1 before publication. Preserve offered0.1.7 and
+older apps/payloads. Source pushes remain allowed during the delivery hold.
+
+All native/control ownership, credential/privacy, adapter/network restrictions,
+blocked public-playback-tunnel prohibition and physical two-hour gate below remain.
+A local APK-download Worker test is distinct from a public playback tunnel test.
+Do not claim a physical/WAN gate from emulator, local Worker or source evidence.
+The existing automation is ACTIVE20min; its prompt is the user's exact requested
+text. Keep it verbatim and record implementation handoffs in DEVELOPMENT instead.
+
 2026-10-13 storage preference: remove redundant reproducible compiler caches while
 preserving source, encrypted credentials/signers, offered Alpha packages, failure
 history and validation journals. Use scripts/Trim-DevelopmentCaches.ps1 (preview

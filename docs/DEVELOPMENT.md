@@ -5652,3 +5652,32 @@ claim from config alone. Keep prompt verbatim; update DEVELOPMENT for handoffs.
 GitHub source pushes authorized; no public APK/Worker/Desktop delivery before
 16Oct00:00IST. Owners free/absent; no new deps, network changes, credentials/userlog
 exports or provider activity; Alpha0.1.7 unchanged,75%/35% planning unchanged.
+
+
+## 2026-10-15 — actual local download Worker runtime
+
+Unchanged Worker source executed in actual local workerd with real ASSETS binding,
+intended compatibilitydate2026-10-14.7HTTP checks passed: GET/HEAD metadata+landing,
+APKpath404,POST405,query/cookie/auth fixture request leaves exact public manifest.
+Escaped version text/CSP/no-referrer/no-store/nosniff checked.2live asset replacement
+cases (coerced size, malformed JSON) return fixed503 without leaking asset data.
+Synthetic metadata only; no real APK served/fetched or GitHubCDN/public Worker,
+Android HTTP download/install, QR camera, provider/native/physical/WAN test.
+
+Initial cachedWrangler4.147 runtime failed to start because its maximum supported
+compatibilitydate was2026-10-08. Exact failed log retained. Isolated wrangler4.151
+validation tool installed with ignore-scripts in ignoredwork, no app dependency
+or production date change. Source remained unchanged and intended config tested;
+not a deployed application bug or public tunnel attempt. Exact directory pointer
+work/source-validation/worker-runtime-directory.txt, runtime logs/HTTP receipt/
+fixtureconfighash/ownedPID+exactstart receipt retained. Owned Node/workerd process
+ tree stopped after tests, both48780/48781listeners absent. CLI exit1 is scoped
+termination, not a failed Worker request. No Twitch/browser UI action.
+
+Human exact automation prompt update verified ACTIVE20min/currentchat/default
+notifications. Scheduled heartbeat messages reached this chat; configuration alone
+cannot explain delayed/missing visible notifications. No scheduler-service repair
+or uninterrupted execution promise. AGENTS latest header now carries current
+Twitch/delivery/GitHub authority to prevent obsolete Kosmi/pause text overriding it.
+Public/Desktop hold and all other safety/evidence boundaries remain; source work
+continues. No repeated playback/provider suites or speculative product changes.
