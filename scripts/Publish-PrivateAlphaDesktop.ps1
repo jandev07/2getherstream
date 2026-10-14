@@ -1,8 +1,10 @@
 param([Parameter(Mandatory)][string]$CandidateId,[datetimeoffset]$NotBeforeUtc=[datetimeoffset]::MinValue,[switch]$ValidateOnly)
 $ErrorActionPreference='Stop'
+$root=Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'AlphaDeliveryWindow.ps1')
+$NotBeforeUtc=Get-AlphaDeliveryNotBefore -Root $root -Requested $NotBeforeUtc
 if(!$ValidateOnly -and [datetimeoffset]::UtcNow -lt $NotBeforeUtc) {Write-Output 'Alpha delivery is prepared; scheduled time has not arrived';return}
 if($CandidateId -notmatch '^\d{8}-\d{6}-[a-f0-9]{8}$') {throw 'Invalid candidate ID'}
-$root=Split-Path -Parent $PSScriptRoot
 if(Test-Path -LiteralPath (Join-Path $root 'work/alpha-usability-hold.json')) {Write-Output 'Alpha delivery held for application usability validation';return}
 . (Join-Path $PSScriptRoot 'WindowsProofBuild.ps1')
 $candidate=Join-Path $root "work/private-alpha-candidates/$CandidateId"

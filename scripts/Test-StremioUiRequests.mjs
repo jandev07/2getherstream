@@ -184,4 +184,14 @@ for(const existing of [false,true]){
  assert.equal(current.ready.find(row=>row.index===0).filename,'prepared.mp4');assert.equal(current.cached.length,0);
  if(existing)assert.equal(current.ready.find(row=>row.index===1).filename,'other.mp4');
 }
-console.log('6 metadata ordering,36 source admission/recovery,30 source rejection feedback,61 metadata/source admission and2 repeated preparation checks passed (deferred IPC; no rendered UI).');
+// Returning to the title list is local navigation; it must not compete with
+// a transmitted preparation/watch request or disturb backend choice ownership.
+for (const busy of ['stremioBusy','torboxBusy',null]) {
+ const h=harness();h.run(`options=${JSON.stringify(sources(7))};movieName='Chosen title';preparingMessage='Preparing';${busy ? busy+'=true' : ''}`);
+ h.run('chooseAnotherTitle()');
+ assert.equal(h.calls.length,0);
+ assert.equal(h.state().browser.revision,1);
+ if(busy){assert.equal(h.state().options.revision,7);assert.equal(h.state().preparingMessage,'Preparing');}
+ else{assert.equal(h.state().options,null);assert.equal(h.state().preparingMessage,'');}
+}
+console.log('6 metadata ordering,36 source admission/recovery,30 source rejection feedback,61 metadata/source admission and2 repeated preparation checks plus3 title-navigation checks passed (deferred IPC; no rendered UI).');

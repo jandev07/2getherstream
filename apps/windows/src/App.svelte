@@ -81,6 +81,7 @@ async function browseStremio(){if(!browser?.connected)return;await stremioAction
 async function movieOptions(index:number){if(!browser?.connected)return;await stremioAction(async(request)=>{movieName=browser!.titles[index].name;const next=await invoke<Options>('stremio_options',{revision:browser!.revision,index});if(request===stremioRequest){options=next;browser!.revision=next.revision}},true)}
 async function chooseTitle(index:number){if(!browser?.connected)return;if(browser.titles[index].kind==='series' && !browser.episode_mode){await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_episodes',{revision:browser!.revision,index});if(request===stremioRequest){browser=next;movieName=''}},true)}else{await movieOptions(index)}}
 async function backToSeries(){if(!browser?.connected)return;await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_back',{revision:browser!.revision});if(request===stremioRequest){browser=next;movieName=''}})}
+function chooseAnotherTitle(){if(stremioBusy || torboxBusy)return;options=null;movieName='';preparingMessage=''}
 async function watchStremio(option:Ready){if(!options || stremioBusy || torboxBusy)return;stremioBusy=true;try{await invoke('stremio_select',{revision:options.revision,index:option.index});selectedTitle=movieName;page='watch';error=''}catch(e){error=sourceFailure(e)}finally{stremioBusy=false}}
 async function loadTorbox(){if(stremioBusy || torboxBusy)return;torboxBusy=true;try{videos=await invoke<Video[]>('torbox_videos');listed=true;error=''}catch(e){error=String(e)}finally{torboxBusy=false}}
 async function selectTorbox(video:Video){if(stremioBusy || torboxBusy)return;torboxBusy=true;try{await invoke('torbox_select',{torrentId:video.torrent_id,fileId:video.file_id});selectedTitle=video.filename || 'Selected movie';page='watch';error=''}catch(e){error=sourceFailure(e)}finally{torboxBusy=false}}
@@ -146,26 +147,13 @@ onMount(()=>{
 <button disabled={!canSeek()} onclick={()=>seek(-10000)}>−10 seconds</button>
 <button disabled={!canSeek()} onclick={()=>seek(10000)}>+10 seconds</button>
 </div></section></div>
-<div class="discover-page" class:hidden={page!=='discover'}><header class="hero"><small>YOUR NEXT MOVIE NIGHT</small><h1>Find it. Pick a source.<br/>Watch together.</h1><p>Browse your Stremio catalog, choose an episode, or play a ready video from TorBox.</p><button disabled={stremioBusy || torboxBusy} onclick={connectStremio}>{browser ? 'Refresh Stremio' : 'Browse Stremio'}</button></header>
-<section aria-label="TorBox playback"><strong>TorBox playback</strong>
-<p>Choose a video from your TorBox account. Keep this Windows app open while you watch.</p>
+<div class="discover-page" class:hidden={page!=='discover'}><header class="hero"><small>YOUR NEXT MOVIE NIGHT</small><h1>Choose a movie or episode.</h1><p>Browse your Stremio catalog, choose an episode, or play a ready video from TorBox.</p></header>
 {#if accountLinks}<p class="error">Private Alpha delivery: your paired phone receives playback links containing your TorBox account key. Keep this session private.</p>{/if}
-<button disabled={stremioBusy || torboxBusy} onclick={loadTorbox}>{torboxBusy ? 'Connecting…' : 'Show available TorBox videos'}</button>
-{#if session?.media?.provider === 'torbox' && !session.ended}
-<p>If the movie's links stop working, refresh them to retry from your current position.</p>
-<button disabled={stremioBusy || torboxBusy || !player.initialized} onclick={refreshTorbox}>Refresh playback links</button>
-{/if}
-{#if listed && !videos.length && !torboxBusy}<p>No ready videos were found. Add a video to TorBox and check again once it has finished processing.</p>{/if}
-{#each videos as video}<p><button disabled={stremioBusy || torboxBusy || !player.initialized} onclick={()=>selectTorbox(video)}>{video.filename || `Video ${video.torrent_id}/${video.file_id}`}</button></p>{/each}
-</section>
 <section aria-label="Stremio movies"><strong>Stremio movies</strong>
-<p>Alternatively, start a movie or episode in Stremio on this PC and paste its Torrentio/TorBox source link here. Once that exact file is ready in TorBox, 2gether can prepare both players.</p>
-<div class="controls"><label>Stremio source <input type="password" bind:value={copiedLink} maxlength="8192" autocomplete="off" placeholder="Paste copied source link" disabled={stremioBusy || torboxBusy}/></label><button disabled={stremioBusy || torboxBusy || !player.initialized || !copiedLink.trim()} onclick={importStremio}>Use Stremio source</button></div>
-<p>The source stays on this PC. Localhost and unrecognized links are not forwarded to your phone.</p>
 <p>Use your saved PC account and configured add-ons. Choose a movie, then a ready TorBox video. Both players will receive the same file.</p>
-<button disabled={stremioBusy || torboxBusy} onclick={connectStremio}>{stremioBusy ? 'Loading…' : browser?.connected ? 'Refresh Stremio library' : 'Connect Stremio'}</button>
+<button disabled={stremioBusy || torboxBusy} onclick={connectStremio}>{stremioBusy ? 'Loading…' : browser?.connected ? 'Refresh Stremio library' : 'Browse Stremio'}</button>
 {#if stremioCancelable}<button onclick={cancelStremioLookup}>Cancel lookup</button>{/if}
-{#if browser?.connected}
+{#if browser?.connected && !options}
 {#if browser.catalogs.length}
 <div class="controls"><label>Catalog <select bind:value={catalogIndex} disabled={stremioBusy || torboxBusy}>{#each browser.catalogs as catalog,index}<option value={String(index)}>{catalog.name} · {catalog.kind}</option>{/each}</select></label>
 {#if browser.catalogs[Number(catalogIndex)]?.searchable}<label>Find a movie <input bind:value={search} maxlength="160" placeholder="Movie title" disabled={stremioBusy || torboxBusy}/></label>{/if}
@@ -176,7 +164,7 @@ onMount(()=>{
 <div class="controls"><button class:chosen={visibleKind==='all'} onclick={()=>visibleKind='all'}>All titles</button><button class:chosen={visibleKind==='movie'} onclick={()=>visibleKind='movie'}>Movies</button><button class:chosen={visibleKind==='series'} onclick={()=>visibleKind='series'}>{browser.episode_mode ? 'Episodes' : 'Series'}</button></div>
 <div class="movie-list">{#each browser.titles as title,index}{#if visibleKind==='all' || title.kind===visibleKind}<button class="title-card" disabled={stremioBusy || torboxBusy} onclick={()=>chooseTitle(index)}><span class="cover" aria-hidden="true">{title.name.slice(0,1)}</span><strong>{title.name}</strong><small>{title.kind === 'series' ? (browser.episode_mode ? 'Choose source' : 'Choose episode') : 'Movie · choose source'}</small></button>{/if}{/each}</div>
 {/if}
-{#if options}<div class="source-panel"><h2>{movieName}</h2><p>Choose a source to prepare the same file on both devices.</p><p>{movieName}: {options.ready.length} ready video{options.ready.length === 1 ? '' : 's'}.</p>
+{#if options}<div class="source-panel"><h2>{movieName}</h2><button disabled={stremioBusy || torboxBusy} onclick={chooseAnotherTitle}>Choose another title</button><p>Choose a source to prepare the same file on both devices.</p><p>{movieName}: {options.ready.length} ready video{options.ready.length === 1 ? '' : 's'}.</p>
 {#if !options.ready.length && !options.cached.length}<p>No exact ready or provider-cached TorBox file matched. Try another title or prepare the movie in Stremio first, then use its copied source.</p>{/if}
 {#if !options.cache_available}<p>TorBox cached-source checks were unavailable. Choose the movie again to retry; ready account videos remain available.</p>{/if}
 {#if options.unavailable_providers}<p>Some add-ons did not respond. Choose the movie again to retry.</p>{/if}
@@ -185,7 +173,22 @@ onMount(()=>{
 {#each options.cached as option}<p><button disabled={stremioBusy || torboxBusy} onclick={()=>prepareStremio(option)}>{prepared.has(option.index) ? 'Check preparation' : 'Prepare in TorBox'} · {option.filename}</button></p>{/each}
 {#if preparingMessage}<p role="status">{preparingMessage}</p>{/if}
 </div>{/if}
-</section></div>
+</section>
+<section aria-label="TorBox playback"><strong>TorBox playback</strong>
+<p>Choose a video from your TorBox account. Keep this Windows app open while you watch.</p>
+<button disabled={stremioBusy || torboxBusy} onclick={loadTorbox}>{torboxBusy ? 'Connecting…' : 'Show available TorBox videos'}</button>
+{#if session?.media?.provider === 'torbox' && !session.ended}
+<p>If the movie's links stop working, refresh them to retry from your current position.</p>
+<button disabled={stremioBusy || torboxBusy || !player.initialized} onclick={refreshTorbox}>Refresh playback links</button>
+{/if}
+{#if listed && !videos.length && !torboxBusy}<p>No ready videos were found. Add a video to TorBox and check again once it has finished processing.</p>{/if}
+{#each videos as video}<p><button disabled={stremioBusy || torboxBusy || !player.initialized} onclick={()=>selectTorbox(video)}>{video.filename || `Video ${video.torrent_id}/${video.file_id}`}</button></p>{/each}
+</section>
+<details class="copied-source"><summary>Use a copied Stremio source</summary><section aria-label="Copied Stremio source">
+<p>Alternatively, start a movie or episode in Stremio on this PC and paste its Torrentio/TorBox source link here. Once that exact file is ready in TorBox, 2gether can prepare both players.</p>
+<div class="controls"><label>Stremio source <input type="password" bind:value={copiedLink} maxlength="8192" autocomplete="off" placeholder="Paste copied source link" disabled={stremioBusy || torboxBusy}/></label><button disabled={stremioBusy || torboxBusy || !player.initialized || !copiedLink.trim()} onclick={importStremio}>Use Stremio source</button></div>
+<p>The source stays on this PC. Localhost and unrecognized links are not forwarded to your phone.</p>
+</section></details></div>
 <details><summary>Playback diagnostics</summary><section aria-label="Session diagnostics"><strong>Playback diagnostics</strong>
 <p>Generation {player.generation} · Drift {player.drift_ms} ms · Rate {player.rate.toFixed(3)}×</p>
 <p>Phone logs sent from Android are included here. Use Export session log when reporting a problem.</p>
@@ -207,6 +210,6 @@ onMount(()=>{
 .movie-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;margin-top:20px}.movie-list button{overflow-wrap:anywhere}input,select{background:#16131d;color:#eee;border:1px solid #51405f;border-radius:999px;padding:10px;max-width:320px}label{display:flex;align-items:center;gap:8px}
 :global(body){margin:0;background:#07090e;color:#f1f1f5;font-family:Segoe UI,system-ui,sans-serif}main{max-width:1200px;margin:auto;padding:24px 32px}nav{display:flex;justify-content:space-between;align-items:center}nav strong{font-size:25px;letter-spacing:-1px}nav span{color:#bf9efc;margin-left:5px}small,.intro,footer{color:#a9adbb}.intro{font-size:14px;margin:20px 0}.video{width:100%;aspect-ratio:16/9;background:#000}section{padding:20px 0}section>span{float:right;color:#a9adbb}.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}button{background:#292135;color:#eee;border:1px solid #51405f;padding:11px 16px;border-radius:999px;cursor:pointer}button:disabled{opacity:.4;cursor:default}.error{color:#ffb1ad}footer{font-size:12px;line-height:1.6}
 
-.hidden{display:none}.nav-links{display:flex;gap:10px}.chosen{background:#60468b;border-color:#bfa0fc}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#aab0bc}.dot.online{background:#76deb5}.hero{padding:32px;background:linear-gradient(120deg,#33234c,#171d30);border-radius:24px;margin:20px 0}.hero h1{font-size:clamp(28px,4vw,48px);line-height:1.15}.hero p{max-width:580px;color:#c4c8d5}.notice{padding:16px;background:#211d2b;border-radius:16px}.title-card{text-align:left;border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px;background:#161923}.cover{width:100%;aspect-ratio:2/3;border-radius:12px;background:linear-gradient(145deg,#624680,#192941);display:grid;place-items:center;font-size:64px;color:#ceb6ec}.title-card small{font-size:12px}.source-panel{margin-top:20px;padding:24px;background:#181a25;border-radius:20px}.connection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:24px 0}article,.pairing-card{padding:24px;border:1px solid #373344;border-radius:20px}code{display:block;overflow-wrap:anywhere;color:#d1baff;padding:12px;background:#13121a;border-radius:12px}.pairing-code{font-size:32px;letter-spacing:3px}.pairing-card{margin-top:20px}.connection-page p{line-height:1.6}h1{letter-spacing:-1px}h2{font-size:20px}button:hover:enabled{border-color:#ba9de5}.video{border-radius:16px;overflow:hidden}@media(max-width:760px){main{padding:20px}nav{align-items:flex-start;gap:14px;flex-direction:column}.nav-links{flex-wrap:wrap}.hero{padding:24px}}
+.hidden{display:none}.nav-links{display:flex;gap:10px}.chosen{background:#60468b;border-color:#bfa0fc}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#aab0bc}.dot.online{background:#76deb5}.hero{padding:24px;background:linear-gradient(120deg,#33234c,#171d30);border-radius:24px;margin:20px 0}.hero h1{font-size:clamp(28px,3.4vw,40px);line-height:1.15;margin:16px 0}.hero p{max-width:580px;color:#c4c8d5}.notice{padding:16px;background:#211d2b;border-radius:16px}.title-card{text-align:left;border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px;background:#161923}.cover{width:100%;aspect-ratio:2/3;border-radius:12px;background:linear-gradient(145deg,#624680,#192941);display:grid;place-items:center;font-size:64px;color:#ceb6ec}.title-card small{font-size:12px}.source-panel{margin-top:20px;padding:24px;background:#181a25;border-radius:20px}.connection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:24px 0}article,.pairing-card{padding:24px;border:1px solid #373344;border-radius:20px}code{display:block;overflow-wrap:anywhere;color:#d1baff;padding:12px;background:#13121a;border-radius:12px}.pairing-code{font-size:32px;letter-spacing:3px}.pairing-card{margin-top:20px}.connection-page p{line-height:1.6}h1{letter-spacing:-1px}h2{font-size:20px}button:hover:enabled{border-color:#ba9de5}.video{border-radius:16px;overflow:hidden}@media(max-width:760px){main{padding:20px}nav{align-items:flex-start;gap:14px;flex-direction:column}.nav-links{flex-wrap:wrap}.hero{padding:24px}}
 .android-download img{display:block;background:white;padding:8px;margin:16px 0}.android-download{margin:24px 0}
 </style>

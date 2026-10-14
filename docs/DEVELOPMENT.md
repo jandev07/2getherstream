@@ -5517,3 +5517,39 @@ provider-pair run. No unchanged historical provider proof relabelled or repeated
 GitHub source mirror747c2af→0d017167 tree verified equal; normal CLI authorization
 succeeded. Future publisher checks remote head to preserve Antigravity/contributor
 changes and never exports private original Git history.
+
+
+## 2026-10-15 — visible Discover flow and requested delivery window
+
+User permits visible windows/audio and requests the new Alpha tomorrow only:
+not before2026-10-16 00:00IST /2026-10-15 18:30UTC. Internal candidate/source
+validation continues. config/alpha-delivery.json plus AlphaDeliveryWindow.ps1
+protect Desktop delivery; public publishing must use the same cutoff. Initial
+ISO DateTime conversion double-zone bug in guard check corrected before delivery;
+exact UTC cutoff verified. ValidateOnly remains available during hold.
+
+Actual normal candidate747c2af visible review9aaa01e9 fetched20 Stremio catalog
+items using existing encrypted account and a title's read-only source choices.
+Source panel sat below title grid (AX present, onscreen visibility not verified).
+Discover now makes Stremio primary, replaces grid with selected source panel and
+provides guarded local Choose another title; copied source is collapsed. Creates,
+authority and request ownership unchanged.138 actual component-script checks
+(135related +3new return-admission), Svelte0errors0warnings passed. Revised layout
+not yet rendered in a rebuilt EXE; old visible review is baseline only. Exact
+work/source-validation/discover-flow-validation.json and immutable review records.
+
+Real revised source-host TorBox+candidate Android run2555f660 passed20:08:41UTC:
+controls/seek/background/reconnect/steady60/EOF/replay/pause/retry/terminal fault/
+paused recovery/manual log upload. Private account-bearing exceptiontrue;
+loopback/samePCegress/emulator, not physical/WAN or packaged Windows browse-watch
+provider path. Exact real-provider-pair receipt retained; no new timing claim.
+
+Native source provenance: official Android mpv/FFmpeg source archives downloaded,
+both upstream SHA256 matches; additional two APK graphics-path.so files match
+androidx.graphics:graphics-path:1.0.1 AAR. Together with earlier20mpv/JNI/FFmpeg
+correspondence rows, all22 packaged native files now have artifact attribution.
+This is byte correspondence, NOT complete source-distribution/legal acceptance.
+Windows exact upstream build workflow/log retrieved; source bundle still in work.
+work/source-validation/native-source-archive-validation.json. No public APK,
+metadata/Worker deployment or Desktop replacement. Alpha0.1.7 preserved; planning
+75%playback/35%beta and physical/WAN gates unchanged.
