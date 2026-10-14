@@ -1,6 +1,7 @@
 package app.together.v2.update
 
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Modifier
@@ -13,9 +14,16 @@ import java.io.File
     val updater=remember {AndroidUpdater(context.applicationContext)}
     val scope=rememberCoroutineScope()
     var busy by remember {mutableStateOf(false)}
-    var message by remember {mutableStateOf("Check for a newer version of 2gether.")}
-    var release by remember {mutableStateOf<UpdateRelease?>(null)}
-    var apk by remember {mutableStateOf<File?>(null)}
+    val installedCode=remember(updater) {updater.installedCode()}
+    val releaseSaver=remember(installedCode) {updateReleaseSaver(installedCode)}
+    val apkSaver=remember(context.applicationContext) {updateApkSaver(File(context.cacheDir,"updates"))}
+    var release by rememberSaveable(stateSaver=releaseSaver) {mutableStateOf<UpdateRelease?>(null)}
+    var apk by rememberSaveable(stateSaver=apkSaver) {mutableStateOf<File?>(null)}
+    var message by remember {mutableStateOf(when {
+        release==null -> "Check for a newer version of 2gether."
+        apk!=null -> "Downloaded update available. Tap Install update to verify it and continue."
+        else -> "Version ${release!!.name} is available. Tap Download update to continue."
+    })}
     var progress by remember {mutableIntStateOf(-1)}
     DisposableEffect(updater) {onDispose {updater.close()}}
     Text("App updates",style=MaterialTheme.typography.titleMedium)

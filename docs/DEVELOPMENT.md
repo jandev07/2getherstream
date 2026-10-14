@@ -5681,3 +5681,28 @@ or uninterrupted execution promise. AGENTS latest header now carries current
 Twitch/delivery/GitHub authority to prevent obsolete Kosmi/pause text overriding it.
 Public/Desktop hold and all other safety/evidence boundaries remain; source work
 continues. No repeated playback/provider suites or speculative product changes.
+
+
+## 2026-10-15 — updater ready-step survives saved screen state
+
+Source review: UpdateControls release/APK used remember only; returning from
+installer-permission settings after Activity recreation loses the ready step.
+No live permission-screen failure reproduced while public feed remains unpublished.
+Now small Compose Savers retain validated public metadata +ownedUUIDcache basename;
+missing file falls back to download and already-installed candidate drops on
+restore. Busy/progress stay transient so canceled work cannot restore a stuck
+busy screen. Restored message asks Install to verify; no restored-file trust
+claim. Existing full verifyArchive-before-install and all delivery/auth/TLS/signer
+checks retained. No keys/pairing/media in saved state, whole APK bytes not saved.
+Savers run on save/restore, not native/playback tick; no ViewModel/framework/deps.
+
+4actual Compose Saver JVM cases passed (metadata roundtrip, installed-version
+advance, strict/coerced saved fields, missing/outside/traversal file states),
+main/instrumentation Kotlin compiled. Exact scope/JUnit/logs/hashes at
+work/source-validation/update-saved-state-directory.txt. NOT actual saved Bundle/
+Activity recreation/permission UI/device HTTP/install proof. Prior archive run
+73ff192 remains separate from this new source. Actual UI return path should be
+checked on a permitted final candidate after public metadata is available; do not
+reinterpret old adb upgrade as in-app confirmation. No new APK/EXE or unchanged
+native/provider suite rerun. Twitch untouched; owned build lease released.
+Alpha0.1.7/16Octpublichold/75%35%/physicalWAN/privacy restrictions unchanged.
