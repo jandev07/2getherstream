@@ -5706,3 +5706,32 @@ checked on a permitted final candidate after public metadata is available; do no
 reinterpret old adb upgrade as in-app confirmation. No new APK/EXE or unchanged
 native/provider suite rerun. Twitch untouched; owned build lease released.
 Alpha0.1.7/16Octpublichold/75%35%/physicalWAN/privacy restrictions unchanged.
+
+
+## Windows native source preparation — 15 October 2026 background pass
+
+Commit276fde3 records all108 exact build package configuration members/hashes and
+unresolved declared Git refs without cutoff-date guesses. Four job-mentioned
+archive inputs libiconv1.18/libopenmpt0.7.12/LZO2.10/Xvid1.3.7 were collected and
+checked against configured upstream checksums; LZO uses configuredSHA1 plus local
+SHA256. Five original notice files collected. Opus model download stalled with
+zero bytes; own request interrupted and pending artifact retained, not relabelled.
+Upstream job37549585368 retained artifact contains mpv.exe/docs/updater, no source
+archive. Static Git/runtime dependency source graph remains incomplete.
+
+Immutable configuration/archive scope receipt:
+work/source-validation/windows-source-inputs-directory.txt. Candidate builder now
+copies rootLICENSE alongside notices; parser passed, no app rebuilt/delivered.
+Initial staged notice verification caught Git normalizing libopenmpt CRLF. Shell
+continued after Python failure, so276fde3 was committed/pushed before correction;
+no validation-pass claim applies to that blob. Follow-up .gitattributes preserves
+native notice bytes; all33 working and staged upstream notice hashes now pass.
+Failure history retained in this note and validation receipt. No upstream content
+edited. Exact source/public trees checked after corrective guarded publication.
+
+No native/device/provider/UI or unchanged app suite rerun, playback changes,
+dependencies/polling/network settings/credentials/user-log edits. Twitch untouched.
+Native owner free/absent, control runner absent. Offered0.1.7 and public/Desktop
+hold16Oct00:00IST preserved; physical/WAN gates/estimates75%35% unchanged. New
+SavedState/source-notices integration still requires the exact final candidate;
+no historical evidence combined into current app acceptance.

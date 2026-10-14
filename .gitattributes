@@ -1,0 +1,3 @@
+# Preserve original upstream notice bytes, including their line endings.
+third-party/native-components/** -text whitespace=cr-at-eol
+third-party/native-components/PROVENANCE.json text eol=lf
