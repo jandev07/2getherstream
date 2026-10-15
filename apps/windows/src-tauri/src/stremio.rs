@@ -31,17 +31,29 @@ pub struct Controller {vault:PathBuf,state:tokio::sync::Mutex<State>,lookup:std:
 impl Controller {
     pub fn new(vault:PathBuf)->Self {Self {vault,lookup:std::sync::Mutex::new(None),state:tokio::sync::Mutex::new(State {client:None,addons:Arc::new(Vec::new()),catalogs:Vec::new(),titles:Vec::new(),parent_titles:None,choices:Vec::new(),revision:0})}}
     pub async fn browser(&self)->Browser {let state=self.state.lock().await;public_browser(&state)}
-    async fn read_only_lookup<T>(&self,work:impl std::future::Future<Output=Result<T,&'static str>>)->Result<T,&'static str> {
-        let (cancel,mut cancelled)=tokio::sync::watch::channel(false);
-        {
-            let mut active=self.lookup.lock().map_err(|_|"Stremio lookup unavailable")?;
-            if let Some(previous)=active.replace(cancel.clone()) {previous.send_replace(true);}
-        }
-        let _owner=LookupOwner {registry:&self.lookup,sender:cancel};
-        tokio::select! {biased;
-            _=cancelled.changed()=>Err("Stremio lookup cancelled"),
-            result=bounded_lookup(LOOKUP_DEADLINE,work)=>result,
-        }
+    async fn read_only_lookup<T>(&self,expected:Option<u64>,work:impl std::future::Future<Output=Result<T,&'static str>>)->Result<T,&'static str> {
+        bounded_lookup(LOOKUP_DEADLINE,async {
+            // An obsolete IPC request must not displace a newer cancellation
+            // owner. Keep revision admission atomic with owner publication.
+            // Connect has no expected revision and still registers before its
+            // first state wait, so setup cancellation remains prompt.
+            let admission=if let Some(expected)=expected {
+                let state=self.state.lock().await;
+                if state.revision!=expected {return Err("Selection changed; choose the movie again");}
+                Some(state)
+            } else {None};
+            let (cancel,mut cancelled)=tokio::sync::watch::channel(false);
+            {
+                let mut active=self.lookup.lock().map_err(|_|"Stremio lookup unavailable")?;
+                if let Some(previous)=active.replace(cancel.clone()) {previous.send_replace(true);}
+            }
+            let _owner=LookupOwner {registry:&self.lookup,sender:cancel};
+            drop(admission);
+            tokio::select! {biased;
+                _=cancelled.changed()=>Err("Stremio lookup cancelled"),
+                result=work=>result,
+            }
+        }).await
     }
     pub async fn cancel_lookup(&self)->Result<Browser,&'static str> {
         if let Some(active)=self.lookup.lock().map_err(|_|"Stremio lookup unavailable")?.take() {active.send_replace(true);}
@@ -64,7 +76,7 @@ impl Controller {
         let mut state=self.state.lock().await;Self::begin_locked(&mut state,expected)
     }
     pub async fn connect(&self)->Result<Browser,&'static str> {
-        self.read_only_lookup(self.connect_inner()).await
+        self.read_only_lookup(None,self.connect_inner()).await
     }
     async fn connect_inner(&self)->Result<Browser,&'static str> {
         let (revision,existing)={let mut state=self.state.lock().await;
@@ -97,7 +109,7 @@ impl Controller {
         state.titles.clear();state.parent_titles=None;state.choices.clear();
     }
     pub async fn browse(&self,expected:u64,index:usize,search:Option<String>)->Result<Browser,&'static str> {
-        self.read_only_lookup(self.browse_inner(expected,index,search)).await
+        self.read_only_lookup(Some(expected),self.browse_inner(expected,index,search)).await
     }
     async fn browse_inner(&self,expected:u64,index:usize,search:Option<String>)->Result<Browser,&'static str> {
         let (revision,client,addons,catalog)={let mut state=self.state.lock().await;
@@ -110,7 +122,7 @@ impl Controller {
         state.titles=titles;state.parent_titles=None;Ok(public_browser(&state))
     }
     pub async fn episodes(&self,expected:u64,index:usize)->Result<Browser,&'static str> {
-        self.read_only_lookup(self.episodes_inner(expected,index)).await
+        self.read_only_lookup(Some(expected),self.episodes_inner(expected,index)).await
     }
     async fn episodes_inner(&self,expected:u64,index:usize)->Result<Browser,&'static str> {
         let (revision,client,addons,title)={let mut state=self.state.lock().await;
@@ -137,7 +149,7 @@ impl Controller {
         Ok(public_browser(&state))
     }
     pub async fn options(&self,torbox:&super::torbox::Controller,expected:u64,index:usize)->Result<Options,&'static str> {
-        self.read_only_lookup(self.options_inner(torbox,expected,index)).await
+        self.read_only_lookup(Some(expected),self.options_inner(torbox,expected,index)).await
     }
     async fn options_inner(&self,torbox:&super::torbox::Controller,expected:u64,index:usize)->Result<Options,&'static str> {
         let (revision,client,addons,title,episode_mode)={let mut state=self.state.lock().await;
@@ -231,6 +243,43 @@ impl Controller {
 fn public_browser(state:&State)->Browser {Browser {connected:state.client.is_some(),revision:state.revision,catalogs:state.catalogs.clone(),titles:state.titles.clone(),episode_mode:state.parent_titles.is_some()}}
 #[cfg(test)] mod tests {
     use super::*;
+    #[tokio::test] async fn obsolete_metadata_requests_do_not_cancel_current_lookup() {
+        use std::future::Future;
+        use std::task::Poll;
+        for method in 0..3 {
+            let controller=Controller::new(PathBuf::from("unused-stale-metadata-owner-vault"));
+            controller.state.lock().await.revision=1;
+            let mut current=Box::pin(controller.read_only_lookup(None,std::future::pending::<Result<(),&'static str>>()));
+            std::future::poll_fn(|cx| {assert!(current.as_mut().poll(cx).is_pending());Poll::Ready(())}).await;
+            let owner=controller.lookup.lock().unwrap().as_ref().unwrap().clone();
+            let torbox=super::super::torbox::Controller::new(PathBuf::from("unused-stale-metadata-torbox-vault"));
+            let rejected=match method {
+                0=>controller.browse(0,0,None).await.map(|_|()),
+                1=>controller.episodes(0,0).await.map(|_|()),
+                _=>controller.options(&torbox,0,0).await.map(|_|()),
+            };
+            assert_eq!(rejected,Err("Selection changed; choose the movie again"));
+            let preserved=controller.lookup.lock().unwrap().as_ref().is_some_and(|active|active.same_channel(&owner));
+            assert!(preserved,"obsolete metadata method {method} displaced current cancellation owner");
+            std::future::poll_fn(|cx| {assert!(current.as_mut().poll(cx).is_pending());Poll::Ready(())}).await;
+            assert_eq!(controller.state.lock().await.revision,1);
+            controller.cancel_lookup().await.unwrap();
+            assert_eq!(current.await,Err("Stremio lookup cancelled"));
+            assert!(controller.lookup.lock().unwrap().is_none());
+        }
+    }
+    #[tokio::test] async fn revision_checked_lookup_releases_state_and_remains_cancellable() {
+        use std::future::Future;
+        use std::task::Poll;
+        let controller=Controller::new(PathBuf::from("unused-current-metadata-owner-vault"));
+        controller.state.lock().await.revision=1;
+        let mut current=Box::pin(controller.read_only_lookup(Some(1),std::future::pending::<Result<(),&'static str>>()));
+        std::future::poll_fn(|cx| {assert!(current.as_mut().poll(cx).is_pending());Poll::Ready(())}).await;
+        assert_eq!(tokio::time::timeout(std::time::Duration::from_secs(1),controller.browser()).await.unwrap().revision,1);
+        tokio::time::timeout(std::time::Duration::from_secs(1),controller.cancel_lookup()).await.unwrap().unwrap();
+        assert_eq!(current.await,Err("Stremio lookup cancelled"));
+        assert!(controller.lookup.lock().unwrap().is_none());
+    }
     #[tokio::test] async fn pending_preparation_allows_browser_reads_and_obsolete_result_cannot_replace_choice() {
         let controller=Arc::new(Controller::new(PathBuf::from("unused-private-preparation-vault")));
         {let mut state=controller.state.lock().await;state.revision=1;state.choices.push(Choice::Ready(MediaIdentity::torbox(1,2)));}
@@ -301,7 +350,7 @@ fn public_browser(state:&State)->Browser {Browser {connected:state.client.is_som
         let controller=Arc::new(Controller::new(PathBuf::from("unused-private-cancel-vault")));
         {let mut state=controller.state.lock().await;state.revision=3;state.titles.push(LibraryTitle {id:"movie".into(),kind:"movie".into(),name:"Movie".into()});state.choices.push(Choice::Ready(MediaIdentity::torbox(1,2)));}
         let (entered_tx,entered_rx)=tokio::sync::oneshot::channel();let worker=controller.clone();
-        let task=tokio::spawn(async move {worker.read_only_lookup(async {entered_tx.send(()).unwrap();std::future::pending::<Result<(),&'static str>>().await}).await});
+        let task=tokio::spawn(async move {worker.read_only_lookup(None,async {entered_tx.send(()).unwrap();std::future::pending::<Result<(),&'static str>>().await}).await});
         entered_rx.await.unwrap();let browser=controller.cancel_lookup().await.unwrap();
         assert_eq!(browser.revision,4);assert_eq!(browser.titles.len(),1);
         assert_eq!(tokio::time::timeout(std::time::Duration::from_secs(1),task).await.unwrap().unwrap(),Err("Stremio lookup cancelled"));
@@ -311,7 +360,7 @@ fn public_browser(state:&State)->Browser {Browser {connected:state.client.is_som
         let controller=Arc::new(Controller::new(PathBuf::from("unused-private-cancel-vault")));
         let start=|controller:Arc<Controller>| {
             let (entered_tx,entered_rx)=tokio::sync::oneshot::channel();
-            let task=tokio::spawn(async move {controller.read_only_lookup(async {entered_tx.send(()).unwrap();std::future::pending::<Result<(),&'static str>>().await}).await});
+            let task=tokio::spawn(async move {controller.read_only_lookup(None,async {entered_tx.send(()).unwrap();std::future::pending::<Result<(),&'static str>>().await}).await});
             (entered_rx,task)
         };
         let (first_entered,first)=start(controller.clone());first_entered.await.unwrap();
@@ -323,10 +372,10 @@ fn public_browser(state:&State)->Browser {Browser {connected:state.client.is_som
     #[tokio::test] async fn aborted_lookup_releases_only_its_cancellation_owner() {
         let controller=Arc::new(Controller::new(PathBuf::from("unused-private-cancel-vault")));
         let (entered_tx,entered_rx)=tokio::sync::oneshot::channel();let worker=controller.clone();
-        let task=tokio::spawn(async move {worker.read_only_lookup(async {entered_tx.send(()).unwrap();std::future::pending::<Result<(),&'static str>>().await}).await});
+        let task=tokio::spawn(async move {worker.read_only_lookup(None,async {entered_tx.send(()).unwrap();std::future::pending::<Result<(),&'static str>>().await}).await});
         entered_rx.await.unwrap();task.abort();assert!(task.await.unwrap_err().is_cancelled());
         assert!(controller.lookup.lock().unwrap().is_none(),"aborted lookup left a stale cancellation owner");
-        assert_eq!(controller.read_only_lookup(async {Ok(7)}).await,Ok(7));
+        assert_eq!(controller.read_only_lookup(None,async {Ok(7)}).await,Ok(7));
     }
     #[tokio::test]
     #[ignore="Explicit PC-only real-provider source transaction/range proof; no native or phone acceptance"]

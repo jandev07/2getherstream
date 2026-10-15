@@ -6206,3 +6206,39 @@ source bundle239eb429 retain their original37notice scope/hashes. Latest source
 notice additions are later records, not retroactively patched validated payloads.
 Twitch untouched, offered0.1.7 preserved, publichold16Oct00:00IST and physical/WAN
 75%/35% unchanged. Both-app runtime paths untouched; no speculative loop/refactor.
+
+## Reject stale metadata before cancellation-owner replacement — 15 October 2026
+
+Actual current backend baseline: a pending lookup with its cancellation owner
+was displaced by obsolete public browse(expected0) while state revision1. Browse
+then rejected itself as stale; valid pending lookup had already been cancelled.
+First owner-preservation assertion failed, remaining episode/options branches
+were not reached in baseline. No credential/provider/native/UI request involved.
+This is method/future ordering reproduction, not observed GUI/account failure.
+
+Shared read_only_lookup now accepts existing optional expected revision. Metadata
+revision validation and cancellation-owner publication share short state admission;
+stale browse/episode/options cannot displace newer owner. State guard drops before
+provider work or cancellation wait. Existing60second bounded_lookup wraps the entire
+operation, including admission. Connect has no expected revision, still registers
+before its first state wait; its existing held-State cancellation test stays passing.
+No new counter, owner, protocol field, library or polling. Inner final revision/
+selection/Host source/grant fences and transmitted preparation creates unchanged.
+No general claim all delayed cancel-RPC ordering is solved.
+
+16Stremio unit tests passed/1real-provider proofignored/48other Windows casesfiltered;
+production Windows check passed.2new methods: actual public stale browse/episodes/
+options preserve active owner, revision and pending current future, still explicitly
+cancelable; current revision-admitted pending lookup releases state for browser
+reads and cancels/cleans up. Existing replacement/drop/abort/connection/deadline/
+preparation/publication cases remain passing. Actual60second timer not elapsed;
+existing20ms pending-future/drop helper test retained. No unchanged frontend/JVM/
+native/provider suite rerun. Exact baseline/final/check logs/sourcehash receipt via
+work/source-validation/stremio-stale-owner-directory.txt.
+
+Android read/load jobs use separate per-call ownership and epoch/generation/socket
+checks, not this shared Stremio lookup registry; review only, no Kotlin changes or
+claimed Android race. Latest candidate95181878 compileda40d9bc remains immutable and
+DOES NOT include this later backend change. No package/APK/emulator/WAN/public
+hosting/tunnel test, no user credentials/logs touched. Twitch untouched. Owners
+free after source checks, offered0.1.7/publichold16Oct00:00IST/75%35% unchanged.
