@@ -5,6 +5,7 @@ and integration before the next publication; the publisher never force-pushes.
 """
 import argparse
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -16,7 +17,15 @@ PROTECTED = {".wrangler", ".secrets", "work", "releases", "target", ".dev-cache"
 
 
 def git(*args, input=None):
-    result = subprocess.run(["git", *args], cwd=ROOT, input=input, capture_output=True)
+    # A caller's Git environment can override cwd, the index, object database or
+    # configuration. Publication always belongs to this checkout and its remote.
+    environment = {key: value for key, value in os.environ.items()
+                   if not key.upper().startswith("GIT_")}
+    try:
+        result = subprocess.run(["git", *args], cwd=ROOT, env=environment,
+                                input=input, capture_output=True, timeout=120)
+    except subprocess.TimeoutExpired:
+        raise RuntimeError("Git source operation timed out: " + args[0]) from None
     if result.returncode:
         raise RuntimeError("Git source operation failed: " + args[0])
     return result.stdout

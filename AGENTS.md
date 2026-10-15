@@ -1,5 +1,29 @@
 # Latest human instructions — 16 October 2026 IST
 
+The user explicitly resumed sustained development and asks Codex to coordinate
+with the open Antigravity app, review its completed work independently, and send
+further scoped prompts when useful. GitHub connection help is authorized using
+the existing Windows GitHub CLI/keyring; never extract or transfer a token.
+Use a public-source-only clone for collaborator PRs, never push private checkout
+ancestry. Accept contributions only after source review and relevant validation.
+
+The user is sleeping and requests dark full split-screen ChatGPT/Antigravity
+windows without bright wallpaper. Solid black wallpaper was explicitly requested
+and applied across all three monitors. Keep this setup and minimize unnecessary
+window disturbance. M27QA ICE brightness is requested at0%; other displays and
+system volume are unchanged. The user clarified Twitch was yesterday: there is
+no current Twitch preservation requirement. Do not disturb unrelated user apps.
+Kosmi has finished. Owned visible validation is allowed when useful, always
+player-muted. No new Alpha remains binding; source-only commits/pushes and owned
+internal debug validation are allowed.
+
+The existing continuation heartbeat has been updated with these coordination
+instructions and reactivated at20minutes. This explicitly supersedes the older
+verbatim-prompt instruction below. Do not create a duplicate automation; notify
+only on meaningful progress, failure or required human action while continuing
+useful source work. A heartbeat is a continuation mechanism, not evidence of one
+uninterrupted overnight execution.
+
 The user subsequently says Kosmi usage has finished. Visible validation is usable
 when useful; retain per-player test mute and preserve Twitch if still open.
 The no-new-Alpha instruction below remains in effect. Antigravity collaboration

@@ -6967,3 +6967,57 @@ test API added. Both-app review: Windows already gates pending native failure
 before start/correction; new Android checks occur only on queued native controls,
 and stop occurs once at initialized-core teardown, no new playback polling.
 User says Kosmi finished; Twitch preserved, all automated players muted.
+
+## Source publisher repository ownership and connected review — 16 October 2026
+
+User reaffirms sustained development, reviewed Antigravity collaboration and
+validated GitHub commits; no new Alpha. The existing heartbeat was found PAUSED,
+reactivated at20minutes and updated with the authorized collaboration workflow.
+Black wallpaper is applied on all three monitors; preserve the dark split layout.
+M27QA ICE requested at0%. User subsequently clarified Twitch was yesterday, so
+the old stream-preservation instruction is historical. System volume unchanged.
+
+An actual isolated Git regression reproduced the publisher reading the wrong
+repository HEAD when its caller supplies GIT_DIR/GIT_WORK_TREE/GIT_INDEX_FILE.
+The script previously supplied cwd only. Child Git calls now remove inherited
+GIT_* variables, preserving the caller environment and using the intended local
+checkout/configuration. Existing remote/clean-tree/concurrent-public-main guards
+and source-only commit-tree publication remain unchanged. Each Git call now has
+a120second timeout with fixed error feedback; this is not a whole-publication
+deadline or proof of a real remote timeout. Existing Windows keyring-backed
+GitHub access is retained; no token extracted or transferred.
+
+2focused checks passed: actual temporary target/unrelated repositories with
+injected repository/index/config environment, including intended HEAD/staged blob/
+config reads and unchanged HEAD/index/config in both; synthetic timeout feedback
+does not expose child output. Final strengthened actual-Git case also fails on
+the retained original helper. Initial baseline1failure/1timeout exception and
+final baseline1failure preserved separately. Exact logs/hashes/receipt through
+work/source-validation/source-publisher-owner-directory.txt. No application
+playback behavior, dependency, schema or polling change.
+
+Antigravity contribution remains under review on a separate worktree. Initial
+whole-archive omission reproduced; corrected459a052 independently passes10
+non-synthetic verifier checks and130retained build/archive-member associations.
+Further contradictory helper/archive records still overwrite earlier claims in
+that revision (2new negative review cases fail). Its synthetic Git test originally
+affected its own branch/config; corrected isolation, bounded child commands and
+worktree-aware state evidence are required before integration. No private branch
+ancestry pushed. Public-source-only collaboration clone has a repository-local
+helper delegating to the existing Windows GitHub CLI/keyring; dry-run access
+passed, no access-check branch actually published. Later review results must
+supersede this checkpoint explicitly, not imply all contributor claims accepted.
+
+Owned Windows source UI follow-through reused the exact prior debug binary,
+frontend/source and fixture hashes, no rebuild/package. A missing isolated fixture
+first produced the expected native load failure. Watch was made visible before
+copying the fixture and pressing Try sample video; UI recovered Paused/125:00 and
+native source_ready, but capture still showed black. This does not establish
+presented-frame/scroll visibility or a native-window defect/fix. Runnerb5f0cfea
+and isolated Host journal601b7e8c are distinct IDs, bound by runtime path/process;
+703native observations/110ready,8session rows,0IOerrors/0drops. Normal close exit0,
+player/server stopped, owner released. First copy guard refused a DateTime/string
+comparison before copying; exact UTC DateTime identity comparison then passed.
+Exact receipts/journal/hashes via work/source-validation/surface-first-visible-directory.txt;
+earlier UI capture/lifecycle retained via surface-visible-source-directory.txt.
+No provider/phone/WAN/physical/new release test. Offered0.1.7 and75%/35% unchanged.
