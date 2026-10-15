@@ -116,7 +116,7 @@ async fn stremio_copied_source(controller:tauri::State<'_,torbox::Controller>,ho
     controller.copied_source(&host,link).await.map_err(String::from)
 }
 #[tauri::command]
-async fn player_intent(host: tauri::State<'_, Arc<Host>>, intent: String, position_ms: Option<u64>, player:tauri::State<'_,player::PlayerController>) -> Result<(),String> {
+async fn player_intent(host: tauri::State<'_, Arc<Host>>, intent: String, position_ms: Option<u64>, generation: Option<u64>, player:tauri::State<'_,player::PlayerController>) -> Result<(),String> {
     player.ensure_available().map_err(String::from)?;
     use together_session_server::Action;
     let action = match intent.as_str() {
@@ -126,7 +126,10 @@ async fn player_intent(host: tauri::State<'_, Arc<Host>>, intent: String, positi
         "seek" => Action::Seek {position_ms:position_ms.ok_or("Missing seek target")?},
         _ => return Err("Unknown player intention".into()),
     };
-    host.local_pc(None,action).await.map_err(String::from)
+    // A relative target belongs to the native position that produced it.
+    // Other controls continue to apply to current PC authority.
+    let expected=if intent=="seek" {Some(generation.ok_or("Missing seek generation")?)} else {None};
+    host.local_pc(expected,action).await.map_err(String::from)
 }
 #[tauri::command]
 fn video_bounds(window: tauri::WebviewWindow, player: tauri::State<'_,player::PlayerController>, x: f64, y: f64, width: f64, height: f64) -> Result<(),String> {

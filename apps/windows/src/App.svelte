@@ -2,7 +2,7 @@
 import {invoke} from '@tauri-apps/api/core';
 import {onMount} from 'svelte';
 type Player={initialized:boolean;state:string;position_ms:number;duration_ms:number;buffering:boolean;error:string|null;generation:number;drift_ms:number;rate:number};
-type Snapshot={media:{provider:string}|null;ended:boolean;prepare:{ready:string[]}|null;participants:Record<string,{connected:boolean;buffering:boolean;rtt_ms:number}>;fault:string|null};
+type Snapshot={generation:number;media:{provider:string}|null;ended:boolean;prepare:{ready:string[]}|null;participants:Record<string,{connected:boolean;buffering:boolean;rtt_ms:number}>;fault:string|null};
 let player=$state<Player>({initialized:false,state:'Starting player',position_ms:0,duration_ms:0,buffering:false,error:null,generation:0,drift_ms:0,rate:1});
 let session=$state<Snapshot|null>(null);
 let error=$state(''); let surface:HTMLDivElement;
@@ -98,10 +98,10 @@ const time=(ms:number)=>`${Math.floor(ms/60000)}:${String(Math.floor(ms/1000)%60
 let intentRequest=0;
 async function intent(action:string,positionMs?:number){
  const request=++intentRequest;
- try{await invoke('player_intent',{intent:action,positionMs});if(request===intentRequest)error=''}
- catch(e){if(request===intentRequest)error=String(e)}
+ try{await invoke('player_intent',{intent:action,positionMs,generation:action==='seek'?player.generation:undefined});if(request===intentRequest)error=''}
+ catch(e){if(request===intentRequest)error=action==='seek' && String(e)==='stale generation'?'Playback changed. Wait for the controls to update, then try seeking again.':String(e)}
 }
-const canSeek=()=>player.initialized && Boolean(session?.media) && player.duration_ms>0;
+const canSeek=()=>player.initialized && Boolean(session?.media) && player.generation===session?.generation && player.duration_ms>0;
 async function seek(deltaMs:number){
  if(!canSeek())return;
  const lastPosition=Math.max(0,player.duration_ms-500);

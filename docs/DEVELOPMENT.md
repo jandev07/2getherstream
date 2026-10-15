@@ -5942,3 +5942,33 @@ candidate as historical until a later source-associated build. No APK/EXE releas
 provider/network-adapter/cloudflared/WAN/physical/GUI work this pass. Twitch untouched,
 offered0.1.7 preserved; publichold16Oct00:00IST/75%35% unchanged. Native/control
 locks held during cargo checks, released afterwards. Guarded source push follows.
+
+## Relative PC seek owns observed player generation — 15 October 2026
+
+Actual current component admitted relative seek from native generation7 while
+session generation8 was displayed (baseline first mismatch assertion failed;
+remaining new cases not reached). Position/duration and session are independent
+status observations. UI now waits for matching generations, passes the observed
+native generation on seek, and Tauri requires/forwards it to Host's existing
+atomic stale-generation admission. Play/Pause/Load still target current authority;
+no new counter/owner/protocol or host reducer change. A seek replaced after click
+gets fixed actionable retry feedback, subject to existing latest-notice ordinal.
+
+21actual component/button checks passed (3new: each mismatch direction, matching
+seek token/stale feedback/current Pause);18previous seek cases remain. Svelte
+0errors0warnings and Windows non-test production check passed. Existing actual
+Host stale-generation rejection/journal privacy transport test passed,16filtered.
+Tauri forwarding compiled/reviewed, NOT actual GUI IPC/native media replacement
+runtime. No claim actual user playback corruption or fix to already-correct Host.
+Generation equality is not an atomic native/source freshness guarantee. Exact
+baseline/final logs/source hashes/receipt through
+work/source-validation/seek-authority-directory.txt.
+
+Both-app review: Android position status uses sourceRevision rather than protocol
+generation, and Session queues already capture current protocol authority. No
+Android change or unchanged Kotlin tests; this PC result does not verify Android
+relative-position source freshness. No extra polling/loop work/dependency/schema,
+no packaged build/provider/emulator/WAN/physical test or credentials/user-log use.
+Twitch untouched, offered0.1.7/internal9a candidate preserved; public delivery hold
+16Oct00:00IST and75%/35% estimates unchanged. Native/control locks were held during
+Rust check/test and released. Source snapshot publication follows clean commit.
