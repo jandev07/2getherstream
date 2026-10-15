@@ -114,6 +114,12 @@ non-root paths during pairing. The only HTTP exception is the isolated debug
 loopback proof. Forgetting locally does not revoke the PC credential; remote
 revocation/rotation remains future work before production exposure.
 
+The Android control WebSocket also disables automatic redirects. A handshake
+redirect fails through the existing transport-loss/reconnect path, which keeps
+the saved validated /session endpoint; it cannot silently choose another path or
+origin. The separate, unauthenticated APK download redirect policy does not apply
+to pairing, control, media-capability requests or manual diagnostic uploads.
+
 Snapshots now include `ended` (default false). Native EOF can end only current,
 active playback with no prepare/fault, after the scheduled anchor, from a connected
 participant. Reported position must be within 1 s of reported duration and the

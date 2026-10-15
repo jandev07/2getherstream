@@ -6481,3 +6481,44 @@ free;16Oct00:00IST public/Desktop hold and planning75%/35% unchanged. Next sourc
 completion work must recover actual Windows cached/modified source identities
 or use a validated build from fully pinned inputs; fetched candidates do not
 remove that gate. Do not repeat this unchanged collection or playback proofs.
+
+
+## Android control handshake keeps the paired endpoint — 15 October 2026
+
+Current SessionController used OkHttp's default automatic redirects, unlike the
+other authenticated Android HTTP clients. Extracted its unchanged owned-client
+construction (2second ping/10second connect) into a small network factory for a
+real transport regression. With that equivalent old policy, actual loopback
+WebSocket handshake302 followed /session to /unexpected; focused assertion failed
+with both observed paths. Failure/JUnit retained. Baseline stopped on302, so307
+was not exercised in that comparison. No claim of cross-origin bearer leakage,
+TLS downgrade, compromised service or actual user failure.
+
+Factory now explicitly disables ordinary and SSL redirects; SessionController
+uses it and retains its existing owner cleanup, validated endpoint and loss/
+backoff/reconnect flow. No new coordinator, retry policy, protocol field, native
+operation, library, TLS relaxation or playback-loop work. Removed the now-unused
+TimeUnit import. Primary pinned OkHttp4.12 RealWebSocket/RetryAndFollowUpInterceptor
+sources inspected; no upstream code copied or modified.
+
+Final8JVM checks passed:2new real WebSocket transport cases plus6related existing
+HTTP cancellation/client cleanup checks. Redirect case checks302and307 each
+produce one /session request and the original redirect failure; direct101 upgrade
+opens with one synthetic-bearer request and existing timings. Isolated ordinary
+loopback HTTP/WS listeners, no TLS/public endpoint/device/server-authority/native
+acceptance claim. All owned listeners/executors closed. Main and instrumentation
+Kotlin compiled; instrumentation NOTexecuted. Compiled SessionController constructor
+calls the shared factory. Existing Android source endpoint parser/fences remain;
+no duplicate policy implementation in the tests. Windows provider clients already
+disable redirects; reviewed only, no unchanged Rust/native suites rerun.
+
+Corrected an older updater documentation sentence that still said APK downloads
+never redirect; the existing narrow unauthenticated GitHub/CDN policy is separate
+and unchanged. Protocol notes now explicitly distinguish control redirects.
+Exact baseline/final logs/JUnit/compiled wiring/source hashes via
+work/source-validation/control-socket-redirect-directory.txt. No APK/EXE packaging,
+emulator/provider/public tunnel/physical/WAN run or credentials/user logs changed.
+Twitch untouched, offered0.1.7/internal candidates unchanged, owners free;
+16Oct00:00IST public/Desktop hold, source-completeness/physical gates and planning
+75%playback/35%full beta unchanged. Revised SessionController device reconnect
+remains a future exact-candidate runtime boundary; do not claim it from JVM tests.

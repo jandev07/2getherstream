@@ -5,6 +5,7 @@ import android.os.SystemClock
 import android.util.Log
 import app.together.v2.BuildConfig
 import app.together.v2.network.closeOwned
+import app.together.v2.network.controlSocketClient
 import app.together.v2.player.LibMpvAdapter
 import app.together.v2.player.PlayerStatus
 import app.together.v2.player.ProofMedia
@@ -13,7 +14,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import okhttp3.*
 import org.json.JSONObject
-import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 /** Authoritative-state follower. Socket callbacks, intention queue and scheduling
@@ -39,7 +39,7 @@ class SessionController(private val context: Context, private val player: LibMpv
     private val mutable = MutableStateFlow(Diagnostics())
     val diagnostics: StateFlow<Diagnostics> = mutable
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private val http = OkHttpClient.Builder().pingInterval(2,TimeUnit.SECONDS).connectTimeout(10,TimeUnit.SECONDS).build()
+    private val http = controlSocketClient()
     private val reconnect=ReconnectPolicy()
     private val clock = ClockEstimator()
     private val clockRequests = ClockRequests()

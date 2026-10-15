@@ -85,8 +85,10 @@ The metadata shape is:
 This is a schema illustration, not a configured or published release. Publish
 only after a real higher-version APK, stable signing identity and hosting have
 been prepared and authorized. Both apps reject non-HTTPS APK addresses, userinfo,
-query strings and fragments. APK downloads follow no redirects, carry no paired
-control bearer, and never pass APK bytes through the control tunnel. The APK must
+query strings and fragments in the initial APK address. APK downloads carry no
+paired control bearer and never pass APK bytes through the control tunnel. Only
+canonical GitHub release assets may follow the bounded HTTPS CDN redirect path
+described below; other release hosts cannot redirect. The APK must
 match the declared size/hash, package, higher version and installed signer set.
 Signing-certificate rotation is deliberately unsupported for this first flow.
 Android 26–27 use the older signature API; newer devices use SigningInfo.
