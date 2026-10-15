@@ -6360,3 +6360,51 @@ acceptance. Source/provenance and public delivery gates remain. Earlier permissi
 label failure and all candidate failures remain unmodified. Offered0.1.7 and
 candidate95181878 unchanged; no Desktop/public APK/metadata/Worker publication.
 Twitch untouched, owners free, planning75%/35% and16Oct00:00IST hold unchanged.
+
+
+## Windows subrandr source base and committed-lock archives — 15 October 2026
+
+Actual exact DLL87282761... contains subrandr1.4.0 reveaf47d9 and C-API version
+markers. Upstream fullcommiteaf47d947e754565fe60e88ffe9665a2a32b18d5 resolved via
+primary GitHub API; collected413633byte source archive SHA25696c2540e... . Source
+Cargo version/build-revision generation and renderer/C-API source inspected.
+Pinned native build recipe hash checked against existing108-config inventory.
+No binary rebuild or actual modified-working-tree attestation; unresolved binary
+source commit fields remainnull and complete Windows source graph remainsfalse.
+This is the ninth dependency source-base association, not a whole-graph completion.
+
+Committed upstream Cargo.lock has264 packages,255 registry entries and no Git
+entries; text-sys lock has no external packages. All255 registry .crate archives
+collected/identities checked/SHA256 matches exact lock,56278069bytes total.
+27copied from existing matching Cargo cache without modifying it,228downloaded
+from official static.crates.io. All platform/dev/build entries included; inclusion
+is not linkage. The outer recipe and inner xtask command do NOTpass --locked, so
+actual binary dependency selection remains unverified. Native freetype/harfbuzz
+link directives and separate compiler/runtime source correspondence remain open.
+Published ring crate VCS metadata reports dirty; its exact published archive
+checksum matches lock, without pretending that is a clean upstream Git tree.
+
+440original standalone notice members retained inside full registry archives.
+23crates omit such members; their embedded published VCS revisions led to8exact
+upstream repository roots.10original supplemental notice files retained, reusing
+identical bytes across revisions; r-efi's original AUTHORS contains its license
+grant and is retained. Old dispatch declares MIT but has no standalone notice in
+its published archive or inspected root; that limitation is explicit. No invented
+copyright/license text or licensing-completion claim. Added12provenance records
+using9new byte-exact files: totals63records/57unique files, prior51records unchanged.
+
+Private subrandr source-preparation ZIP57303509bytes SHA256
+56ea2991582efa13ea2b4817ec5ebe6268c8b0371d65676f6c9b9250db62cd96
+assembles upstream source,255crate archives, inventory records and retained
+supplemental notices.271inputs checked during streaming copy ANDafter ZIPreopen,
+plus its manifest. No APK, credentials, signer, user logs or private Git history.
+All source collection/parse only; no Cargo/build script/compiler/native/provider/
+emulator test executed, no app dependency or playback-loop change. Exact inputs/
+APIresponses/locks/notices/collection and bundle receipts via
+work/source-validation/windows-subrandr-directory.txt. Source archives stayignored;
+metadata/original notices are eligible for audited source push only.
+
+Both-app review leaves runtime paths untouched. Prior Android source bundle and
+candidate95181878 retain original hashes/notices; no retroactive package claim.
+Twitch untouched, offered0.1.7 preserved, public/Desktop hold16Oct00:00IST and
+physical/WAN/source-completeness gates remain; planning75%/35% unchanged.

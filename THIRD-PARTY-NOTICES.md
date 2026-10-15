@@ -168,3 +168,15 @@ libass/libplacebo notices reuse the existing retained files. PROVENANCE.json
 records each archive association independently. The libplacebo binary reports a
 modified source tree; its upstream base archive is explicitly not the full build
 tree. No original notice is replaced by the project's root license.
+
+
+Windows subrandr source preparation retains its original Mozilla Public License
+Version2.0 text. Its committed-lock registry archives retain their original
+notices; source-revision supplements for notices omitted from published crates
+and the original r-efi AUTHORS grant are retained under
+third-party/native-components/windows-subrandr. PROVENANCE.json records original
+bytes and source URLs/commits or archive members. These records cover the whole
+upstream lock, including non-Windows/dev/build packages, and do not claim all are
+linked. See native/SUBRANDR-LOCKED-SOURCES.json for scope, missing standalone
+notice material and unverified actual build dependency selection. No upstream
+license is replaced by 2gether's root license.

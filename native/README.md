@@ -139,3 +139,22 @@ resolve those separate inputs. The Opus recipe copies generated model C/header
 files from the already checksum-verified opus-dnn archive. Source base/version
 members, recipe hashes and unresolved overlay boundaries are in the detailed
 inventory. None of these associations closes the complete Windows source graph.
+
+
+Windows subrandr is associated with the binary's1.4.0 reveaf47d9 marker and full
+upstream commiteaf47d947e754565fe60e88ffe9665a2a32b18d5. Its source and committed
+Cargo.lock are retained. All255 registry archives in that lock were collected
+and verified against lock checksums, including platform/dev/build entries that
+are not asserted linked into Windows. native/SUBRANDR-LOCKED-SOURCES.json records
+the source archives, notices and package identities. The pinned outer/inner build
+commands do not enforce --locked; actual build dependency selection is unverified.
+Native FreeType/HarfBuzz and compiler/runtime correspondence remain separate.
+
+Original MPL2 subrandr license, omitted crate notice supplements from exact
+published VCS revisions, and r-efi's original AUTHORS grant are retained under
+third-party/native-components/windows-subrandr with byte hashes. The old dispatch
+crate declares MIT but has no standalone license/notice file in its published
+archive or inspected repository root; that limitation remains explicit. Full
+archives retain their original source/notice content. These are partial source
+preparation records, not a complete licensing/source-distribution certification.
+No upstream build script was executed and no new app dependency was added.

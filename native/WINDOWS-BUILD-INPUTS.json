@@ -1150,7 +1150,54 @@
       "declared_git_ref": "master",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "subrandr",
+        "embedded_version": "1.4.0 rev eaf47d9",
+        "dll_byte_offsets": [
+          101061592
+        ],
+        "embedded_capi_version_offsets": [
+          101176346
+        ],
+        "upstream_reported_commit": "eaf47d947e754565fe60e88ffe9665a2a32b18d5",
+        "upstream_commit_endpoint": "https://api.github.com/repos/afishhh/subrandr/commits/eaf47d9",
+        "source_archive": "https://codeload.github.com/afishhh/subrandr/tar.gz/eaf47d947e754565fe60e88ffe9665a2a32b18d5",
+        "source_archive_sha256": "96c2540ea1e9015c0b246ed83cdc35945b333b99eda422f6bfa8cee7f334aafa",
+        "source_archive_bytes": 413633,
+        "version_api_source_members": [
+          {
+            "member": "subrandr-eaf47d947e754565fe60e88ffe9665a2a32b18d5/build.rs",
+            "sha256": "05e4e5f39b2b813e913091d0f1e59264841423f4a7e0b51cd682a2fdf5f9030c"
+          },
+          {
+            "member": "subrandr-eaf47d947e754565fe60e88ffe9665a2a32b18d5/src/capi/renderer.rs",
+            "sha256": "d9ee71ebe9cae083427e0286d5c208e63ae4cd180e6622873148951de53e7d02"
+          },
+          {
+            "member": "subrandr-eaf47d947e754565fe60e88ffe9665a2a32b18d5/src/renderer.rs",
+            "sha256": "11bb2e46834774c1ff410dc691441b438f4cf7d075efa197f77518987c47f1fb"
+          }
+        ],
+        "original_notices": [
+          "third-party/native-components/windows-subrandr/LICENSE"
+        ],
+        "locked_source_inventory": "SUBRANDR-LOCKED-SOURCES.json",
+        "build_recipe_sha256": "cbf83815bc10a86c38151633826e413d34167410bc9569ee22c045c53a01f477",
+        "inner_build_command_member": "subrandr-eaf47d947e754565fe60e88ffe9665a2a32b18d5/xtask/src/build.rs",
+        "inner_build_command_sha256": "d5c0b98ec17b1fcb69bb276b6e1373a8ed9f9d81859673869f8e937b53307234",
+        "build_passes_locked": false,
+        "native_link_directives": [
+          "freetype",
+          "harfbuzz"
+        ],
+        "outer_recipe_dependencies": [
+          "freetype2",
+          "harfbuzz",
+          "fontconfig"
+        ],
+        "scope": "Binary-reported upstream base; committed lock sources collected, not actual build working tree/dependency-selection attestation. Native C dependency and compiler/runtime source correspondence remains incomplete."
+      }
     },
     {
       "project": "svtav1",
@@ -1339,7 +1386,8 @@
       "libass",
       "opus",
       "libsdl2",
-      "libplacebo"
+      "libplacebo",
+      "subrandr"
     ],
     "complete_source_graph": false,
     "method": "Exact embedded ASCII versions, upstream full commit resolution and corresponding source version APIs. Existing unresolved binary source fields stay null.",
