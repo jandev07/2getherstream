@@ -14,6 +14,39 @@ import java.util.UUID
 
 @RunWith(AndroidJUnit4::class)
 class PairingStoreTest {
+    @Test fun failedFileRemovalPreservesKeyAndReportsRetryableFailure() {
+        val app=ApplicationProvider.getApplicationContext<Context>()
+        val id=UUID.randomUUID().toString()
+        val directory=File(app.noBackupFilesDir,"pairing-delete-$id").apply {check(mkdir())}
+        val context=object:android.content.ContextWrapper(app) {
+            override fun getNoBackupFilesDir():File=directory
+        }
+        val store=PairingStore(context,"together2-delete-$id","owned.enc")
+        val file=File(directory,"owned.enc")
+        val token=UUID.randomUUID().toString()+UUID.randomUUID().toString()
+        try {
+            store.save(Pairing("https://together.example",token))
+            val original=file.readBytes()
+            // Remove directory write permission only in this UUID-owned directory.
+            // Its file remains readable; AtomicFile.delete cannot unlink it.
+            android.system.Os.chmod(directory.absolutePath,320) // 0500
+            val failure=try {runCatching {store.clear()}.exceptionOrNull()}
+                finally {android.system.Os.chmod(directory.absolutePath,448)} // 0700
+            assertTrue("Blocked file removal was reported as success",failure is IllegalStateException)
+            assertEquals("Stored pairing could not be removed",failure?.message)
+            assertNull(failure?.cause)
+            assertArrayEquals(original,file.readBytes())
+            val restored=checkNotNull(store.load())
+            assertTrue("Failed removal discarded the pairing key",restored.token==token)
+            store.clear()
+            assertNull(store.load())
+            assertFalse(file.exists())
+        } finally {
+            android.system.Os.chmod(directory.absolutePath,448)
+            store.clear()
+            check(directory.delete())
+        }
+    }
     @Test fun separateOwnersShareAtomicFileAndKeystoreOwnership() {
         val context=ApplicationProvider.getApplicationContext<Context>()
         val id=UUID.randomUUID().toString();val name="pairing-owners-$id.enc";val alias="together2-owners-$id"

@@ -78,5 +78,13 @@ class PairingStore(context:Context,private val alias:String="together2-pairing-v
             Pairing(pairingBase(parsed.getString("base")),token)
         } finally {plaintext.fill(0)}
     }
-    fun clear() {synchronized(disk) {file.delete();KeyStore.getInstance("AndroidKeyStore").apply {load(null);deleteEntry(alias)}}}
+    fun clear() {synchronized(disk) {
+        file.delete()
+        // AtomicFile.delete() ignores failed unlinks. Keep the key until all
+        // owned file variants are gone so a failed Forget can be retried.
+        check(listOf(file.baseFile,File(file.baseFile.path+".bak"),File(file.baseFile.path+".new")).none {it.exists()}) {
+            "Stored pairing could not be removed"
+        }
+        KeyStore.getInstance("AndroidKeyStore").apply {load(null);deleteEntry(alias)}
+    }}
 }

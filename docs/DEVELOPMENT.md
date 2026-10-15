@@ -6242,3 +6242,48 @@ claimed Android race. Latest candidate95181878 compileda40d9bc remains immutable
 DOES NOT include this later backend change. No package/APK/emulator/WAN/public
 hosting/tunnel test, no user credentials/logs touched. Twitch untouched. Owners
 free after source checks, offered0.1.7/publichold16Oct00:00IST/75%35% unchanged.
+
+
+## Failed Android pairing removal keeps its key — 15 October 2026
+
+Continued pairing lifecycle review found restore/claim/Forget admission already
+fenced; no additional setup coordinator or stale-restore change was justified.
+The underlying AtomicFile.delete() returns void and ignores failed unlinks.
+Actual owned SidecarTest baseline reproduced success from PairingStore.clear()
+while a UUID-owned test directory lacked write permission. First assertion failed
+("Blocked file removal was reported as success"); subsequent baseline key/file
+preservation assertions were not reached. The old source deletes its Keystore
+entry after this silent failure. Failed receipt and exact APK/test hashes retained.
+
+clear now checks absence of base, backup and pending AtomicFile paths before
+removing the key, under the existing shared disk mutex. Failure uses fixed feedback
+and preserves the key for retry. Existing Activity catch/notice retains its active
+session when clear fails; no UI change, new owner, storage format or crypto change.
+This is not a transactional/power-loss guarantee: partial file removal or a later
+Keystore error can still fail, and synchronous filesystem work is not preempted.
+
+Actual final five PairingStore Android instrumentation cases passed, identities
+verified: one new real chmod/AtomicFile/Keystore failure-retry case plus four
+related existing concurrency/round-trip/tamper/bounds/address cases. Final new case
+checks unchanged ciphertext, successful decryption with the retained key, then
+successful removal/retry. All permission changes and keys/files are UUID-owned;
+normal pairing data/keys untouched. Both internal app/test APKs compiled and ran;
+no released Alpha package rebuilt or replaced. This was not the Activity Forget
+screen, network pairing, native playback, physical phone or WAN acceptance.
+Baseline and final emulators stopped with fresh serial absence confirmed; owners
+free afterward. Exact receipts/logs/payload/source hashes via
+work/source-validation/pairing-delete-directory.txt.
+
+Independent Windows native-source lead: embedded uavs3d SHA
+05a60b3cfd04e3e3b89918f4a27f3dde2935dff2 was not resolved by the configured
+upstream GitHub commit endpoint (HTTP422); public commit page returned404. Current
+upstream version-generation script was inspected, but its moving master tree is
+not substituted for the binary source. No new attribution/completion claim.
+Read-only evidence is in work/source-validation/windows-uavs3d-source.
+
+Both-app review kept existing ownership and manual-only storage work; no new
+library, protocol, playback-loop work or speculative rewrite. Twitch untouched,
+offered0.1.7 and candidate95181878 immutable; candidate does NOT include this fix.
+Public/Desktop hold16Oct00:00IST, source-completeness and physical/WAN gates remain,
+planning75%/35% unchanged. Validated source commit is eligible for audited GitHub
+snapshot publication; this is not APK/metadata/Worker publication.
