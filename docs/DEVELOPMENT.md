@@ -6719,3 +6719,59 @@ publication, user credentials/logs/Twitch untouched. Offered0.1.7 unchanged.
 Native corresponding-source completion, physical two-hour gate, public/Desktop
 hold16Oct00:00IST and planning75%/35% remain unchanged. Security fixture success,
 PC-only compatibility and failed full pair are separate evidence boundaries.
+
+
+## Android local native startup diagnostic — 15 October 2026
+
+Followed the failed paired run with a distinct controlled local diagnostic, not
+another TorBox/full-pair attempt. New explicit NativeStartupObservationTest runs
+actual Activity/TextureView/LibMpvAdapter on hidden SidecarTest, muted, loading
+existing local clock-test fixture. It records two five-second windows: initial
+unpause, then pause/backgroundCREATED/resumeRESUMED/unpause. No session connection,
+authority clock, server, provider, rate correction, new product status fields,
+allowlist, API or playback-loop change. Test cache JSON only; existing native
+probe remains unchanged. Native source/worker ownership and source errors remain
+checked; each phase requires observations and positive position progress, not a
+new sync tolerance or acceptance criterion.
+
+Preliminary c57ca788-9353-4886-a278-196f244e9276 JUnit passed, but its diagnostic
+baseline used cached PlayerStatus before unpause. Source/output/receipt retained
+via android-native-startup-preliminary-directory.txt, with explicit limitations;
+its inferred pacing numbers are superseded, not evidence of a product fix.
+Corrected test reads native TimePos while native Pause=true and submits checked
+native unpause on the same existing worker barrier, then timestamps completion.
+Test-only reflection obtains the core inside that worker; no Main native calls.
+This measures property progress relative to command completion; it excludes prior
+queue wait and does NOTmeasure presented frames or effective-speed accuracy.
+
+Final run4fe2a89e-692e-4430-99dc-61c49254be80 passed1 exact instrumentation
+identity,16.755seconds, completed09:14:33UTC.47initial and48post-background unique
+observations, allsourceReady/Playing/no reported buffering/seeking. Initial
+native0→4700ms over last observed4912ms since command completion; elapsed minus
+reported PTS progress ranged-3..225ms. Post-background native4800→9900ms over
+4905ms, difference ranged-318..-189ms. Observation ages≤29/26ms; maximum probe
+sample gaps116/108ms. Negative differences mean reported PTS advance exceeded
+elapsed time relative to that paused baseline; NOTa physical frame-lead claim.
+This single local fixture did NOTreproduce or explain the paired -355ms failure.
+No general native timing bound, p95/frame150ms or closed-loop convergence claim.
+
+Inspected exact retained Android mpv0.41 archive (upstream checksum already
+verified) player/command.c/playloop.c/audio.c. time-pos reads get_playback_time,
+which uses playback_pts (video_pts while video active) or last_seek_pts fallback;
+playback-time is an alias, not a fresher independent property. Audio PTS uses a
+separate AO-delay/speed adjustment. These source facts support keeping the native
+PTS/observation-time distinction explicit; they do not identify the live failed
+branch/driver/cause or justify swapping properties/correction thresholds.
+
+Exact final source hashd0ca4380.../Android125-input aggregate2046e71b..., raw numeric
+rows/measurement.json, primary member/archive hashes, preliminary history,
+build/install/instrumentation/cache-cleanup/emulator-stop receipts via
+work/source-validation/android-native-startup-directory.txt. MainAPK remains
+byte-identical50a57d67... (production unchanged); finaltestAPK23fe4522e13bf8a9c8f9f1898f4b986ac4838f0bcc7c2b22bb99179c6fcc9d82.
+Own test cache removed, normal hidden emulator stop/fresh serial absent/leasefree.
+No actual presentation, provider, phone pair, WAN/physical or recovery repair
+claim. Latest real-provider paired result remains FAILED0782308f; no unchanged
+retry. Useful next evidence must isolate that specific startup/native-PTS issue,
+not tune3%rates, relax350ms assertions or relabel old successful runs. All supplied
+Alphas/candidates unchanged, Twitch untouched, no public/Desktop delivery. Source
+correspondence/physical gates and planning75%/35% unchanged.
