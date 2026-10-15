@@ -6522,3 +6522,40 @@ Twitch untouched, offered0.1.7/internal candidates unchanged, owners free;
 16Oct00:00IST public/Desktop hold, source-completeness/physical gates and planning
 75%playback/35%full beta unchanged. Revised SessionController device reconnect
 remains a future exact-candidate runtime boundary; do not claim it from JVM tests.
+
+
+## Android session redirect retry integration — 15 October 2026
+
+Distinct Android runtime boundary now exercised after the JVM client proof.
+New SessionConnectionTest uses actual SessionController public connect/disconnect,
+Main callbacks, existing retry/backoff, JSONObject acceptance and real muted idle
+LibMpvAdapter. A device-loopback synthetic listener first returns302 /unexpected.
+Controller reports disconnected/loss feedback, then retries the saved /session
+endpoint. Second handshake directly upgrades101 and sends one valid idle snapshot;
+diagnostics accepts revision2/generation1 with no media/playing/error. Exactly two
+/session requests and two synthetic bearer headers observed; no /unexpected
+request. No private reflection, fake socket/controller or production mutation API.
+Existing native lifecycle proof callbacks verify one create/one close/completed
+cleanup; no media is loaded and no decoded playback or native sync claim is made.
+
+Owned hidden SidecarTest run0aefe9be-61d2-4102-9456-6c71ef636c68 passed1 exact
+instrumentation identity, completed08:17:34UTC. Test itself2.318seconds. Source
+aggregate31bcd161... checked before/after isolated build and runtime; internal
+APK0eb77c528e5ab1e7e27de2c9ae61e4d0eeb7d4c918a1f3efe7fd03f27335831b,
+testAPK961adc66fcb9cf63c1ed43af91f31960e11a22391e6559a3c00f95e1d17ee370.
+Main production source stays087b707; only instrumentation added. The expected
+identity manifest's initial object shape was corrected to the verifier's pair
+array before verification, with initial file retained; no runtime failure was
+relabelled. Exact receipt/source/test hashes/build/install/instrumentation/stop
+logs via work/source-validation/session-connection-directory.txt.
+
+No production fix added this pass. No unchanged fixture/provider/native/JVM suites
+rerun. Actual Android local control retry is verified here, separately from earlier
+JVM transport tests; HTTPS/TLS, normal saved-pairing/Activity flow, real authority,
+media/phone pairing/physical/WAN/two-hour gates are NOTestablished by this synthetic
+idle listener. Existing user pairing/keys/logs untouched; no adb reverse or
+network configuration changes. Owned emulator normal-stop confirmed/fresh serial
+absent/lease free; Twitch untouched. Offered0.1.7 and packaged candidates unchanged,
+no Desktop/public APK/metadata/Worker delivery. Public hold16Oct00:00IST, native
+source correspondence work and planning75%/35% unchanged. Do not repeat this
+unchanged idle reconnect proof or describe it as media playback acceptance.
