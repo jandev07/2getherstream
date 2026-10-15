@@ -6662,3 +6662,60 @@ publication or offered0.1.7 change. Owners free/emulator and fixture stopped.
 Both-app review: redirect options remain startup-only; no per-tick URL parsing,
 new polling or duplicate network coordinator introduced. Public delivery hold,
 partial corresponding-source inventory and planning75%/35% unchanged.
+
+
+## Native redirect policy provider compatibility — 15 October 2026
+
+Distinct compatibility checks followed the native redirect restriction; these
+were not reruns of an unchanged provider path. One current-source PC-only attempt
+passed rundf981724-bb03-4ea0-9908-ae695abdb714, completed09:03:41UTC. Recompiled
+b390907 proof/controller/adapter with the exact retained DLL87282761..., using
+candidate95181878 only as the verified DLL source (NOT its old packaged EXE).
+Existing encrypted PC vault stayed private. Both separately resolved role URLs
+passed1024byte direct ranges. Actual muted headless native PC advanced0→12011ms,
+pause maximum drift0ms, sought45000→45000ms and resumed45000→57015ms. TLS
+verification enabled and current default redirect limits retained. No account
+creates/deletes, Android handoff, PC browsing/Tauri GUI, WAN/physical guarantee.
+Source111files aggregateea1ff37b... matched before/after. Exact wrapper/source/
+proofEXE hashes and native receipt via work/source-validation/native-provider-policy-directory.txt.
+
+Then one distinct revised paired attempt FAILED:
+0782308f-d0ab-41b6-9538-e885b234a98c, completed09:06:28UTC. Actual current native
+PC controller rebuilt; exact Android main50a57d67.../test7fa8474b... from the owned
+TLS runtime reused with their matching source receipt. Local authenticated
+control and direct TorBox media on same PC egress, explicitly scoped private
+account-bearing exceptiontrue. Both native players reached playback and completed
+earlier controls/seek/background/reconnect setup, but the existing steady loop
+failed Excessive measured drift: -355ms on its sixth record. This is NOTa paired
+pass or completed60second run. Later EOF/replay/missing-start/native-fault recovery
+and manual upload assertions were not reached; no composite historical pass.
+
+Exact failing record had native position24566ms, sample age14ms, commanded rate
+1.005, fixed used offset-138806ms. Six steady records cover only about0.51seconds;
+phone PTS advanced24273→24566 while observation time advanced532ms. Nearby PC
+samples were17–26ms from authority at the latter points. Earlier repeated native
+sample age reached222ms. These observations localize measured startup lag to the
+phone side in this run; they do NOTestablish decoder/GPU/frame timing, effective
+speed, clock truth, root cause or a redirect-option regression. No threshold,
+correction rate, readiness policy, parser or production behaviour changed to make
+this pass. Standard matching analysis correctly refused fewer than20samples;
+no p95/150ms/steady acceptance claim. Failed receipt/raw observations retained;
+read-only failed-steady-postmortem.json lists only the six diagnostic rows.
+
+Actual PC journal697native/105session records:0invalid/0I/Oerrors/0drops, no
+phone uploads before failure. Source111Windows/124Android inputs and exact APK/
+host hashes retained. Host exit0; own proof pairing/reverse removed; hidden
+emulator stopped/fresh serial absent/lease free. Exact receipt/build/install/
+instrumentation/phone+PC observations/journal/cleanup via
+work/source-validation/native-provider-pair-policy-directory.txt. Do not retry
+this unchanged full provider proof. A useful next investigation must isolate
+Android native startup/position progress after reconnect, using the preserved
+failed observations and a controlled bounded diagnostic rather than loosening
+existing assertions or speculatively changing correction bands. Earlier passed
+provider runs remain historical; this failure is the latest revised paired result.
+
+Source-only compatibility notes; no APK/EXE release package or Desktop/public
+publication, user credentials/logs/Twitch untouched. Offered0.1.7 unchanged.
+Native corresponding-source completion, physical two-hour gate, public/Desktop
+hold16Oct00:00IST and planning75%/35% remain unchanged. Security fixture success,
+PC-only compatibility and failed full pair are separate evidence boundaries.
