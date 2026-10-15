@@ -2,6 +2,8 @@
 use std::{path::Path,time::{Duration,Instant}};
 use together_player_mpv::Mpv;
 use together_source_resolver::{secret,TorBox};
+#[path="support/provider_media.rs"]
+mod provider_media;
 fn check_events(player:&mut Mpv)->Result<(),&'static str> {
     while let Some(event)=player.poll() {if event.source_failure || event.error<0 {return Err("native_provider_event_failed");}}
     if player.take_command_failure() {return Err("native_provider_command_failed");}Ok(())
@@ -21,10 +23,11 @@ fn play_progress(player:&mut Mpv,milliseconds:u64)->Result<(u64,u64),&'static st
 async fn run()->Result<serde_json::Value,&'static str> {
     let args:Vec<_>=std::env::args().collect();
     let dll=args.get(1).ok_or("native_provider_dll_required")?;
+    let selection=provider_media::Selection::from_environment()?;
     let vault=Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../.secrets/torbox.dpapi");
     let client=TorBox::new_private_alpha(secret::read_key(&vault).map_err(|_|"native_provider_credential_unavailable")?).map_err(|_|"native_provider_client_failed")?;
     let videos=client.available_videos().await.map_err(|_|"native_provider_inventory_failed")?;
-    let media=videos.first().ok_or("native_provider_video_unavailable")?;
+    let media=selection.select(&videos)?;
     let pair=client.device_streams(media,None,None).await.map_err(|_|"native_provider_links_failed")?;
     if pair.pc.identity()!=pair.phone.identity() {return Err("native_provider_identity_mismatch");}
     let (pc_bytes,phone_candidate_bytes)=tokio::try_join!(client.probe(&pair.pc),client.probe(&pair.phone)).map_err(|_|"native_provider_ranges_failed")?;
@@ -54,7 +57,7 @@ async fn run()->Result<serde_json::Value,&'static str> {
     player.pause(true).map_err(|_|"native_provider_final_pause_failed")?;check_events(&mut player)?;
     Ok(serde_json::json!({"status":"passed","kind":"pc_only_torbox_native","account_bearing_private_exception":true,
         "muted":true,"headless":true,"pc_range_bytes":pc_bytes,"phone_candidate_range_bytes":phone_candidate_bytes,
-        "torrent_id":media.torrent_id,"file_id":media.file_id,"duration_ms":(duration*1000.0) as u64,
+        "torrent_id":media.torrent_id,"file_id":media.file_id,"selection_mode":selection.mode(),"duration_ms":(duration*1000.0) as u64,
         "first_start_ms":first_start,"first_end_ms":first_end,"pause_max_drift_ms":pause_max_drift,
         "seek_target_ms":seek_target,"seek_landed_ms":seek_landed,"second_start_ms":second_start,"second_end_ms":second_end,
         "android_handoff":false,"physical_gate_passed":false}))

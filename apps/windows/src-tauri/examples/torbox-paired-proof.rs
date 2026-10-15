@@ -2,11 +2,14 @@
 //! No credentials, URLs, filenames or account responses are printed.
 #[path="../src/player.rs"]
 mod player;
+#[path="support/provider_media.rs"]
+mod provider_media;
 use std::{path::PathBuf,sync::Arc,time::Duration};
 use together_session_server::Host;
 use together_source_resolver::{secret,TorBox};
 
 async fn run()->Result<(),&'static str> {
+    let selection=provider_media::Selection::from_environment()?;
     let root=PathBuf::from(std::env::args().nth(1).ok_or("runtime_required")?);
     let token=std::env::var("TOGETHER_PHONE_TOKEN").map_err(|_|"proof_credential_required")?;
     // Reserve the isolated loopback endpoint before any player/provider work.
@@ -29,7 +32,8 @@ async fn run()->Result<(),&'static str> {
         let vault=PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../../.secrets/torbox.dpapi");
         let client=TorBox::new_private_alpha(secret::read_key(&vault).map_err(|_|"provider_credential_unavailable")?).map_err(|_|"provider_init_failed")?;
         let videos=client.available_videos().await.map_err(|_|"provider_inventory_failed")?;
-        let media=videos.first().ok_or("provider_video_unavailable")?;
+        let media=selection.select(&videos)?;
+        println!("REAL_PROVIDER_SOURCE torrent_id={} file_id={} selection={}",media.torrent_id,media.file_id,selection.mode());
         let streams=client.device_streams(media,None,None).await.map_err(|_|"provider_capabilities_failed")?;
         tokio::try_join!(client.probe(&streams.pc),client.probe(&streams.phone)).map_err(|_|"provider_ranges_failed")?;
         let before=host.snapshot().await;

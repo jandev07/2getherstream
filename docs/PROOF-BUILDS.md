@@ -125,3 +125,18 @@ Six regressions include real Windows junctions whose targets remain unchanged.
 These namespace checks do not authenticate evidence or protect against privileged
 concurrent replacement; original historical archives remain unmodified.
 
+
+
+## Repeatable private provider media selection
+
+The source-built torbox-native-proof and torbox-paired-proof examples accept
+TOGETHER_PROOF_TORRENT_ID and TOGETHER_PROOF_FILE_ID together in their process
+environment. Both are exact unsigned decimal IDs; torrent must be positive.
+Missing, malformed or unavailable explicit selection fails with a fixed category;
+there is no fallback to another video. Without either variable, legacy first-ready
+selection remains and is labelled first_ready_legacy. Numeric identity/mode are
+recorded without media names, URLs or credentials. These controls affect proof
+examples only, not product browsing, account writes or normal source selection.
+Record exact selected identity and runtime codec/dimensions/decoder profile before
+comparing runs. In particular, a software-decoded4K emulator result and a lighter
+or hardware-decoded result are distinct evidence, not interchangeable passes.

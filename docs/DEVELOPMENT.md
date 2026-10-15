@@ -6775,3 +6775,66 @@ retry. Useful next evidence must isolate that specific startup/native-PTS issue,
 not tune3%rates, relax350ms assertions or relabel old successful runs. All supplied
 Alphas/candidates unchanged, Twitch untouched, no public/Desktop delivery. Source
 correspondence/physical gates and planning75%/35% unchanged.
+
+
+## Paired native-clock investigation and repeatable proof sources — 15 October 2026
+
+Investigated failed full-pair0782308f using a distinct, shorter diagnostic rather
+than rerunning its60second acceptance sequence. New PairedStartupObservationTest
+uses actual Activity/TextureView/SessionController and source-built PC native Host,
+with initial play, background reconnect and explicit socket-loss reconnect. Three
+10second observation windows capture numeric TimePos/audio-pts/avsync/native speed,
+correction multipliers/frame drops on the existing serial worker. No product
+mutation API, status schema, allowlist, loop, library or correction-band change;
+additional reads exist only in instrumentation and may affect the measurements.
+No350ms assertion removed from SessionPlaybackTest; diagnostic completion is NOT
+full playback acceptance or repair of the existing failure.
+
+First diagnostica058af47-111c-4bb9-a4c2-7630f71d3145 completed09:23:15UTC.8native
+reads roughly every200ms took up to497ms and coincided with multi-second A/V
+separation; raw data/executed source retained via paired-native-clocks-heavy-directory.txt.
+Reduced reads to roughly once per second and recorded bounded stream metadata
+once while paused. Final sparse rund1f725f2-3238-4663-bbc9-e81fc6edec8d completed
+09:27:53UTC,1exact JUnit diagnostic identity passed in60.319seconds.9/9/10rows in
+initial/background/socket windows. Selected native video3840x1920 HEVC with
+hwdec-current=no: software decoding in a2virtual-core, software-graphics emulator.
+Initial video position trailed audio PTS by up to3630ms; post-background by3129ms;
+post-socket by353ms. Frame drop counters rose0→140 in the socket window. These
+readings point toward video decoding/rendering capacity in this environment,
+not merely a small clock/rate discrepancy. They do NOTprove the physical-device
+cause, actual frame presentation, unchanged-file comparison between runs or a
+specific production repair. Sparse measurements still have observer effects.
+No3%rate/clock/property/readiness/threshold tuning based on this emulator result.
+
+Current full acceptance remains FAILED0782308f. Diagnostic mainAPK byte-identical
+50a57d67..., testAPK1b5be6d99f0cd99835c29423e49bacc5e5cd3830d9d05bae39312f947f947ed7;
+Android126inputs aggregate6b2ee7e0... checked before/after, PC111main inputs
+unchanged. Host exit0, proof pairing/reverse/test cache removed, hidden emulator
+stopped/fresh serial absent/leases free. Exact raw rows/numeric-analysis.json,
+source checks/build/install/instrumentation/cleanup receipts via
+work/source-validation/paired-native-clocks-directory.txt. Scoped private
+account-bearing exceptiontrue, direct media/same-PC egress/local control;
+no user key/URL/log output, public tunnel retry or physical/WAN gate.
+
+Grounded harness improvement: both source-only TorBox native proof examples now
+share explicit optional torrent/file selection. TOGETHER_PROOF_TORRENT_ID plus
+TOGETHER_PROOF_FILE_ID must both be decimal unsigned integers, torrent positive.
+An unavailable explicit file fails; it never silently falls back to first ready.
+No selectors preserves existing first-ready behaviour, now labelled
+first_ready_legacy. PC-only JSON includes selection_mode; paired host emits only
+selected numeric IDs/mode, never names, URLs or keys. This avoids attributing a
+future performance comparison to the same media merely because inventory order
+was unchanged. Product selection, authority/grants and provider-create policy
+are untouched.5pure selection checks passed (reorder/exact file/no fallback/
+malformed+partial/boundaries/legacy coverage across5cases); both example non-test
+checks passed. New explicit selection integration compiled, NOTprovider-runtime
+exercised. Exact logs/source hashes via provider-proof-selection-directory.txt.
+
+No unchanged full provider retry, Alpha release package, Desktop/public APK/Worker
+publication or user/Twitch interaction. Both-app maintainability review kept
+sampling diagnostic-only and shares the two proof examples' selector; normal
+playback remains unchanged. Offered0.1.7, partial native corresponding-source
+inventory, physical two-hour gate and planning75%/35% unchanged. Next evidence
+should pin the exact canonical file and distinguish emulator software-4K capacity
+from a decoder-compatible path; do not present a lighter-file or VM-profile pass
+as repair of this original failure.
