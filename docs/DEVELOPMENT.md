@@ -5994,3 +5994,41 @@ APK/EXE build/provider/device/public publication involved. Local archive ignored
 source push contains metadata/docs only. Android source bundle immutable/unchanged,
 Twitch untouched, deliveryhold/physicalWAN/75%35% unchanged. No app loop/dependency
 or production playback change in this collection commit.
+
+## Actual Android updater Activity recreation — 15 October 2026
+
+Two new actual instrumentation cases passed in owned hidden/muted SidecarTest:
+production UpdateControls kept downloaded-state Install button after real
+MainActivity recreation, then real SHA256 verification rejected/deleted an
+invalid ordinary fixture and offered download again. Separate case deleted the
+owned UUID cache file before recreation and restored Download update directly.
+Tests seed only initial public metadata/cache basename through delegated Activity
+SaveableStateRegistry; provider registration delegates to the real owner, and
+recreated content uses the normal restored registry without reseeding. Test
+replaces Activity content with the production updater subtree, not its full
+normal page layout. No new production injection API, app code/dependency or loop.
+API29+ test-only lifecycle callback, explicit SdkSuppress; actual emulator ran both.
+
+Two earlier harness runs failed before initial Install update appeared: callback
+onActivityCreated ran inside super.onCreate, before MainActivity's setContent.
+Corrected postCreated based on official Android lifecycle API reference. Initial
+seed also corrected to actual Compose mutable-state wrapper, confirmed against
+pinned1.8.0 runtime bytecode. No production bug/fix claimed from these failures.
+Both initial cleanup receipts conservatively reported uncertain serial absence;
+subsequent separate read-only serial/process absence confirmations allowed own
+uncertain markers to be released under exclusive lock. Original failed receipts,
+test source copies/logs retained. Final owned runner waited boundedly for absence,
+confirmed process+serial stopped, released marker/lock. No unrelated process killed.
+
+Exact logs/initial-failed-history/final two identities/sourcehashes/run receipt via
+work/source-validation/update-restore-directory.txt. Main APK SHA256 remains
+bf0f8516e2c150520d0bb0c7373d5e3908b2db700ffc0a70af12936a78be7d62,
+byte-identical to internal9a candidate; only test APK differs. Source association
+includes new test hash over376176f baseline, no replacement release packaged.
+Current UpdateControls behavior already correct; this adds runtime evidence.
+No valid signed APK/download/permission-return/installer-confirmation/process-death
+or full-page/native/phone/WAN acceptance claim. Prior PackageManager upgrade proof
+remains separate. Public/Desktophold16Oct00:00IST and offered0.1.7 unchanged.
+Twitch untouched, no credentials/pairing-store changes/provider/tunnel test.
+Both-app review: desktop has public QR/link, no Android installer lifecycle; no
+speculative Windows abstraction or repeated native suite. Planning75%/35% unchanged.
