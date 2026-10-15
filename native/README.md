@@ -196,3 +196,14 @@ using its per-player CA, then direct readiness and both redirect failures. It
 removes its CA and awaits each player cleanup. Run only with an isolated owned
 fixture and existing muted instrumentation runner; never change system trust.
 Exact successful run and failed setup/build history are in DEVELOPMENT.
+
+
+Windows source preparation also retains fast_float, SPIRV-Tools and glslang at
+full revisions resolved from the exact x86_64 build log's fetched main-branch
+destinations. Pinned recipe/helper hashes, archive integrity and original notices
+are associated in WINDOWS-BUILD-INPUTS.json. These are three additional fetched
+source candidates, bringing that separate candidate list to six. They do not
+resolve the actual cached HEAD files, glad override, dirty libplacebo working
+tree or complete native dependency graph. Existing binary-attributed revisions
+and incomplete-graph flags are unchanged. Whole-archive hashes here establish
+local integrity, not independent upstream checksums or binary reproduction.

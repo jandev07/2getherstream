@@ -181,7 +181,49 @@
       "declared_git_ref": "main",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "build_log_source_candidate": {
+        "project": "fast_float",
+        "repository": "fastfloat/fast_float",
+        "fetch_branch": "main",
+        "fetch_log_evidence": [
+          {
+            "line": 3981,
+            "text": "Building mpv (x86_64)\tUNKNOWN STEP\t2026-10-07T00:01:53.9113588Z    f3f02c8..54571f8  main       -> origin/main"
+          }
+        ],
+        "upstream_commit": "54571f86e3a8124c39bc4765ff64d766b4e25efc",
+        "commit_endpoint": "https://api.github.com/repos/fastfloat/fast_float/commits/54571f8",
+        "independent_upstream_archive_checksum": false,
+        "evidence_kind": "x86_64 fetch-destination candidate, not cached HEAD or binary correspondence",
+        "original_notices": [
+          {
+            "member": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc/LICENSE-APACHE",
+            "sha256": "097a889aa954d04e088b790b10a4014d6189561d0a6013935a73ce3d4ddaaf06",
+            "notice_file": "third-party/native-components/fast_float/LICENSE-APACHE"
+          },
+          {
+            "member": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc/LICENSE-BOOST",
+            "sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b",
+            "notice_file": "third-party/native-components/fast_float/LICENSE-BOOST"
+          },
+          {
+            "member": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc/LICENSE-MIT",
+            "sha256": "e562f3f974ced7e69dd1db77b820b36bcf8f30377f1aa105723fba449c53c4e6",
+            "notice_file": "third-party/native-components/fast_float/LICENSE-MIT"
+          }
+        ],
+        "source_archive": "https://codeload.github.com/fastfloat/fast_float/tar.gz/54571f86e3a8124c39bc4765ff64d766b4e25efc",
+        "source_archive_file": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc.tar.gz",
+        "source_archive_bytes": 153810,
+        "source_archive_sha256": "ed041b6cc07d0af897a7cdf4c8640008d02b8528fb247416288c595375051298",
+        "configuration_sha256": "3781c52eb992b862eed0df9ea3b03884e9d7330b39cbe5be24858b732b85c2aa",
+        "binary_correspondence_verified": false,
+        "scope": "Fetched branch destination and exact pinned recipe only. Actual cached HEAD, final modified tree and binary source correspondence remain unverified.",
+        "build_helper_member": "cmake/custom_steps.cmake",
+        "build_helper_sha256": "b5dc88003f81d95e9a86c4befe1bac1472a4ec15c6d9a56a8bfd9c5fabf698a2",
+        "build_helper_observation": "Conditional reset/fetch and separate write-head file do not recover the actual HEAD or modified build tree from retained log."
+      }
     },
     {
       "project": "ffmpeg",
@@ -315,7 +357,39 @@
       "declared_git_ref": "main",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "build_log_source_candidate": {
+        "project": "glslang",
+        "repository": "KhronosGroup/glslang",
+        "fetch_branch": "main",
+        "fetch_log_evidence": [
+          {
+            "line": 3964,
+            "text": "Building mpv (x86_64)\tUNKNOWN STEP\t2026-10-07T00:01:53.9108639Z    8ba5ca7..e073523  main       -> origin/main"
+          }
+        ],
+        "upstream_commit": "e0735231e8b47da6df3c5be9e46c40fc93d2c824",
+        "commit_endpoint": "https://api.github.com/repos/KhronosGroup/glslang/commits/e073523",
+        "source_archive": "https://codeload.github.com/KhronosGroup/glslang/tar.gz/e0735231e8b47da6df3c5be9e46c40fc93d2c824",
+        "source_archive_file": "glslang-e0735231e8b47da6df3c5be9e46c40fc93d2c824.tar.gz",
+        "source_archive_bytes": 4674284,
+        "source_archive_sha256": "be2086d718bd37fa60ea1c77081941cd96451984b1495129ad91e0e158ff1a75",
+        "configuration_sha256": "164f4cef085f0224eb9b98eb7b4093880e5ad2ea4dba60bb00131f33f94a5d13",
+        "original_notices": [
+          {
+            "member": "glslang-e0735231e8b47da6df3c5be9e46c40fc93d2c824/LICENSE.txt",
+            "sha256": "17e70c676e1521ff3e4686f04a2053d93a7e28a33be8de7ec37ab0ff72feb677",
+            "notice_file": "third-party/native-components/windows-glslang/LICENSE.txt"
+          }
+        ],
+        "independent_upstream_archive_checksum": false,
+        "binary_correspondence_verified": false,
+        "evidence_kind": "x86_64 fetch-destination candidate, not cached HEAD or binary correspondence",
+        "scope": "Fetched branch destination and exact pinned recipe only. Actual cached HEAD, final modified tree and binary source correspondence remain unverified.",
+        "build_helper_member": "cmake/custom_steps.cmake",
+        "build_helper_sha256": "b5dc88003f81d95e9a86c4befe1bac1472a4ec15c6d9a56a8bfd9c5fabf698a2",
+        "build_helper_observation": "Conditional reset/fetch and separate write-head file do not recover the actual HEAD or modified build tree from retained log."
+      }
     },
     {
       "project": "gmp",
@@ -1274,7 +1348,39 @@
       "declared_git_ref": "main",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "build_log_source_candidate": {
+        "project": "spirv-tools",
+        "repository": "KhronosGroup/SPIRV-Tools",
+        "fetch_branch": "main",
+        "fetch_log_evidence": [
+          {
+            "line": 3958,
+            "text": "Building mpv (x86_64)\tUNKNOWN STEP\t2026-10-07T00:01:53.9107071Z    1ba1f5b..ce818d1  main       -> origin/main"
+          }
+        ],
+        "upstream_commit": "ce818d1f2db53916d89fa1fe0012237779480a9b",
+        "commit_endpoint": "https://api.github.com/repos/KhronosGroup/SPIRV-Tools/commits/ce818d1",
+        "source_archive": "https://codeload.github.com/KhronosGroup/SPIRV-Tools/tar.gz/ce818d1f2db53916d89fa1fe0012237779480a9b",
+        "source_archive_file": "spirv-tools-ce818d1f2db53916d89fa1fe0012237779480a9b.tar.gz",
+        "source_archive_bytes": 3577585,
+        "source_archive_sha256": "43cf40f25cbed6f4d977fc13c1e2ec3baefa449c8f5e9a2e0d1a8e92811a35fb",
+        "configuration_sha256": "3feb4110baa93cabded6564caba08bdce883fba93797fa40860bd3713271bfc8",
+        "original_notices": [
+          {
+            "member": "SPIRV-Tools-ce818d1f2db53916d89fa1fe0012237779480a9b/LICENSE",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "notice_file": "third-party/native-components/windows-spirv-tools/LICENSE"
+          }
+        ],
+        "independent_upstream_archive_checksum": false,
+        "binary_correspondence_verified": false,
+        "evidence_kind": "x86_64 fetch-destination candidate, not cached HEAD or binary correspondence",
+        "scope": "Fetched branch destination and exact pinned recipe only. Actual cached HEAD, final modified tree and binary source correspondence remain unverified.",
+        "build_helper_member": "cmake/custom_steps.cmake",
+        "build_helper_sha256": "b5dc88003f81d95e9a86c4befe1bac1472a4ec15c6d9a56a8bfd9c5fabf698a2",
+        "build_helper_observation": "Conditional reset/fetch and separate write-head file do not recover the actual HEAD or modified build tree from retained log."
+      }
     },
     {
       "project": "sqlite",
@@ -1542,7 +1648,10 @@
     "projects": [
       "freetype2",
       "harfbuzz",
-      "libjpeg"
+      "libjpeg",
+      "fast_float",
+      "spirv-tools",
+      "glslang"
     ],
     "build_log_sha256": "d1589d6b6d8d0e62dc3c911eb1b833091534ff0605fac30e98cb6ed2c8501d44",
     "evidence_kind": "x86_64 fetched branch destination plus pinned recipe, not actual cached HEAD/binary version attribution",

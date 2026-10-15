@@ -6838,3 +6838,47 @@ inventory, physical two-hour gate and planning75%/35% unchanged. Next evidence
 should pin the exact canonical file and distinguish emulator software-4K capacity
 from a decoder-compatible path; do not present a lighter-file or VM-profile pass
 as repair of this original failure.
+
+
+## Background source preparation; no new Alpha — 16 October 2026 IST
+
+Human explicitly requests continued development/GitHub commits while using Kosmi,
+with no new Alpha. Latest AGENTS section now persists background/no-focus/no-sound
+work, no Alpha packaging/publication merely because former calendar hold expired,
+and continued credential/ownership/network/public-tunnel restrictions. Twitch
+preserved if open. No app/emulator/window/provider/tunnel interaction this pass.
+
+Continued native corresponding-source preparation from exact retained Windows
+build recipes/log. New full source candidates: fast_float54571f86e3a8124c39bc4765ff64d766b4e25efc,
+SPIRV-Toolsce818d1 (full resolved hash in inventory), glslange073523 (full resolved
+hash in inventory). Total8405679bytes, three archives retained privately; API
+resolution/full SHA/pinned recipe and custom_steps helper hashes retained. Each
+candidate is tied to a unique x86_64 fetch-destination line, not actual cached
+HEAD or binary linkage. Existing three earlier candidates preserved; now six.
+Original5notice associations added, with byte-identical existing files reused
+where possible; two new original notice files.9binary revision associations and
+incomplete source-graph flags unchanged. Glad source override and dirty final
+libplacebo tree still unresolved; no source-distribution completion claim.
+
+Initial source collector rejected libiconv job evidence because it filtered out
+the long dependency-target command; failure/source retained, corrected. Detailed
+inventory then showed libiconv/libopenmpt/Xvid checksum archives were already
+retained under prefixed names. Those three sources are NOTnew progress: originals
+reused and only newly-created byte-identical duplicate copies removed after both
+hashes and workspace paths checked. Existing archives/history untouched. No
+repeat of previous compiler-cache cleanup. Exact initial filter failure, original
+collection, duplicate identity receipt and final association are in the immutable
+work/source-validation/windows-pinned-inputs-directory.txt target.
+
+Actual offline notice/archive verification passed74provenance records/62unique
+notice files/63exact original archive-member associations;11URL-only records stay
+unchecked. Prior69records preserved byte-for-byte as records; all original notice
+bytes verified, including line endings. New sources have local whole-file hashes,
+not separately published upstream checksums. No upstream build scripts executed,
+new application dependencies, playback-loop code, JNI/provider/physical/WAN proof,
+APK/EXE release build, public metadata/Worker/Desktop publication or user log/key
+changes. Existing timing failure0782308f remains failed; this source work does
+not fix software-4K decoding capacity. Offered0.1.7/planning75%/35% unchanged.
+Both-app maintainability scope remains unchanged; source preparation introduces
+no runtime code or polling. Continue meaningful source/core work under the new
+package hold, not unchanged native/provider retries or manufactured timing fixes.

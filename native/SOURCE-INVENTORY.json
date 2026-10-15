@@ -894,7 +894,10 @@
       "projects": [
         "freetype2",
         "harfbuzz",
-        "libjpeg"
+        "libjpeg",
+        "fast_float",
+        "spirv-tools",
+        "glslang"
       ],
       "binary_source_correspondence_verified": false,
       "scope": "Fetched branch destination source candidates; separate from nine binary-reported source associations. Actual cached HEAD/modified build tree remains unverified."

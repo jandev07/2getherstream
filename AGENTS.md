@@ -1,4 +1,15 @@
-# Latest human instructions — 15 October 2026 IST
+# Latest human instructions — 16 October 2026 IST
+
+The user explicitly says no new Alpha is needed; continue source development and
+push validated commits to GitHub. Do not build/package/publish another Alpha or
+deploy release metadata merely because the former calendar hold has elapsed.
+Source checks and owned hidden, player-muted validation remain authorized.
+The user is using Kosmi: background work only, no window opening/focus or sound.
+Never change system volume. Preserve the Twitch stream as well if still open;
+do not close, minimize or interact with either user session. Existing credential,
+ownership, network-adapter and blocked public-playback-tunnel restrictions remain.
+
+# Earlier human instructions — 15 October 2026 IST
 
 Development is ACTIVE while the user sleeps. Continue sustained, grounded source
 implementation and validation and push validated commits to the public GitHub

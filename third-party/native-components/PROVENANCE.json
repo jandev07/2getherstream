@@ -497,5 +497,45 @@
     "member": "libjpeg-turbo-3a0fd7c23e9161b3630240b8615eef054bf3ad83/README.ijg",
     "notice_file": "third-party/native-components/windows-libjpeg/README.ijg",
     "sha256": "75815e3bf6484201a3c3d17a1bbf10f2e8e3237f84df10a2357ea896db2a81d6"
+  },
+  {
+    "project": "Windows build-log source candidate: fast_float",
+    "source_archive": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc.tar.gz",
+    "source_commit": "54571f86e3a8124c39bc4765ff64d766b4e25efc",
+    "member": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc/LICENSE-APACHE",
+    "notice_file": "third-party/native-components/fast_float/LICENSE-APACHE",
+    "sha256": "097a889aa954d04e088b790b10a4014d6189561d0a6013935a73ce3d4ddaaf06"
+  },
+  {
+    "project": "Windows build-log source candidate: fast_float",
+    "source_archive": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc.tar.gz",
+    "source_commit": "54571f86e3a8124c39bc4765ff64d766b4e25efc",
+    "member": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc/LICENSE-BOOST",
+    "notice_file": "third-party/native-components/fast_float/LICENSE-BOOST",
+    "sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b"
+  },
+  {
+    "project": "Windows build-log source candidate: fast_float",
+    "source_archive": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc.tar.gz",
+    "source_commit": "54571f86e3a8124c39bc4765ff64d766b4e25efc",
+    "member": "fast_float-54571f86e3a8124c39bc4765ff64d766b4e25efc/LICENSE-MIT",
+    "notice_file": "third-party/native-components/fast_float/LICENSE-MIT",
+    "sha256": "e562f3f974ced7e69dd1db77b820b36bcf8f30377f1aa105723fba449c53c4e6"
+  },
+  {
+    "project": "Windows build-log source candidate: spirv-tools",
+    "source_archive": "spirv-tools-ce818d1f2db53916d89fa1fe0012237779480a9b.tar.gz",
+    "source_commit": "ce818d1f2db53916d89fa1fe0012237779480a9b",
+    "member": "SPIRV-Tools-ce818d1f2db53916d89fa1fe0012237779480a9b/LICENSE",
+    "notice_file": "third-party/native-components/windows-spirv-tools/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "project": "Windows build-log source candidate: glslang",
+    "source_archive": "glslang-e0735231e8b47da6df3c5be9e46c40fc93d2c824.tar.gz",
+    "source_commit": "e0735231e8b47da6df3c5be9e46c40fc93d2c824",
+    "member": "glslang-e0735231e8b47da6df3c5be9e46c40fc93d2c824/LICENSE.txt",
+    "notice_file": "third-party/native-components/windows-glslang/LICENSE.txt",
+    "sha256": "17e70c676e1521ff3e4686f04a2053d93a7e28a33be8de7ec37ab0ff72feb677"
   }
 ]
