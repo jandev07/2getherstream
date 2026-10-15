@@ -143,3 +143,11 @@ Kotlin source files match byte-exact. Its original root Apache license is retain
 under third-party/native-components/androidx-graphics-path/LICENSE.txt; original
 source files retain AOSP and embedded math code copyright headers. Source pin,
 module members and correspondence boundaries are in native/SOURCE-INVENTORY.json.
+
+
+Original LLVM libcxx, libcxxabi and libunwind LICENSE.TXT files are retained under
+third-party/native-components/ndk-*. The runtime source association and Android
+patch pins are recorded in native/SOURCE-INVENTORY.json. These licenses retain
+their original terms, including upstream exceptions; the project's root license
+does not replace them. Source collection and allocated-section correspondence do
+not assert a complete or reproducible NDK distribution.

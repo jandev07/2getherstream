@@ -84,3 +84,16 @@ the previously missing C++ source collection; no binary rebuild or exact NDK/
 toolchain correspondence is asserted. SOURCE-INVENTORY.json records the URLs,
 members and local integrity hashes. Android NDK/runtime material and Windows
 cached Git dependency revision evidence remain incomplete.
+
+
+NDK runtime association: official ndk-r29 selects clang-r563880c. Its published
+clang_source_info.md identifies LLVM base386af4a5c64ab75eaee2448dc38f2e34a40bfed0
+and Android build/patch revision1dab3288f660d43a6cb2479107e2b54b3ab0a2a1.
+Collected libcxx/libcxxabi/libunwind subtrees and Android build sources, retaining
+all46 listed patch inputs and original runtime licenses. All27 arm64 and26
+x86_64 allocated ELF sections match the attributed APK libc++ runtime in section
+names/types/flags/addresses/sizes/content. Whole-file hashes differ; no exact
+whole NDK package or source rebuild is claimed. Shared LLVM CMake/toolchain source
+assembly and unresolved Windows Git revisions remain open release work. These
+new notices/sources are later preparation records, not retroactively inserted
+into an already hashed candidate package.

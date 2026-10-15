@@ -5758,3 +5758,48 @@ No public APK/metadata/Worker/Desktop publication; offered0.1.7/publichold remai
 Twitch untouched. Next useful exact app boundary is final internal candidate
 including current SavedState/source-notices code; prior candidate proofs remain
 separate. No percentage/gate increase (75%35%, physical/WAN still open).
+
+
+## Exact internal candidate and NDK runtime source association — 15 October 2026
+
+Internal candidate20261014-235724-da8ec5de compiled9a299959. Windows embedded
+frontend check passed;164JVM tests/44suites/0failures0errors0skips; Android9/
+0.1.8-private-alpha, APKbf0f8516e2c150520d0bb0c7373d5e3908b2db700ffc0a70af12936a78be7d62.
+Same signer as offered0.1.7; all22 native objects match prior exact attribution,
+all34 then-current upstream notices byte-exact in package+sourceZIP, rootLICENSE
+present in both. Exact build/log/JUnit and artifact association via
+work/source-validation/final-internal-candidate-directory.txt and
+work/source-validation/final-internal-build-log.txt. Old offered artifacts kept.
+
+Actual hidden packaged startup, all12 Android native fixture cases and1 normal
+code-entry/save/restored-Activity pairing case PASSED together run
+30aa13d7-3782-457d-a212-6f3658f67c91 at00:02:31UTC15Oct. Exact own candidate/usability
+receipt and raw instrumentation retained; normal DPAPI host confirmed. Owned
+emulator serial absent, native runner absent/lockfree after completion; no forced
+host cleanup recorded. No real TorBox/provider rerun/WAN/physical acceptance.
+SavedState helper is included and its4JVM checks passed; actual updater permission
+return/download/installer flow and manual source-notices button remain unverified.
+Do not combine prior73ff archive/adb test with this UI claim. No public/download/
+Worker/Desktop delivery, no Twitch interaction or focused windows.
+
+While this native proof ran, independent read-only source work resolved official
+NDK-r29 clang-r563880c runtime references. Whole prebuilt libc++ files differ from
+APK files; retain that result. All allocated sections match exactly (27arm64,
+26x86_64, including names/types/flags/addresses/sizes/content). Official compiler
+source record pins LLVM386af4a5c64ab75eaee2448dc38f2e34a40bfed0 +Android build
+1dab3288f660d43a6cb2479107e2b54b3ab0a2a1. Collected libcxx/libcxxabi/libunwind and
+Android build source archives; all46 listed patch inputs present. Three original
+licenses retained;37 staged/committed upstream notice hashes checked. Exact
+work/alpha-source-material/ndk-r29-runtime-source-association.json and inventory
+include local hashes/comparison boundaries. Initial inspection looked for old
+builders.py root path; archive has src/llvm_android/builders.py, corrected without
+editing upstream. No compiler/NDK installed or settings changed.
+
+Source/runtime association is not whole SDK package or reproducible source build
+proof; shared LLVM CMake/toolchain assembly and Windows cached Git pins still
+pending. Source/notice additions occurred after candidate build: its34-notice
+package remains unchanged; final distribution needs these additional records
+without relabelling that old package. No app production change after compiled9a.
+Both-app proportional review found no additional justified loop optimization;
+no churn/dependency/threshold change. Public/Desktop hold16Oct00:00IST, offered
+0.1.7/privacy/network restrictions/blocked public tunnel/75%35% remain unchanged.

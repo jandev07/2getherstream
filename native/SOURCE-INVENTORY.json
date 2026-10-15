@@ -570,6 +570,270 @@
       ],
       "local_include_edges_checked": 10,
       "scope": "Official release-notes endpoint revision, all4 published Maven Kotlin files byte-exact, native C++/CMake/Gradle sources retained. Not a reproducible native binary rebuild or exact NDK/toolchain correspondence proof."
+    },
+    "ndk_runtime_source": {
+      "official_ndk_manifest": "https://android.googlesource.com/platform/manifest/+/refs/tags/ndk-r29",
+      "clang_version": "clang-r563880c",
+      "clang_source_info": "https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/refs/tags/ndk-r29/clang-r563880c/clang_source_info.md",
+      "llvm_base_revision": "386af4a5c64ab75eaee2448dc38f2e34a40bfed0",
+      "android_build_revision": "1dab3288f660d43a6cb2479107e2b54b3ab0a2a1",
+      "runtime_comparisons": [
+        {
+          "abi": "arm64-v8a",
+          "apk_bytes": 1813976,
+          "upstream_bytes": 9290184,
+          "allocated_sections": 27,
+          "allocated_section_differences": [],
+          "all_allocated_sections_equal": true,
+          "full_file_equal": false
+        },
+        {
+          "abi": "x86_64",
+          "apk_bytes": 1672288,
+          "upstream_bytes": 9015544,
+          "allocated_sections": 26,
+          "allocated_section_differences": [],
+          "all_allocated_sections_equal": true,
+          "full_file_equal": false
+        }
+      ],
+      "full_file_comparisons": [
+        {
+          "abi": "arm64-v8a",
+          "upstream_bytes": 9290184,
+          "upstream_sha256": "0c52cfab2df0d957d8b346a2bdc5ae8d71feca2591924d77e1cd724d5bf74352",
+          "apk_native_sha256": "7d32ac342ef0c04bd0ecb6215eb6af4de9932ff726a04294fb9d8534297bf9b3",
+          "match": false
+        },
+        {
+          "abi": "x86_64",
+          "upstream_bytes": 9015544,
+          "upstream_sha256": "e28cb9e0f456caf8498d0e8562b3ac3f73bf78c07555a52b5602396f240abec3",
+          "apk_native_sha256": "2927cb60d92ac09597dec19f1708ef4b73b746ce80a955e603a381234bcdc9f7",
+          "match": false
+        }
+      ],
+      "archives": [
+        {
+          "component": "libcxx",
+          "file": "ndk-r29-libcxx-source.tar.gz",
+          "bytes": 8796349,
+          "sha256": "974cf4ca61c50150cc2957d1d08ddc7323b78ef077df0bcf73ee764b18956c32",
+          "member_count": 11902,
+          "checksum_scope": "local integrity only"
+        },
+        {
+          "component": "libcxxabi",
+          "file": "ndk-r29-libcxxabi-source.tar.gz",
+          "bytes": 806260,
+          "sha256": "d4d79d394c0015333d8afc6b2f41483fa83515bdf6ccf16c282499bc4da95761",
+          "member_count": 158,
+          "checksum_scope": "local integrity only"
+        },
+        {
+          "component": "libunwind",
+          "file": "ndk-r29-libunwind-source.tar.gz",
+          "bytes": 167800,
+          "sha256": "4f4e3ced8c0170810c52b3010ac6e413da29e65fc9befbd58bd213440efb3b91",
+          "member_count": 71,
+          "checksum_scope": "local integrity only"
+        },
+        {
+          "component": "llvm-android-build",
+          "file": "ndk-r29-llvm-android-build-source.tar.gz",
+          "bytes": 343513,
+          "sha256": "58056ad61518d3284f1000214606657c0ece88e6cbed70e027f40d8eec4a8045",
+          "member_count": 195,
+          "checksum_scope": "local integrity only"
+        }
+      ],
+      "android_patch_inputs": [
+        {
+          "member": "patches/Add-cmake-c-cxx-asm-linker-flags-v2.patch",
+          "sha256": "e30dd1381197034099f6b84bf1a47f5ff2cf4c33948fe84cd55b1004f819fb91"
+        },
+        {
+          "member": "patches/Add-stubs-and-headers-for-nl_types-APIs-v2.patch",
+          "sha256": "8d348f8c2fb63952d587d3d46fd2cda6abfe5a2a9bc82a52ab4d2e5fc711e460"
+        },
+        {
+          "member": "patches/BOLT-Increase-max-allocation-size-to-allow-BOLTing-clang-and-rustc.patch",
+          "sha256": "f296dee815f856aefb4eefb736588cb9441940742c2d03d197a7f5c9e675695f"
+        },
+        {
+          "member": "patches/cherry/922f339c4ef3631f66dc4b8caa4c356103dbf69d.patch",
+          "sha256": "8ba446a44d7e27f111c8896b1195399085187d9172f3732581376edb59129a00"
+        },
+        {
+          "member": "patches/Disable-integer-sanitizer-for-__libcpp_blsr.patch",
+          "sha256": "83c392d2d95339b7988fb29d041aa9493c65ebd4a2ebf50a77102eaccd739d99"
+        },
+        {
+          "member": "patches/Disable-std-utilities-charconv-charconv.msvc-test.pa.patch",
+          "sha256": "a9883b3ca03633dd8fa375d53a163a60e1f79e3f4b9502a04cd069a7d3d0f0fd"
+        },
+        {
+          "member": "patches/Disable-vfork-fork-events-v2.patch",
+          "sha256": "af5a23bc75c5f59927341750139b639815abf882817cda492780384b26812d7f"
+        },
+        {
+          "member": "patches/cherry/935bc84158e933239047de69b9edc77969b5c70c.patch",
+          "sha256": "3f8e78a51ca4fdff92dc2fbc35e2f93b4e42c53390f98b04afb0593dc3c92881"
+        },
+        {
+          "member": "patches/cherry/488eeb3ae508221f8e476bbc9d2e9f014542862e.patch",
+          "sha256": "e31b8c6041380a1f18ec878197b8f34eb72e693ae6b78c36e6809fbe82557344"
+        },
+        {
+          "member": "patches/cherry/d8e8ab79773f739c602c5869f80c6c5b5962c558.patch",
+          "sha256": "ba3ef7b95149a39d9a8b92826e33d1516e8b307b2cd2a0debb041821067a5178"
+        },
+        {
+          "member": "patches/cherry/0227396417d4625bc93affdd8957ff8d90c76299.patch",
+          "sha256": "7c2b19e7359dae295019b07deaa6b01f8ebeb34660a8873ee1ef03b85210e41c"
+        },
+        {
+          "member": "patches/cherry/183acdd27985afd332463e3d9fd4a2ca46d85cf1.patch",
+          "sha256": "d5b72da309903a4419fea9627731a4e0e8830920ceab9752fb652ff947a1e5a4"
+        },
+        {
+          "member": "patches/Revert-Driver-Allow-target-override-containing-.-in-executable-name-v2.patch",
+          "sha256": "0aa4e90dff039eec1c942f8704d63377eb50bb3c70379b25868f95fd5dcfc883"
+        },
+        {
+          "member": "patches/Revert-Recommit-DAGCombiner-Transform-icmp-eq-ne-and.patch",
+          "sha256": "fef9c036716421b14ea34759659d2d71f5007ea7ebf57848b817320ab28c4e80"
+        },
+        {
+          "member": "patches/Revert-libc-Don-t-implement-stdatomic.h-before-C-23-.patch",
+          "sha256": "74a2114d501f724eb7c580f97afba6b44c70b5ae211f8f6dca22667b7f8d660b"
+        },
+        {
+          "member": "patches/cherry/6c78dedc14e7431aa0dd92b9dd8d35bed3e0ed7d.patch",
+          "sha256": "02a3a30313a51194510b8ec52717d400784ab53b523a4f5ebbcf56fb6f549445"
+        },
+        {
+          "member": "patches/cherry/ff85dbdf6b399eac7bffa13e579f0f5e6edac3c0.patch",
+          "sha256": "14d2fa0fd9dfb5e1f567e94da2508f5eb8c751532922ab6a1aa5661462cd28d8"
+        },
+        {
+          "member": "patches/cherry/c7995a6905f2320f280013454676f992a8c6f89f.patch",
+          "sha256": "2f4f32a6f6de9d7da3508eb39b15409038d1ce33b395e56b8fe559fb04070d2e"
+        },
+        {
+          "member": "patches/cherry/2c43479683651f0eb208c97bf12e49bacbea4e6f.patch",
+          "sha256": "2c0fe8c4e19aae2628787f40b61b4ef0e530f8db8ae2b58f0faa9d5d780f4145"
+        },
+        {
+          "member": "patches/cherry/bf7af2d12e3bb8c7bc322ed1c5bf4e9904ad409c.patch",
+          "sha256": "abc83a557879988089e801dce16ace1c901cd1de7f90551bc29dcec8fde1db5f"
+        },
+        {
+          "member": "patches/cherry/107260cc29368070bba815d94f9d5b7cec1df7d0.patch",
+          "sha256": "a669c42a7100b2d44bf1ed837abdc797422bbe18f5890d4b38759b12f26e705f"
+        },
+        {
+          "member": "patches/cherry/8c7a2ce01a77c96028fe2c8566f65c45ad9408d3.patch",
+          "sha256": "e17c7700da88d46dc717f7f1963e1c5edc45f912376c3a94c2d3c31b50795616"
+        },
+        {
+          "member": "patches/cherry/b5cf03033251a642b184b2e0ea6bdac171c17702.patch",
+          "sha256": "1a7c26306f4f1481e9ca3912d792341a0e781be4eca21950acc3b22b1c81a0f6"
+        },
+        {
+          "member": "patches/cherry/86cf4ed7e9510a6828e95e8b36893eec116c9cf9-v2.patch",
+          "sha256": "e83a989e89e1e194f79ba05aedeff41577941a72dad011802b1fbcbc28cdf396"
+        },
+        {
+          "member": "patches/cherry/b8d1f3d62746110ff0c969a136fc15f1d52f811d.patch",
+          "sha256": "313d22d8421670d4d783ca506cb1a36813527c41103674b07a7f366ab26f25df"
+        },
+        {
+          "member": "patches/cherry/27757fb87429c89a65bb5e1f619ad700928db0fd.patch",
+          "sha256": "663c72a1d7989b60c3d07cb977585490e0aa08fb22d72989a32cc1a29cdec03c"
+        },
+        {
+          "member": "patches/cherry/8957e64a20fc7f4277565c6cfe3e555c119783ce.patch",
+          "sha256": "f3f77ab94569ca8c847a20ef51fae9d6164132e7ea3168ea69755d09b31fa1bf"
+        },
+        {
+          "member": "patches/cherry/a76cf062a57097ad7971325551854bd5f3d38d94.patch",
+          "sha256": "7d4a2f5fa51ba666f3785dd58ede673c0b4a6693d4b80196c18d9b8d65e34274"
+        },
+        {
+          "member": "patches/cherry/9725595f3acc0c1aaa354e15ac4ee2b1f8ff4cc9.patch",
+          "sha256": "94bc91debccbba98ce4e0428306257a2ed31e29ec386100447de35da8d140a00"
+        },
+        {
+          "member": "patches/cherry/ba476d0b83dc8a4bbf066dc02a0f73ded27114f0.patch",
+          "sha256": "ab6d1e346539a64bca30a46b9a59d79ca886efeb099c911ab0994435dd734b11"
+        },
+        {
+          "member": "patches/cherry/9ed4c705ac1c5c8797f328694f6cd22fbcdae03b.patch",
+          "sha256": "4abf2d5326a1be3e8253134b44cfd3102b59fafd282a37e4baf8e58e65e7aace"
+        },
+        {
+          "member": "patches/cherry/6bac20b391edce2bde348e59f5be2143157304b5.patch",
+          "sha256": "f61af11880ae52b1edbcba00df84403d6bcb43bb3b25585cc0519a1ed7c713ff"
+        },
+        {
+          "member": "patches/cherry/5da9044c40840187330526ca888290a95927a629.patch",
+          "sha256": "bda32804402c1a28c3b90b2b91d19c062f5d94727aedb7a46c721b9c59b38ea1"
+        },
+        {
+          "member": "patches/cherry/30f3752e54fa7cd595a434a985efbe9a7abe9b65.patch",
+          "sha256": "3c1571745630e92ead54472c6b1781e4bd7b0ba24193ed6e57c562a1d3de04e6"
+        },
+        {
+          "member": "patches/cherry/8b3d4bdf8bade1d1faa8ff3fcbdda7060f8b46d8.patch",
+          "sha256": "c7adda9d8d65069607f718078393c5328ab43a4a774bfbfbb3e7afb94c4dc842"
+        },
+        {
+          "member": "patches/cherry/2a83cf5d0e592890f74c5d5ff4a30ae4cf54b61b.patch",
+          "sha256": "c2b7ed8cd56ba65bfda2aa1821c9200eb747563d500e1a7cf660982bd1650758"
+        },
+        {
+          "member": "patches/cherry/ccb08b9dab7d829f8d9703d8b46b98e2d6717d0e.patch",
+          "sha256": "f8d5b11c61d827ec44e207e7f940fd81aa87619b58ed59b99b3a202d51f6bebb"
+        },
+        {
+          "member": "patches/cherry/13fe07d670e8a115929c9e595c4490ef5c75f583.patch",
+          "sha256": "5836dbd95212aa195eb0f86398b94196c9dcb324cb70cd0cb624ae57f8de50a9"
+        },
+        {
+          "member": "patches/cherry/f5e687d7bf49cd9fe38ba7acdeb52d4f30468dee.patch",
+          "sha256": "5d72ce3c080ab4553d6ef992a32d98ab1794c310a37c1714dc16414a93409910"
+        },
+        {
+          "member": "patches/cherry/769c42f4a552a75c8c38870ddc1b50d2ea874e4e.patch",
+          "sha256": "2ee2edd4d52cedec2a72c782a31f1f776bb000c6b6ed7110d8cdf3fa1667eab5"
+        },
+        {
+          "member": "patches/cherry/bcfd9f81e1bc9954d616ffbb8625099916bebd5b.patch",
+          "sha256": "05d66a899ed27cb760c31176373540181c2962e0d3c927ad5da90c2c15728bd5"
+        },
+        {
+          "member": "patches/cherry/f00b32e2d0ee666d32f1ddd0c687e269fab95b44.patch",
+          "sha256": "1d492b1ba623abcd767faca0dd49b7c3e90d332c39de4a0830fc414d239bb540"
+        },
+        {
+          "member": "patches/cherry/a27f3b2bb137001735949549354aff89dbf227f4.patch",
+          "sha256": "39904b1370303bb4044a6555e08b0424a773b32a5c0d12e7f2a3fe808e0f9105"
+        },
+        {
+          "member": "patches/cherry/8389d6fad76bd880f02bddce7f0f2612ff0afc40.patch",
+          "sha256": "59dd711e827a2e2207b23cb96ec64e1bdd5907e121cb5baf9c54ba09a6b45f9d"
+        },
+        {
+          "member": "patches/compiler-rt-Allow-finding-LLVMConfig-if-CMAKE_FIND_ROOT_PATH_MODE_PACKAGE-is-set-to-ONLY.patch",
+          "sha256": "3e1e2a5cec77206efb39c0c90d5ab692abbfb26d9f169fed8025ae7a76e1491c"
+        },
+        {
+          "member": "patches/move-cxa-demangle-into-libcxxdemangle.patch",
+          "sha256": "6a8879953b2133491d4bc6be97332d4d031b837e0175227969f4ef7f7d6ef8b9"
+        }
+      ],
+      "scope": "Both APK runtimes have all allocated ELF section names/types/flags/addresses/sizes/content equal to the official ndk-r29 clang-r563880c prebuilts. Whole files differ. This is not an exact whole NDK SDK package match or a runtime source rebuild; LLVM shared CMake/toolchain inputs remain release preparation work."
     }
   },
   "windows": {
