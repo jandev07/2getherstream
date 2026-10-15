@@ -30,11 +30,11 @@ $output=Join-Path $candidate "usability-$run"
 New-Item -ItemType Directory -Path $output | Out-Null
 $marker="$TogetherRoot/work/native-proof-running.json"
 $receipt=[ordered]@{run_id=$run;candidate_id=$CandidateId;status='running';phase='instrumentation_build';rendered_frontend_verified=$false;physical_release_gate_satisfied=$false;scope='hidden_windows_and_android_emulator_fixture';runner_pid=$PID;runner_started_utc=(Get-Process -Id $PID).StartTime.ToUniversalTime().ToString('o')}
-$hostProcess=$null;$emulatorProcess=$null;$reverseOwned=$false
+$hostProcess=$null;$emulatorProcess=$null;$reverseOwned=$false;$emulatorStopped=$true
 try {
  $receipt | ConvertTo-Json | Set-Content $marker
  if(Get-NetTCPConnection -LocalPort 47822 -State Listen -ErrorAction SilentlyContinue){throw 'Isolated host port occupied'}
- if((& $adb devices) -match '^emulator-5580\s'){throw 'Emulator already present; preserve its owner'}
+ if(!(Test-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)){throw 'Emulator inventory occupied or uncertain; preserve its owner'}
  Push-Location "$TogetherRoot/apps/android"
  try {& ./gradlew.bat --no-daemon --max-workers=1 --init-script "$candidate/candidate.init.gradle" :app:assembleDebugAndroidTest *> "$output/instrumentation-build.log";if($LASTEXITCODE){throw 'Instrumentation build failed'}} finally {Pop-Location}
  $env:ANDROID_AVD_HOME='C:\Users\astro\Documents\Codex\2026-10-06\new-chat\Sidecar\tools\avd'
@@ -105,12 +105,21 @@ finally {
  }
  if($hostProcess -and !$hostProcess.HasExited){New-Item -ItemType File "$appRoot/work/startup-proof-stop.txt" -Force | Out-Null;if(!$hostProcess.WaitForExit(15000)){$hostProcess.Kill();$hostProcess.WaitForExit();$receipt.forced_owned_host_cleanup=$true}}
  if($reverseOwned){& $adb -s $serial shell run-as app.together.v2 rm -f files/proof-pairing.json 2>$null;& $adb -s $serial reverse --remove tcp:47820 2>$null}
- if($emulatorProcess -and !$emulatorProcess.HasExited){& $adb -s $serial emu kill *> "$output/emulator-stop.log";$null=$emulatorProcess.WaitForExit(15000)}
+ if($emulatorProcess){
+  if(!$emulatorProcess.HasExited){Invoke-AndroidProofCommand -Adb $adb -Arguments @('-s',$serial,'emu','kill') | Set-Content "$output/emulator-stop.log";$null=$emulatorProcess.WaitForExit(15000)}
+  $emulatorStopped=$emulatorProcess.HasExited -and (Test-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)
+  $receipt.emulator_stopped=$emulatorStopped
+  if(!$emulatorStopped){$receipt.status='failed';$receipt.cleanup_uncertain=$true}
+ }
  $receipt.completed_utc=[datetime]::UtcNow.ToString('o')
  $receipt | ConvertTo-Json -Depth 8 | Set-Content "$output/receipt.json"
  $receipt | ConvertTo-Json -Depth 8 | Set-Content "$TogetherRoot/work/alpha-usability-last-run.json"
- if(Test-Path $marker){$owner=Get-Content $marker -Raw | ConvertFrom-Json;if($owner.run_id -ceq $run){Remove-Item $marker}}
+ if(Test-Path $marker){$owner=Get-Content $marker -Raw | ConvertFrom-Json;if($owner.run_id -ceq $run){
+  if($emulatorStopped){Remove-Item -LiteralPath $marker}
+  else{@{run_id=$run;runner_pid=$null;runner_started_utc=$null;original_runner_pid=$PID;resource_owner='unverified_after_owned_emulator_stop'}|ConvertTo-Json|Set-Content $marker}
+ }}
  foreach($name in $proofEnvironment.Keys){[Environment]::SetEnvironmentVariable($name,$proofEnvironment[$name],'Process')}
  $lease.Dispose()
 }
 $receipt | ConvertTo-Json -Depth 8
+if($receipt.status -ne 'passed'){throw 'Alpha usability proof failed; immutable history retained'}

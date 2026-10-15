@@ -47,8 +47,7 @@ try {
  $receipt.payloads=@(foreach($item in @($lower,$higher,$tests)){[ordered]@{file=[IO.Path]::GetRelativePath($output,$item);sha256=(Get-FileHash $item).Hash.ToLowerInvariant()}})
  $aapt=Join-Path $env:ANDROID_HOME 'build-tools/35.0.0/aapt.exe'
  foreach($pair in @(@($lower,8),@($higher,9))){$identity=@(& $aapt dump badging $pair[0])[0];if($LASTEXITCODE -or $identity -notmatch "name='app\.together\.v2' versionCode='$($pair[1])'"){throw 'Validation APK version identity mismatch'}}
- $devices=@(& $adb devices);if($LASTEXITCODE -ne 0){throw 'Device inventory unavailable; preserve uncertain ownership'}
- if($devices -match '^emulator-5580\s'){throw 'Existing emulator ownership must be preserved'}
+ if(!(Test-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)){throw 'Device inventory occupied or uncertain; preserve ownership'}
  $env:ANDROID_AVD_HOME='C:\Users\astro\Documents\Codex\2026-10-06\new-chat\Sidecar\tools\avd'
  Save-Phase 'emulator_boot'
  $emulatorProcess=Start-Process $emulator -ArgumentList '-avd','SidecarTest','-port','5580','-no-window','-no-audio','-no-snapshot-save','-cores','2','-gpu','swiftshader_indirect' -WindowStyle Hidden -PassThru -RedirectStandardOutput "$output/emulator.stdout.log" -RedirectStandardError "$output/emulator.stderr.log"
@@ -78,12 +77,11 @@ finally {
   & $adb -s $serial shell rm -f $remote *> "$output/stage-cleanup.log"
  }
  if($emulatorProcess){
-  & $adb -s $serial emu kill *> "$output/emulator-stop.log"
+  if(!$emulatorProcess.HasExited){Invoke-AndroidProofCommand -Adb $adb -Arguments @('-s',$serial,'emu','kill') | Set-Content "$output/emulator-stop.log"}
   if(!$emulatorProcess.HasExited -and !$emulatorProcess.WaitForExit(15000)){
    $emulatorProcess.Kill($true);$null=$emulatorProcess.WaitForExit(5000);$receipt.forced_owned_emulator_cleanup=$true
   }
-  $devices=@(& $adb devices)
-  $emulatorStopped=($LASTEXITCODE -eq 0) -and -not [bool]($devices -match '^emulator-5580\s')
+  $emulatorStopped=$emulatorProcess.HasExited -and (Test-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)
   $receipt.emulator_stopped=$emulatorStopped
   if(!$emulatorStopped){$receipt.status='failed';$receipt.cleanup_uncertain=$true}
  }

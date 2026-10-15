@@ -1,13 +1,14 @@
-# Bounded read-only checks. Device transport alone does not imply APK readiness.
-function Invoke-AndroidProofReadyCommand {
-    param([string]$Adb,[string]$Serial,[string[]]$Arguments)
+# Bounded proof commands and read-only readiness/inventory checks. Mutating
+# requests require the caller's existing native ownership. Transport is not APK readiness.
+function Invoke-AndroidProofCommand {
+    param([string]$Adb,[string[]]$Arguments)
     $TogetherInfo=[Diagnostics.ProcessStartInfo]::new()
     $TogetherInfo.FileName=$Adb
     $TogetherInfo.UseShellExecute=$false
     $TogetherInfo.CreateNoWindow=$true
     $TogetherInfo.RedirectStandardOutput=$true
     $TogetherInfo.RedirectStandardError=$true
-    foreach($TogetherArgument in (@('-s',$Serial,'shell')+$Arguments)){$TogetherInfo.ArgumentList.Add($TogetherArgument)}
+    foreach($TogetherArgument in $Arguments){$TogetherInfo.ArgumentList.Add($TogetherArgument)}
     $TogetherChild=[Diagnostics.Process]::new()
     $TogetherChild.StartInfo=$TogetherInfo
     try {
@@ -21,6 +22,18 @@ function Invoke-AndroidProofReadyCommand {
         if($TogetherChild.ExitCode -ne 0){return $null}
         return $TogetherOutput.GetAwaiter().GetResult().Trim()
     }catch{return $null}finally{$TogetherChild.Dispose()}
+}
+function Invoke-AndroidProofReadyCommand {
+    param([string]$Adb,[string]$Serial,[string[]]$Arguments)
+    Invoke-AndroidProofCommand -Adb $Adb -Arguments (@('-s',$Serial,'shell')+$Arguments)
+}
+function Test-AndroidProofEmulatorAbsent {
+    param([Parameter(Mandatory)][string]$Adb,[Parameter(Mandatory)][string]$Serial)
+    if($Serial -notmatch '^emulator-\d+$'){throw 'Device absence accepts an isolated emulator only'}
+    $TogetherDevices=Invoke-AndroidProofCommand -Adb $Adb -Arguments @('devices')
+    if($null -eq $TogetherDevices){return $false}
+    # Failed/timed-out inventory and an offline owned device both reserve resources.
+    return -not [bool](($TogetherDevices -split "`r?`n") -match ('^'+[regex]::Escape($Serial)+'\s'))
 }
 function Wait-AndroidProofReady {
     param([Parameter(Mandatory)][string]$Adb,[Parameter(Mandatory)][string]$Serial,

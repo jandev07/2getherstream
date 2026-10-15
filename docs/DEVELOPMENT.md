@@ -5864,3 +5864,44 @@ No public Worker/APK/metadata/Desktop publication; source push only. Latestcandi
 9a299959/30aa13d7 historical proof unchanged, offered0.1.7 preserved. Publichold,
 physical/WAN gates and75%35% unchanged. No application loop optimization justified
 by this failure; no speculative playback change added.
+
+
+## Native proof cleanup ownership — 15 October 2026, continued connected pass
+
+Actual Test-AlphaUsability finally-block fixture reproduced ownership marker
+removal while device absence was unverified. No real failed emulator stop/hang
+reproduced; source execution uses controlled process/device outcomes in isolated
+temporary work dirs. Cleanup now requires both owned process exit and confirmed
+serial absence; otherwise statusfailed/cleanup_uncertain and an explicitly
+unverified resource marker preserve binaries/APK/emulator/reverse for review.
+Unsuccessful runner also exits with fixed failure rather than JSON-only success.
+Before-launch inventory likewise refuses unknown/occupied serials.
+
+Reuse existing3second child-process command owner for readiness, bounded devices
+inventory and owned-serial stop requests. Failed/timed-out client or offline
+serial is never absence. Only that launched adb client is reaped on timeout;
+never the adb server or unrelated device. UpdateArchive runner reuses same helper,
+checks process exit too, and avoids sending stop to an already-exited launcher's
+serial. Controlled CURRENT old archive guard (without process-exit fence) dropped
+marker while fixture process stayed live/serial absent; failure preserved/fixed.
+No change to its previously recorded actual upgrade tests or old receipts.
+
+Three actual cleanup-AST cases per runner (6total) passed: exited+unknown serial,
+exited+absent serial, still-live process despite claimed absent serial.8actual
+harmless Python child stdout/exit cases +physical-serial admission passed. Existing
+readiness compatibility and actual3second owned-child timeout/missing-executable
+checks passed after common command extraction.5modified scripts parsed. No adb
+server/emulator/user-device/native player/build/install/provider/WAN test run.
+Exact source hashes/logs/baseline copies/receipt via
+work/source-validation/alpha-cleanup-directory.txt. First expected baseline throw
+was visible in tool output but redirected fileempty; captured same original
+finally failure in a child process for retained log. One interactive invocation
+used emptyPSScriptRoot before tests; corrected explicit workspace path, not an
+app/native regression. Actual cleanup cases do not claim GPU/driver hang evidence.
+
+Twitch untouched, offered0.1.7/latestcandidate9a proof unchanged, no public/Desktop
+release. App/source/archive payloads not rebuilt; no app deps/loop/poll/schema
+change. Existing lease/marker ownership reused, no new coordinator. Worker patch
+37b04a1 already pushed separately in this session. Native/control owners free/
+absent; publichold/physicalWAN/75%35% unchanged. Source commits through guarded
+publisher; partial source bundle/Windows cached Git provenance gate still open.
