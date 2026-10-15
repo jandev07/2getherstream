@@ -6882,3 +6882,35 @@ not fix software-4K decoding capacity. Offered0.1.7/planning75%/35% unchanged.
 Both-app maintainability scope remains unchanged; source preparation introduces
 no runtime code or polling. Continue meaningful source/core work under the new
 package hold, not unchanged native/provider retries or manufactured timing fixes.
+
+
+## Windows surface scroll positioning and event pressure — 16 October 2026
+
+Current component baseline reproduced two distinct issues: negative DOM viewport
+coordinates clamped to0 instead of native child position, and100same-frame/held
+scroll events admitted101video_bounds requests. Deferred old failure also wrote
+feedback after newer geometry/cleanup. Microsoft Window Features positioning
+rules confirm child coordinates are parent-client relative and portions outside
+the parent are clipped: https://learn.microsoft.com/en-us/windows/win32/winmsg/window-features.
+No upstream code copied. Existing native surface is WS_CHILD; keep negative
+positions, not clamp it to the viewport top. Backend now admits bounded negative
+x/y while preserving finite/size limits and nonnegative dimensions.
+
+Component batches geometry at the next animation frame, admits one in-flight IPC
+plus one latest request, reads latest geometry when actually submitting, suppresses
+obsolete/after-cleanup failure writes and cancels pending frame on cleanup. No new
+loop/timer/dependency, stream/player API or authority change. Acknowledged IPC
+means the native move was queued on Main, not that a presented frame was observed.
+No change to the actual MoveWindow call or existing DPI scaling.
+
+9actual mounted component-script checks passed after6of9failed against original
+source; includes negative coordinates,100eventbursts, held IPC/latestgeometry,
+hidden0size, failure/retry, obsolete failure, cleanup and completion-turn arrivals.
+2focused Rust geometry checks passed/65others filtered; non-test Windows check
+and Svelte0errors0warnings passed. Stubbed frame/events/deferredIPC, NOTrendered
+DOM/Tauri/Win32 positioning or native video acceptance. No new EXE/Alpha package,
+window focus, sound, provider/emulator/public tunnel or user log/key changes.
+Exact baseline source/failures/final logs/hashes via
+work/source-validation/video-surface-bounds-directory.txt. Previous Android timing
+failure and75%/35% planning remain unchanged. This commit is a checkpoint; continue
+connected implementation/validation rather than ending development at the commit.

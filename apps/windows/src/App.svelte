@@ -121,10 +121,25 @@ onMount(()=>{
  if(pairingCode && (phoneConnected() || Date.now()-pairingOpened>=300000))pairingCode='';
  if(startupProof && !startupReported && next.initialized && !next.error && !error){const text=document.querySelector('main')?.textContent ?? '';const rendered=document.querySelectorAll('main button').length>=8 && text.includes('Stremio') && text.includes('TorBox') && text.includes('gether');startupReported=await invoke<boolean>('startup_frontend_ready',{rendered})}
  }}catch(e){if(!stopped)error=String(e)}finally{refreshing=false}}
- const bounds=()=>{const r=surface.getBoundingClientRect();void invoke('video_bounds',{x:Math.max(0,r.x),y:Math.max(0,r.y),width:r.width,height:r.height}).catch(e=>{error=String(e)})};
+ let boundsFrame:number|null=null;let boundsBusy=false;let boundsAgain=false;
+ const bounds=()=>{
+  if(stopped)return;
+  boundsAgain=true;
+  if(boundsFrame!==null || boundsBusy)return;
+  boundsFrame=requestAnimationFrame(()=>{
+   boundsFrame=null;if(stopped)return;
+   boundsAgain=false;boundsBusy=true;
+   const r=surface.getBoundingClientRect();
+   // Child-window coordinates may be negative when the page scrolls. Windows
+   // clips the native surface to its parent; clamping would pin it to the top.
+   void invoke('video_bounds',{x:r.x,y:r.y,width:r.width,height:r.height})
+    .catch(e=>{if(!stopped && !boundsAgain)error=String(e)})
+    .finally(()=>{boundsBusy=false;if(!stopped && boundsAgain)bounds()});
+  });
+ };
  const observer=new ResizeObserver(bounds);observer.observe(surface);window.addEventListener('resize',bounds);window.addEventListener('scroll',bounds);
  bounds();void refresh();const timer=setInterval(()=>void refresh(),250);
- return ()=>{stopped=true;clearInterval(timer);observer.disconnect();window.removeEventListener('resize',bounds);window.removeEventListener('scroll',bounds)};
+ return ()=>{stopped=true;if(boundsFrame!==null)cancelAnimationFrame(boundsFrame);clearInterval(timer);observer.disconnect();window.removeEventListener('resize',bounds);window.removeEventListener('scroll',bounds)};
 });
 </script>
 <svelte:head><title>2gether · Watch together</title></svelte:head>

@@ -131,9 +131,34 @@ async fn player_intent(host: tauri::State<'_, Arc<Host>>, intent: String, positi
     let expected=if intent=="seek" {Some(generation.ok_or("Missing seek generation")?)} else {None};
     host.local_pc(expected,action).await.map_err(String::from)
 }
+fn valid_video_bounds(x:f64,y:f64,width:f64,height:f64)->bool {
+    [x,y].iter().all(|n| n.is_finite() && n.abs()<=10000.0) &&
+    [width,height].iter().all(|n| n.is_finite() && *n>=0.0 && *n<=10000.0)
+}
+#[cfg(test)]
+mod video_bounds_tests {
+    use super::valid_video_bounds;
+    #[test]
+    fn scrolled_child_coordinates_are_valid() {
+        assert!(valid_video_bounds(-15.0,-120.0,640.0,360.0));
+        assert!(valid_video_bounds(-10000.0,10000.0,10000.0,0.0));
+        assert!(valid_video_bounds(0.0,0.0,0.0,0.0));
+    }
+    #[test]
+    fn invalid_geometry_stays_rejected() {
+        for bad in [f64::NAN,f64::INFINITY,f64::NEG_INFINITY,-10001.0,10001.0] {
+            assert!(!valid_video_bounds(bad,0.0,640.0,360.0));
+            assert!(!valid_video_bounds(0.0,bad,640.0,360.0));
+        }
+        for bad in [f64::NAN,f64::INFINITY,f64::NEG_INFINITY,-1.0,10001.0] {
+            assert!(!valid_video_bounds(0.0,0.0,bad,360.0));
+            assert!(!valid_video_bounds(0.0,0.0,640.0,bad));
+        }
+    }
+}
 #[tauri::command]
 fn video_bounds(window: tauri::WebviewWindow, player: tauri::State<'_,player::PlayerController>, x: f64, y: f64, width: f64, height: f64) -> Result<(),String> {
-    if [x,y,width,height].iter().any(|n| !n.is_finite() || *n < 0.0 || *n > 10000.0) { return Err("Invalid bounds".into()); }
+    if !valid_video_bounds(x,y,width,height) { return Err("Invalid bounds".into()); }
     let scale = window.scale_factor().map_err(|_| "Window scale unavailable")?;
     let hwnd = player.hwnd;
     window.run_on_main_thread(move || unsafe {
