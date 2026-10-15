@@ -645,6 +645,34 @@
           "sha256": "58056ad61518d3284f1000214606657c0ece88e6cbed70e027f40d8eec4a8045",
           "member_count": 195,
           "checksum_scope": "local integrity only"
+        },
+        {
+          "component": "llvm-project-full",
+          "file": "ndk-r29-llvm-project-full-source.tar.gz",
+          "url": "https://codeload.github.com/llvm/llvm-project/tar.gz/386af4a5c64ab75eaee2448dc38f2e34a40bfed0",
+          "revision": "386af4a5c64ab75eaee2448dc38f2e34a40bfed0",
+          "bytes": 226737667,
+          "sha256": "4b752a2dfb5e4e55cf9812a353bce7e437e0852f4eef64929f48d74732080c50",
+          "build_members_checked": {
+            "cmake/Modules/LLVMCheckCompilerLinkerFlag.cmake": "2d5010dd396347aff95c43e60b74be8e31b56cf56fccd2dc19a0ccccb0e8f8e3",
+            "compiler-rt/lib/builtins/CMakeLists.txt": "ce9b813854d0737a06a458d4af6e45695defc1f178afc2c65d26595152d3bd33",
+            "libcxx/CMakeLists.txt": "53c606160434f725ca13afa1767541bdff7fc7e94cf388e52bd9141af6901775",
+            "libcxxabi/CMakeLists.txt": "62d56cb5333cd67f07a9e4f4e86157eb0f0607d8659908c06165d8724ae0cd79",
+            "libunwind/CMakeLists.txt": "ed70d81118de190be6784139561f000864a4bd57baed53cb2a3bcfb74a051766",
+            "llvm/cmake/modules/HandleLLVMOptions.cmake": "ff6b31111c0594e75ac803ccde968bb992a6ac92cf4006a8fd9bbac6cd8a4be0",
+            "runtimes/CMakeLists.txt": "83bb6000f3a128b6faa05d0c914775d1c57c40855695b3757060bfb5bc037700"
+          },
+          "root_gitmodules": [],
+          "checksum_scope": "local integrity only; source archive from exact upstream commit"
+        },
+        {
+          "component": "ndk-build",
+          "file": "ndk-r29-build-source.tar.gz",
+          "url": "https://android.googlesource.com/platform/ndk/+archive/refs/tags/ndk-r29.tar.gz",
+          "tag": "ndk-r29",
+          "bytes": 5867915,
+          "sha256": "c34c08c3d2814406d8546194a8906ef24cfc7649ddb95a4ddda64b1db7a16d50",
+          "checksum_scope": "local integrity only"
         }
       ],
       "android_patch_inputs": [
@@ -833,7 +861,7 @@
           "sha256": "6a8879953b2133491d4bc6be97332d4d031b837e0175227969f4ef7f7d6ef8b9"
         }
       ],
-      "scope": "Both APK runtimes have all allocated ELF section names/types/flags/addresses/sizes/content equal to the official ndk-r29 clang-r563880c prebuilts. Whole files differ. This is not an exact whole NDK SDK package match or a runtime source rebuild; LLVM shared CMake/toolchain inputs remain release preparation work."
+      "scope": "Both APK runtimes have all allocated ELF section names/types/flags/addresses/sizes/content equal to the official ndk-r29 clang-r563880c prebuilts. Whole files differ. Full pinned LLVM and official NDK-r29 build source are collected, shared runtimes/CMake/builtins entrypoints checked. No exact whole SDK package, runtime source rebuild or complete toolchain reproduction assertion."
     }
   },
   "windows": {

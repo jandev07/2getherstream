@@ -93,7 +93,19 @@ Collected libcxx/libcxxabi/libunwind subtrees and Android build sources, retaini
 all46 listed patch inputs and original runtime licenses. All27 arm64 and26
 x86_64 allocated ELF sections match the attributed APK libc++ runtime in section
 names/types/flags/addresses/sizes/content. Whole-file hashes differ; no exact
-whole NDK package or source rebuild is claimed. Shared LLVM CMake/toolchain source
-assembly and unresolved Windows Git revisions remain open release work. These
+whole NDK package or source rebuild is claimed. The full pinned LLVM tree and NDK-r29 build source are now collected, including
+shared CMake/runtime/builtins build entrypoints. Toolchain/build reproduction and
+unresolved Windows Git revisions remain open release work. These
 new notices/sources are later preparation records, not retroactively inserted
 into an already hashed candidate package.
+
+
+An internal Android source-preparation bundle now assembles24 native source
+archives with the exact candidate's project source ZIP and later source/notices
+records. All69 members were checked during streaming copy and again after ZIP
+reopening. The two original ABI BUILD-INFO files are retained as separately hashed
+companions beside that immutable ZIP. See the DEVELOPMENT receipt pointer for
+exact scope. It contains no APK, signer, private credentials or diagnostics. The
+bundle remains private preparation material; unresolved Windows revisions and
+unexecuted toolchain reproduction are not silently marked complete. Additional
+source materials do not change the previously validated candidate binary/package.

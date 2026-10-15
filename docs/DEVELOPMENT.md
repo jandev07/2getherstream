@@ -5803,3 +5803,39 @@ without relabelling that old package. No app production change after compiled9a.
 Both-app proportional review found no additional justified loop optimization;
 no churn/dependency/threshold change. Public/Desktop hold16Oct00:00IST, offered
 0.1.7/privacy/network restrictions/blocked public tunnel/75%35% remain unchanged.
+
+
+## Android source-preparation assembly — 15 October 2026 background session
+
+Read exact Android LLVM DeviceLibcxxBuilder: src_dir is runtimes, not just the
+three library subtrees. Collected complete LLVM386af4a5 source archive226737667bytes
+and official NDK-r29 build source5867915bytes. Verified7 shared runtime/CMake/
+builtins entrypoints, three library CMake files match prior exact subtrees, and
+NDK builder selects clang-r563880c. Local integrity hashes/URLs/member checks in
+SOURCE-INVENTORY.json and work/alpha-source-material/ndk-r29-full-build-input-validation.json.
+No SDK/compiler installed, runtime rebuilt or native app state changed.
+
+Assembled internal source-preparation ZIP from explicit verified inputs:24native
+source archives, exact compiled9a299959 project sourceZIP, source/notices records;
+69members independently hashed during copy and after reopening. Bundle320953120bytes,
+SHA256d40a33e11c4db855499975a6610a0f974f60db112b9ac31e61a0998d21567bc9.
+No APK/private original history/credentials/signers/user logs included. Original
+ABI BUILD-INFO files retained beside the immutableZIP as separately hashed
+companions, not falsely claimed members. All paths/inputs/scopes in exact
+work/source-validation/android-source-preparation-directory.txt target/manifest.json,
+receipt.json, upstream-build-records.json. Assembly script retained locally under
+work/source-validation, no new app library/tooling dependency. It skips redundant
+library subtree archives already covered by full LLVM, preserving originals.
+
+First inventory assembly assumed URL-basename filenames; actual retained cache
+names differ. Failed inventory script retained; corrected selection matches the
+recorded SHA256 uniquely before any output. First successful69-member ZIP did
+not include two raw BUILD-INFO files (inventory already contains their fields);
+added originals as explicit companion files and corrected future assembler names
+without rewriting/relabeling that receipt. Source bundle remains private partial
+preparation, not a complete native distribution/legal/toolchain reproduction claim.
+Windows cached dependency Git revisions are still unresolved. No package rebuild,
+unchanged native/provider/JVM rerun, emulator/UI/WAN/public release/desktop delivery.
+Twitch untouched. Latestcandidate30aa13d7 proof stays distinct and unchanged;
+its34-notice package is not retroactively claimed to include later37 notices.
+Native/control owners free/absent; planning75%35%/physicalWAN/publichold unchanged.
