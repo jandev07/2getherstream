@@ -1,5 +1,6 @@
 // Stable download page/metadata only. APK bytes are served by GitHub Releases.
 const headers={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
+const unavailable=request=>new Response(request.method==='HEAD'?null:'Download is not available yet. Please try again later.',{status:503,headers});
 const escape=value=>value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 export function validRelease(release){
  return release!=null && Object.keys(release).sort().join(',')==='apk_url,package,protocol,sha256,size_bytes,version_code,version_name' && release.protocol===1 && release.package==='app.together.v2' &&
@@ -14,8 +15,10 @@ export default {async fetch(request,env){
  if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers});
  if(!['/','/release.json'].includes(path))return new Response('Not found',{status:404,headers});
  // Never forward authorization/cookies, and never fetch the APK on the Worker.
- const asset=await env.ASSETS.fetch(new Request(new URL('/release.json',request.url)));
- if(asset.status!==200)return new Response('Download is not available yet. Please try again later.',{status:503,headers});
+ let asset;
+ try {asset=await env.ASSETS.fetch(new Request(new URL('/release.json',request.url)))}
+ catch {return unavailable(request)}
+ if(asset.status!==200)return unavailable(request);
  let release;try {release=await asset.json()}catch {return new Response('Release unavailable',{status:503,headers})}
  if(!validRelease(release))return new Response('Release unavailable',{status:503,headers});
  if(path==='/release.json')return new Response(request.method==='HEAD'?null:JSON.stringify(release),{headers:{...headers,'Content-Type':'application/json; charset=utf-8'}});

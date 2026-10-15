@@ -25,6 +25,13 @@ confirmation. The stable metadata address is not an independent signing authorit
 
 ## Publication order
 
+Public APK/metadata and Desktop delivery are held until16October2026 00:00IST
+(15October18:30UTC), enforced by config/alpha-delivery.json and
+scripts/AlphaDeliveryWindow.ps1. Internal source preparation/builds and audited
+source pushes remain allowed. Complete native source/version correspondence and
+retain the source/license materials before binary distribution, as native/README
+requires; a source URL alone is not proof of completion.
+
 1. Build and validate a source-associated candidate with a new version code and
    the existing signer. Preserve prior offered packages and failed proof history.
 2. Upload the validated APK as `2gether.apk` on `android-v<code>`, retaining earlier
@@ -41,12 +48,26 @@ confirmation. The stable metadata address is not an independent signing authorit
 
 No secrets, source-private settings, signers, diagnostic journals or development
 caches belong in source commits or public hosting assets. Only the APK intended
-for delivery and its bounded public metadata may be published.
+for delivery, its public source/license materials and bounded public metadata may
+be published. Source preparation bundles stay private until their checks and the
+publication window permit release.
 
 ## Current validation boundary
 
-Source-level Worker and ordinary-file staging checks passed, as did Android JVM
-redirect/cancellation checks and a test-only mapped loopback stalled-body test.
-Those checks do not establish Cloudflare runtime, real GitHub CDN delivery,
-PackageManager verification, installation or physical playback. The actual public
-download is not ready until publication and end-to-end verification complete.
+The download Worker has run locally under Wrangler4.151.0/workerd with the
+production compatibility date2026-10-14. Page/metadata requests and typed asset
+validation passed. A deliberately missing ASSETS binding reproduced HTTP500 in
+the prior handler; the revised handler returns fixed HTTP503 without exception
+text. Actual local GET/HEAD page+metadata checks passed, and restoring the binding
+with labelled fixture metadata recovered HTTP200. These are local runtime checks,
+not a public Cloudflare outage reproduction or deployment. Test fixture manifests
+are not actual release assets.
+
+Eight Worker source checks passed (two new binding-failure checks plus six
+existing checks). Ordinary-file staging, Android JVM redirect/cancellation checks
+and mapped loopback stalled-body tests remain separate. Actual Android archive
+verification and an adb package upgrade/data-retention proof were recorded in
+DEVELOPMENT; they do not establish the public updater permission/installer flow.
+Real GitHub CDN delivery, public-host persistence and the normal in-app update
+sequence remain unverified. The actual public download is not ready until
+publication and end-to-end verification complete.

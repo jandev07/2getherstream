@@ -5839,3 +5839,28 @@ unchanged native/provider/JVM rerun, emulator/UI/WAN/public release/desktop deli
 Twitch untouched. Latestcandidate30aa13d7 proof stays distinct and unchanged;
 its34-notice package is not retroactively claimed to include later37 notices.
 Native/control owners free/absent; planning75%35%/physicalWAN/publichold unchanged.
+
+
+## Download Worker unavailable/recovery handling — 15 October 2026
+
+Actual local workerd baseline with deliberately missing ASSETS binding returned
+HTTP500 for both GET/HEAD page and release metadata. Existing JSON/non200 handling
+did not catch rejected asset fetch. Revised handler catches only that asset-fetch
+boundary and returns fixed503/no-store/nosniff, empty HEAD body; missing asset
+uses same small helper. No exception detail logged/returned by this catch and no
+metadata/redirect/download/control policy change. Eight Node checks passed (2new,
+6existing), including rejected fetch carrying synthetic sensitive text and absent
+binding. Actual workerd revised4GET/HEAD cases503 +2unknown paths404 passed;
+restored local assets with clearly labelled fixture metadata recovered4cases200.
+Not a real Cloudflare outage/public deployment/CDN download/playback-tunnel proof.
+
+Exact baseline/fixed/recovery HTTP rows, source hashes,8-test log, runtime stdout/
+stderr and cleanup receipts via work/source-validation/worker-unavailable-directory.txt.
+Wrangler4.151.0 cached local toolchain reused, compatibility2026-10-14 unchanged;
+no app dependencies or SDK/network changes. Own Node process PID+exactstart and
+unique config verified before stopping its tree; both48782/48783 ports absent.
+Twitch untouched; no app/native/device/provider/JVM suites rerun or APK/EXE build.
+No public Worker/APK/metadata/Desktop publication; source push only. Latestcandidate
+9a299959/30aa13d7 historical proof unchanged, offered0.1.7 preserved. Publichold,
+physical/WAN gates and75%35% unchanged. No application loop optimization justified
+by this failure; no speculative playback change added.

@@ -34,3 +34,21 @@ test('invalid/coerced/oversized/expiring/foreign manifests fail closed',async()=
  }
  assert.ok(validRelease(release()));
 });
+
+
+test('asset-binding failures become fixed unavailable replies without leaking exceptions',async()=>{
+ const secret='synthetic-private-host?token=not-a-real-secret';
+ for(const method of ['GET','HEAD'])for(const path of ['/','/release.json']){
+  let calls=0;
+  const response=await worker.fetch(new Request('https://download.synthetic.invalid'+path,{method}),{ASSETS:{fetch:async()=>{calls++;throw new Error(secret)}}});
+  assert.equal(calls,1);assert.equal(response.status,503);
+  assert.equal(response.headers.get('Cache-Control'),'no-store');assert.equal(response.headers.get('X-Content-Type-Options'),'nosniff');
+  const body=await response.text();assert.equal(body,method==='HEAD'?'':'Download is not available yet. Please try again later.');assert.ok(!body.includes(secret));
+ }
+});
+test('absent asset binding remains a recoverable unavailable response',async()=>{
+ for(const method of ['GET','HEAD']){
+  const response=await worker.fetch(new Request('https://download.synthetic.invalid/release.json',{method}),{});
+  assert.equal(response.status,503);assert.equal(await response.text(),method==='HEAD'?'':'Download is not available yet. Please try again later.');
+ }
+});
