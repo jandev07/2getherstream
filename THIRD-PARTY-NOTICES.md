@@ -180,3 +180,11 @@ upstream lock, including non-Windows/dev/build packages, and do not claim all ar
 linked. See native/SUBRANDR-LOCKED-SOURCES.json for scope, missing standalone
 notice material and unverified actual build dependency selection. No upstream
 license is replaced by 2gether's root license.
+
+Windows build-log source preparation also retains the original FreeType license
+overview/FTL/GPLv2, HarfBuzz COPYING, and libjpeg-turbo LICENSE.md/README.ijg.
+Identical notice bytes reuse existing retained files, with separate archive
+associations in PROVENANCE.json. These sources are fetched-branch candidates,
+not verified final cached/modified build trees; see WINDOWS-BUILD-INPUTS.json.
+This software is based in part on the work of the FreeType Team and the
+Independent JPEG Group. All original notices retain their individual terms.

@@ -158,3 +158,21 @@ archive or inspected repository root; that limitation remains explicit. Full
 archives retain their original source/notice content. These are partial source
 preparation records, not a complete licensing/source-distribution certification.
 No upstream build script was executed and no new app dependency was added.
+
+Three further Windows source candidates (FreeType, HarfBuzz and libjpeg-turbo)
+are collected from the exact x86_64 job's fetched branch destinations. Their
+full upstream revisions, archive integrity hashes, original notices and pinned
+recipe/helper hashes are recorded separately as build_log_source_candidate in
+WINDOWS-BUILD-INPUTS.json. They are not added to the binary-reported revision
+list: the actual cached HEAD files and modified final build trees remain
+unverified. In particular, a fetch destination plus a reset recipe is not proof
+that the corresponding clean source tree produced the DLL.
+
+Run `python scripts/Verify-NativeNotices.py` from the repository for retained
+notice integrity. Add `--archives work/alpha-source-material` to compare every
+archive-associated notice with its original local tar member, and `--staged`
+after staging to compare retained notice bytes with the Git index. Identical
+archive copies are accepted only after whole-file SHA256 equality; conflicting
+copies fail. URL-only associations are reported as unchecked, without network
+requests. This verifies notice bytes against the recorded provenance, not
+upstream authenticity, binary correspondence or distribution completeness.

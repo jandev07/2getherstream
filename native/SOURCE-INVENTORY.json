@@ -888,6 +888,16 @@
       "dirty_source_projects": [
         "libplacebo"
       ]
+    },
+    "build_log_source_candidates": {
+      "inventory": "WINDOWS-BUILD-INPUTS.json",
+      "projects": [
+        "freetype2",
+        "harfbuzz",
+        "libjpeg"
+      ],
+      "binary_source_correspondence_verified": false,
+      "scope": "Fetched branch destination source candidates; separate from nine binary-reported source associations. Actual cached HEAD/modified build tree remains unverified."
     }
   }
 }

@@ -449,5 +449,53 @@
     "member": "r-efi-5.2.0/AUTHORS",
     "notice_file": "third-party/native-components/windows-subrandr/r-efi-5.2.0/AUTHORS",
     "sha256": "c42285aa32440c3b5358fd4805b817cd8d6e1795111d2e4c547530be41896b2d"
+  },
+  {
+    "project": "Windows build-log source candidate: freetype2",
+    "source_archive": "freetype2-d5d4bef0c6d5363931d346a6b2380317a32b8601.tar.gz",
+    "source_commit": "d5d4bef0c6d5363931d346a6b2380317a32b8601",
+    "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/LICENSE.TXT",
+    "notice_file": "third-party/native-components/freetype/LICENSE.TXT",
+    "sha256": "bd36c8b474855fa294c2ec5c184544478ef3720aad37d65a6296a4f264fd2d3b"
+  },
+  {
+    "project": "Windows build-log source candidate: freetype2",
+    "source_archive": "freetype2-d5d4bef0c6d5363931d346a6b2380317a32b8601.tar.gz",
+    "source_commit": "d5d4bef0c6d5363931d346a6b2380317a32b8601",
+    "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/docs/FTL.TXT",
+    "notice_file": "third-party/native-components/freetype/docs-FTL.TXT",
+    "sha256": "5a5ee54c5001bbad1cdc1a57cc3dd4c42199b2da09d39c7ee41fab002d02967f"
+  },
+  {
+    "project": "Windows build-log source candidate: freetype2",
+    "source_archive": "freetype2-d5d4bef0c6d5363931d346a6b2380317a32b8601.tar.gz",
+    "source_commit": "d5d4bef0c6d5363931d346a6b2380317a32b8601",
+    "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/docs/GPLv2.TXT",
+    "notice_file": "third-party/native-components/windows-freetype2/GPLv2.TXT",
+    "sha256": "c4120c6752c910c299e3bd9cb3a46ff262c268303ca2069b61f92f10a5656c18"
+  },
+  {
+    "project": "Windows build-log source candidate: harfbuzz",
+    "source_archive": "harfbuzz-dcb6e077fb89a55133b77e2e60364ff57f547967.tar.gz",
+    "source_commit": "dcb6e077fb89a55133b77e2e60364ff57f547967",
+    "member": "harfbuzz-dcb6e077fb89a55133b77e2e60364ff57f547967/COPYING",
+    "notice_file": "third-party/native-components/harfbuzz/COPYING",
+    "sha256": "ba8f810f2455c2f08e2d56bb49b72f37fcf68f1f4fade38977cfd7372050ad64"
+  },
+  {
+    "project": "Windows build-log source candidate: libjpeg",
+    "source_archive": "libjpeg-3a0fd7c23e9161b3630240b8615eef054bf3ad83.tar.gz",
+    "source_commit": "3a0fd7c23e9161b3630240b8615eef054bf3ad83",
+    "member": "libjpeg-turbo-3a0fd7c23e9161b3630240b8615eef054bf3ad83/LICENSE.md",
+    "notice_file": "third-party/native-components/windows-libjpeg/LICENSE.md",
+    "sha256": "ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579"
+  },
+  {
+    "project": "Windows build-log source candidate: libjpeg",
+    "source_archive": "libjpeg-3a0fd7c23e9161b3630240b8615eef054bf3ad83.tar.gz",
+    "source_commit": "3a0fd7c23e9161b3630240b8615eef054bf3ad83",
+    "member": "libjpeg-turbo-3a0fd7c23e9161b3630240b8615eef054bf3ad83/README.ijg",
+    "notice_file": "third-party/native-components/windows-libjpeg/README.ijg",
+    "sha256": "75815e3bf6484201a3c3d17a1bbf10f2e8e3237f84df10a2357ea896db2a81d6"
   }
 ]

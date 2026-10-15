@@ -221,7 +221,61 @@
       "declared_git_ref": null,
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "build_log_source_candidate": {
+        "project": "freetype2",
+        "repository": "freetype/freetype",
+        "fetch_branch": "master",
+        "fetch_log_evidence": [
+          {
+            "line": 3869,
+            "text": "Building mpv (x86_64)\tUNKNOWN STEP\t2026-10-07T00:01:53.9077419Z    2516798..d5d4bef  master     -> origin/master"
+          }
+        ],
+        "upstream_commit": "d5d4bef0c6d5363931d346a6b2380317a32b8601",
+        "commit_endpoint": "https://api.github.com/repos/freetype/freetype/commits/d5d4bef",
+        "source_archive": "https://codeload.github.com/freetype/freetype/tar.gz/d5d4bef0c6d5363931d346a6b2380317a32b8601",
+        "source_archive_file": "freetype2-d5d4bef0c6d5363931d346a6b2380317a32b8601.tar.gz",
+        "source_archive_bytes": 2590363,
+        "source_archive_sha256": "d6e06ec5cec114061daf004f3de8c2f3e4c252c549893918816cdfb8f8a7cae7",
+        "independent_upstream_archive_checksum": false,
+        "configuration_sha256": "eed687f636ec335af2e341537e089857f75a659e69d02da5176715628bf3b035",
+        "original_notices": [
+          {
+            "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/LICENSE.TXT",
+            "sha256": "bd36c8b474855fa294c2ec5c184544478ef3720aad37d65a6296a4f264fd2d3b",
+            "notice_file": "third-party/native-components/freetype/LICENSE.TXT"
+          },
+          {
+            "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/docs/FTL.TXT",
+            "sha256": "5a5ee54c5001bbad1cdc1a57cc3dd4c42199b2da09d39c7ee41fab002d02967f",
+            "notice_file": "third-party/native-components/freetype/docs-FTL.TXT"
+          },
+          {
+            "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/docs/GPLv2.TXT",
+            "sha256": "c4120c6752c910c299e3bd9cb3a46ff262c268303ca2069b61f92f10a5656c18",
+            "notice_file": "third-party/native-components/windows-freetype2/GPLv2.TXT"
+          }
+        ],
+        "scope": "Source candidate associated with the x86_64 fetch destination and configured upstream branch. Cached HEAD and modified build tree are not attested; not binary embedded revision evidence or source reproduction.",
+        "source_members_inspected": [
+          {
+            "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/include/freetype/freetype.h",
+            "sha256": "b3e0c79bfe4034997204a1825de90584cac32279dc8a4b112f8cbe2aea832560"
+          },
+          {
+            "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/src/base/ftobjs.c",
+            "sha256": "0776a46c8c4f3abcdb9a34612830e90dcbd0cd953800f697384cf8fe80c01d2d"
+          },
+          {
+            "member": "freetype-d5d4bef0c6d5363931d346a6b2380317a32b8601/meson.build",
+            "sha256": "8699a615155d2b16ec8fc102f47ee32e776ddda122e62435caea5c2eeefaccee"
+          }
+        ],
+        "build_helper_member": "cmake/custom_steps.cmake",
+        "build_helper_sha256": "b5dc88003f81d95e9a86c4befe1bac1472a4ec15c6d9a56a8bfd9c5fabf698a2",
+        "build_helper_observation": "force_rebuild_git fetches refs and conditionally resets to configured/default upstream; write-head records the actual HEAD in a separate file not present in retained log. This does not recover that HEAD file or guarantee a clean final build tree."
+      }
     },
     {
       "project": "fribidi",
@@ -290,7 +344,51 @@
       "declared_git_ref": "main",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "build_log_source_candidate": {
+        "project": "harfbuzz",
+        "repository": "harfbuzz/harfbuzz",
+        "fetch_branch": "main",
+        "fetch_log_evidence": [
+          {
+            "line": 3880,
+            "text": "Building mpv (x86_64)\tUNKNOWN STEP\t2026-10-07T00:01:53.9081584Z    c7a7457b..dcb6e077  main       -> origin/main"
+          }
+        ],
+        "upstream_commit": "dcb6e077fb89a55133b77e2e60364ff57f547967",
+        "commit_endpoint": "https://api.github.com/repos/harfbuzz/harfbuzz/commits/dcb6e077",
+        "source_archive": "https://codeload.github.com/harfbuzz/harfbuzz/tar.gz/dcb6e077fb89a55133b77e2e60364ff57f547967",
+        "source_archive_file": "harfbuzz-dcb6e077fb89a55133b77e2e60364ff57f547967.tar.gz",
+        "source_archive_bytes": 38892418,
+        "source_archive_sha256": "2af336e836128d59fcee6711801a85d03d615d5ca5e27686ec73a4cb7fd78fb7",
+        "independent_upstream_archive_checksum": false,
+        "configuration_sha256": "9b8a2f9f2b7dfb440ff7f6c925489ae1cee64b3119f5556f6c103c786f653f4b",
+        "original_notices": [
+          {
+            "member": "harfbuzz-dcb6e077fb89a55133b77e2e60364ff57f547967/COPYING",
+            "sha256": "ba8f810f2455c2f08e2d56bb49b72f37fcf68f1f4fade38977cfd7372050ad64",
+            "notice_file": "third-party/native-components/harfbuzz/COPYING"
+          }
+        ],
+        "scope": "Source candidate associated with the x86_64 fetch destination and configured upstream branch. Cached HEAD and modified build tree are not attested; not binary embedded revision evidence or source reproduction.",
+        "source_members_inspected": [
+          {
+            "member": "harfbuzz-dcb6e077fb89a55133b77e2e60364ff57f547967/src/hb-version.h",
+            "sha256": "110e75e9904f1e1a987ece9a17bf7f3c40ad43af685768a56f26a82540d12d5a"
+          },
+          {
+            "member": "harfbuzz-dcb6e077fb89a55133b77e2e60364ff57f547967/src/gen-hb-version.py",
+            "sha256": "eb29414dbedaf66f7e3dbf56adba156039b667a717ff01475045cf13a0a70977"
+          },
+          {
+            "member": "harfbuzz-dcb6e077fb89a55133b77e2e60364ff57f547967/meson.build",
+            "sha256": "e0b6f3312d52c05496f915e5f43cf214faf69f2b8db9b526e0ca0a5b59e5a948"
+          }
+        ],
+        "build_helper_member": "cmake/custom_steps.cmake",
+        "build_helper_sha256": "b5dc88003f81d95e9a86c4befe1bac1472a4ec15c6d9a56a8bfd9c5fabf698a2",
+        "build_helper_observation": "force_rebuild_git fetches refs and conditionally resets to configured/default upstream; write-head records the actual HEAD in a separate file not present in retained log. This does not recover that HEAD file or guarantee a clean final build tree."
+      }
     },
     {
       "project": "highway",
@@ -451,7 +549,52 @@
       "declared_git_ref": "main",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "build_log_source_candidate": {
+        "project": "libjpeg",
+        "repository": "libjpeg-turbo/libjpeg-turbo",
+        "fetch_branch": "main",
+        "fetch_log_evidence": [
+          {
+            "line": 3826,
+            "text": "Building mpv (x86_64)\tUNKNOWN STEP\t2026-10-07T00:01:53.9064426Z    09316bf..3a0fd7c  main       -> origin/main"
+          }
+        ],
+        "upstream_commit": "3a0fd7c23e9161b3630240b8615eef054bf3ad83",
+        "commit_endpoint": "https://api.github.com/repos/libjpeg-turbo/libjpeg-turbo/commits/3a0fd7c",
+        "source_archive": "https://codeload.github.com/libjpeg-turbo/libjpeg-turbo/tar.gz/3a0fd7c23e9161b3630240b8615eef054bf3ad83",
+        "source_archive_file": "libjpeg-3a0fd7c23e9161b3630240b8615eef054bf3ad83.tar.gz",
+        "source_archive_bytes": 2542359,
+        "source_archive_sha256": "76ff92858180241f6095f66a98769d114f4647b0576a899a23f86da02e2e5aa1",
+        "independent_upstream_archive_checksum": false,
+        "configuration_sha256": "8ab2b1835ec12a5db8152146b8a814b7944b69f0b8ec0d477d79cd731a7c5019",
+        "original_notices": [
+          {
+            "member": "libjpeg-turbo-3a0fd7c23e9161b3630240b8615eef054bf3ad83/LICENSE.md",
+            "sha256": "ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579",
+            "notice_file": "third-party/native-components/windows-libjpeg/LICENSE.md"
+          },
+          {
+            "member": "libjpeg-turbo-3a0fd7c23e9161b3630240b8615eef054bf3ad83/README.ijg",
+            "sha256": "75815e3bf6484201a3c3d17a1bbf10f2e8e3237f84df10a2357ea896db2a81d6",
+            "notice_file": "third-party/native-components/windows-libjpeg/README.ijg"
+          }
+        ],
+        "scope": "Source candidate associated with the x86_64 fetch destination and configured upstream branch. Cached HEAD and modified build tree are not attested; not binary embedded revision evidence or source reproduction.",
+        "source_members_inspected": [
+          {
+            "member": "libjpeg-turbo-3a0fd7c23e9161b3630240b8615eef054bf3ad83/CMakeLists.txt",
+            "sha256": "977624de5b92f0859c2901ffe925fd0353b38a01f9ed8c24a4337c428c02e09c"
+          },
+          {
+            "member": "libjpeg-turbo-3a0fd7c23e9161b3630240b8615eef054bf3ad83/src/jversion.h.in",
+            "sha256": "41411894abb4cde734076a9e612180c3a3d426db3fd5b7b7e9f32fde73ca478a"
+          }
+        ],
+        "build_helper_member": "cmake/custom_steps.cmake",
+        "build_helper_sha256": "b5dc88003f81d95e9a86c4befe1bac1472a4ec15c6d9a56a8bfd9c5fabf698a2",
+        "build_helper_observation": "force_rebuild_git fetches refs and conditionally resets to configured/default upstream; write-head records the actual HEAD in a separate file not present in retained log. This does not recover that HEAD file or guarantee a clean final build tree."
+      }
     },
     {
       "project": "libjxl",
@@ -1394,5 +1537,15 @@
     "dirty_source_projects": [
       "libplacebo"
     ]
+  },
+  "build_log_source_candidates": {
+    "projects": [
+      "freetype2",
+      "harfbuzz",
+      "libjpeg"
+    ],
+    "build_log_sha256": "d1589d6b6d8d0e62dc3c911eb1b833091534ff0605fac30e98cb6ed2c8501d44",
+    "evidence_kind": "x86_64 fetched branch destination plus pinned recipe, not actual cached HEAD/binary version attribution",
+    "complete_source_graph": false
   }
 }

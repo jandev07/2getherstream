@@ -6436,3 +6436,48 @@ native times; no speculative numeric parser change or old native suite rerun.
 Twitch untouched, offered0.1.7/candidate95181878 unchanged; candidate does NOTinclude
 this later UI source change. Owners free, public/Desktop hold16Oct00:00IST and
 source completeness/physical/WAN gates unchanged, planning75%/35% unchanged.
+
+
+## Windows fetched-source candidates and repeatable notice verification — 15 October 2026
+
+Reviewed current Stremio provider parsing/request bounds and canonical selection:
+body/count limits, strict identity matching, ambiguity rejection, cancellation and
+final revision fences already exist. No demonstrated failure or production change
+claimed; no provider request or unchanged resolver/native suite rerun.
+
+Collected three additional Windows source candidates using the retained exact
+x86_64 build job's fetched branch destinations: FreeType d5d4bef0c6d5363931d346a6b2380317a32b8601,
+HarfBuzz dcb6e077fb89a55133b77e2e60364ff57f547967 and libjpeg-turbo
+3a0fd7c23e9161b3630240b8615eef054bf3ad83. Full upstream commit responses and
+44025140bytes of source archives retained; source version/build members and
+exact recipe/custom_steps hashes inspected. Local SHA256 integrity is not an
+independently published upstream archive checksum. Existing nine binary-reported
+source associations stay separate; actual cached HEAD/dirty build trees are NOT
+attested and unresolved binary source fields remain null. Source graph stillpartial.
+
+Six original notice associations added, reusing three identical prior files:
+69provenance records/60unique retained files. Prior63records unchanged. New offline
+scripts/Verify-NativeNotices.py checks working notice SHA256, optional exact staged
+Git bytes and local tar member associations. Repeated archive basenames require
+whole-file equality; different content/missing or duplicate member/unsafe notice
+path/changed retained bytes fail. No archive extraction, network lookup, build or
+source authenticity/licensing-completion claim. Eight focused tool cases passed,
+including actual isolated Git index comparison. Real local archive check verified
+all58archive associations/all60retained files;11URL-only associations remain
+explicitly unchecked by this offline tool, not relabelled as archive evidence.
+
+Initial collector guessed absent hb-version.cc before inventory writes; setup
+failure retained and corrected after listing actual archive members. Initial
+real verifier rejected byte-identical archive copies; failure retained, then
+whole-file equality admission added and covered before successful final run.
+Exact collection/API/source members/logs/hash receipts via
+work/source-validation/windows-fetch-sources-directory.txt. All source archives
+remain ignored; only metadata/notices/tool/docs eligible for audited source push.
+
+Both apps' playback/control loops and dependencies unchanged; no app build,
+APK/EXE, native/emulator/provider/physical/WAN test or public delivery. Offered0.1.7
+and internal candidates retain their existing bytes. Twitch untouched, owners
+free;16Oct00:00IST public/Desktop hold and planning75%/35% unchanged. Next source
+completion work must recover actual Windows cached/modified source identities
+or use a validated build from fully pinned inputs; fetched candidates do not
+remove that gate. Do not repeat this unchanged collection or playback proofs.
