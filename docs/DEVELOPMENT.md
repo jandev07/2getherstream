@@ -6914,3 +6914,56 @@ Exact baseline source/failures/final logs/hashes via
 work/source-validation/video-surface-bounds-directory.txt. Previous Android timing
 failure and75%/35% planning remain unchanged. This commit is a checkpoint; continue
 connected implementation/validation rather than ending development at the commit.
+
+## Android queued control fault ownership and immediate-stop teardown — 16 October 2026
+
+Actual pinned Android libmpv rejected an unknown test command on the existing
+serial worker after healthy Main had queued start and speed1.005. Baseline native
+properties then reported paused=false/rate1.005 while status already held
+command_failed. This is native command-error ordering, NOT a decoder crash or
+live paired-user failure. Worker now rechecks its pending fault before unpause
+or nonunit speed submission. Pause(true) and speed1.0 remain available. Existing
+command epoch/source revision/grant/recovery authority fences remain unchanged;
+the check is not atomic across a later native API call. No seek policy change.
+
+Follow-through discovered an independent teardown boundary. New fault cases
+verified their native properties/recovery but cleanup timed out; corrected the
+test's initially premature old-fault recovery wait and retained failed history.
+Simple healthy load/play-to100ms/pause/close passed. Immediate start/pause without
+any fault instead reproduced20second cleanup timeout. Isolated Java stack shows
+the cleanup worker inside MpvNative.terminateDestroy, Main idle, rather than a
+Kotlin command queue wait. Deeper debuggerd backtrace requires root and was not
+obtained; no privilege change attempted. Exact native root cause remains unknown.
+
+Initialized core now receives stop before output detach and core destruction,
+on its existing cleanup worker. Nested finally paths still close/release after
+stop/detach errors, independent cleanup still outlives playback cancellation,
+and there is no forced native thread termination or new timeout guarantee.
+Immediate-start/pause case then passed with actual completed cleanup. Initial
+healthy diagnostic was refused by JUnit for inferred nonvoid Kotlin return;
+corrected explicit Unit return, retained that setup failure separately.
+
+Final combined actual muted hidden SidecarTest run passed7exact native identities
+in20.899seconds:3new cases (healthy progress/close, immediate start-pause/close,
+pending actual command failure versus queued start/correction plus freeze and
+explicit adapter recovery),4existing lifecycle/load/seek/rotate/rendered fixture
+cases. Both initial-rate1.0/queued1.005 and initial1.005/queued0.995 preserve pause
+and rate on fault; freeze resets1.0; explicit adapter load permits later start
+and correction. New property traces do not prove effective speed/frame timing;
+existing TextureView color-frame check is separate. Main/instrumentation built,
+same final exact source/APK hashes retained, emulator stopped normally and native
+and control owners free. Final new cases assert native close returned exactly
+once, not only that its surrounding finally block ran; the earlier21.065second
+combined pass is retained separately with the identical production APK. These
+are debug validation payloads, no new Alpha.
+
+Exact aggregate validation,10numeric native observations,7identity verification,
+all baseline/setup/cleanup failures and source/APK hashes are retained through
+work/source-validation/native-control-consolidated-directory.txt. No provider,
+PC-native pair, phone/WAN/two-hour or public-tunnel proof. Earlier4K software
+emulator paired timing run0782308f stays failed; no timing fix/p95 claim and
+75%/35% estimates unchanged. No dependency/schema/diagnostic allowlist/product
+test API added. Both-app review: Windows already gates pending native failure
+before start/correction; new Android checks occur only on queued native controls,
+and stop occurs once at initialized-core teardown, no new playback polling.
+User says Kosmi finished; Twitch preserved, all automated players muted.

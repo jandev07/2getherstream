@@ -222,10 +222,12 @@ class LibMpvAdapter internal constructor(context: Context, private val lifecycle
         MediaUrl.validate(url)
         return loadSource(url,admittedFault)
     }
-    fun pause(paused:Boolean) = queue {if(paused || startEnabled) checkNotNull(core).set(MpvProperties.Pause,paused).getOrThrow()}
+    // A healthy Main-thread observation can precede a fault on this serial
+    // worker. Recheck at submission; freezing/resetting remains permitted.
+    fun pause(paused:Boolean) = queue {if(paused || (startEnabled && mutableStatus.value.failure==null)) checkNotNull(core).set(MpvProperties.Pause,paused).getOrThrow()}
     fun speed(rate:Double) {
         require(rate.isFinite() && rate in 0.95..1.005)
-        queue {checkNotNull(core).set(MpvProperties.Speed,rate).getOrThrow()}
+        queue {if(rate==1.0 || mutableStatus.value.failure==null) checkNotNull(core).set(MpvProperties.Speed,rate).getOrThrow()}
     }
     fun seek(positionMs:Long) = queue {
         checkNotNull(core).command(MpvCommand.of("seek",(positionMs.coerceAtLeast(0)/1000.0).toString(),"absolute+exact")).getOrThrow()
@@ -241,7 +243,12 @@ class LibMpvAdapter internal constructor(context: Context, private val lifecycle
             // that initialization publishes its handle and leak the late handle.
             val owned=core;core=null
             try {
-                try {owned?.detachSurface()} finally {
+                try {
+                    // Stop the file before output detachment and destruction,
+                    // including when start was immediately followed by pause.
+                    try {if(owned?.isInitialized==true) owned.command(MpvCommand.of("stop")).getOrThrow()}
+                    finally {owned?.detachSurface()}
+                } finally {
                     try {
                         owned?.close()
                         if(owned!=null) lifecycleProof?.afterClose?.invoke()

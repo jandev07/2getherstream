@@ -1,5 +1,11 @@
 # Latest human instructions — 16 October 2026 IST
 
+The user subsequently says Kosmi usage has finished. Visible validation is usable
+when useful; retain per-player test mute and preserve Twitch if still open.
+The no-new-Alpha instruction below remains in effect. Antigravity collaboration
+was discussed: use separate checkout/branch and a reviewed pull request; do not
+overwrite concurrent source work or export private development evidence.
+
 The user explicitly says no new Alpha is needed; continue source development and
 push validated commits to GitHub. Do not build/package/publish another Alpha or
 deploy release metadata merely because the former calendar hold has elapsed.
