@@ -5972,3 +5972,25 @@ no packaged build/provider/emulator/WAN/physical test or credentials/user-log us
 Twitch untouched, offered0.1.7/internal9a candidate preserved; public delivery hold
 16Oct00:00IST and75%/35% estimates unchanged. Native/control locks were held during
 Rust check/test and released. Source snapshot publication follows clean commit.
+
+## Collect pinned Windows Opus model build input — 15 October 2026
+
+Bounded45second HTTPS fetch of the exact configured Xiph URL succeeded:
+165994834bytes, SHA2568a07d57c4fce6fb30f23b3e0d264004e04f1d7b421f5392ef61543d021a439af,
+matching packages/opus-dnn.cmake in the exact Windows build repository archive.
+Retained31 ordinary archive members (230918434expanded bytes) without extraction;
+member hashes and six checkpoint annotation comparisons retained. Initial check
+incorrectly required exact checkpoint basename and failed for two nolace headers/
+sources. Both declare nolace_small.pth; their SHA1 matches included
+nolace_160_v2.pth exactly. Four remaining references match names and hashes.
+No upstream file edited or guessed replacement model. Original failed comparison
+and corrected content association preserved; prior zero-byte interruption history
+unchanged. Exact collection receipt alongside seek-authority-directory.txt output.
+
+This closes that archive collection gap only: archive has no license/readme,
+Opus cached Git source revision/binary linkage and complete Windows native source
+graph remain unresolved. No model executed/unpickled, compiler/native player/
+APK/EXE build/provider/device/public publication involved. Local archive ignored;
+source push contains metadata/docs only. Android source bundle immutable/unchanged,
+Twitch untouched, deliveryhold/physicalWAN/75%35% unchanged. No app loop/dependency
+or production playback change in this collection commit.

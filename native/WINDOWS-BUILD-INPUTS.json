@@ -818,8 +818,17 @@
       "declared_git_ref": null,
       "archive_url": "https://media.xiph.org/opus/models/opus_data-8a07d57c4fce6fb30f23b3e0d264004e04f1d7b421f5392ef61543d021a439af.tar.gz",
       "declared_archive_hash": "SHA256=8a07d57c4fce6fb30f23b3e0d264004e04f1d7b421f5392ef61543d021a439af",
-      "download_status": "pending",
-      "fixed_failure_category": "whole_wait_interrupted"
+      "download_status": "verified",
+      "local_archive": "windows-dependency-sources/opus-dnn-8a07d57c4fce6fb30f23b3e0d264004e04f1d7b421f5392ef61543d021a439af.tar.gz",
+      "bytes": 165994834,
+      "sha256": "8a07d57c4fce6fb30f23b3e0d264004e04f1d7b421f5392ef61543d021a439af",
+      "configured_checksum_matches": true,
+      "archive_member_count": 31,
+      "generated_checkpoint_references_verified": 6,
+      "checkpoint_basename_alias": {
+        "nolace_small.pth": "nolace_160_v2.pth"
+      },
+      "license_notice_in_archive": false
     },
     {
       "project": "opus-tools",

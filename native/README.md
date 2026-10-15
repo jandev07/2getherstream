@@ -67,8 +67,13 @@ is a configuration inventory, not a resolved binary dependency graph: cached Git
 sources and moving branches require actual revision evidence. Four archive inputs
 mentioned in the x86_64 job (libiconv, libopenmpt, LZO and Xvid) were collected and
 checked against the configuration's upstream checksums. LZO uses its configured
-SHA1 as well as a local SHA256 integrity hash. The Opus model archive download
-was interrupted without receiving bytes and remains unresolved. Original notices
+SHA1 as well as a local SHA256 integrity hash. The initial Opus model archive download
+was interrupted without receiving bytes. A later bounded download succeeded and
+matched the exact configured SHA256; its31 members are retained locally. All six
+generated checkpoint SHA1 annotations match included model content. Two refer to
+nolace_small.pth, whose content is included as nolace_160_v2.pth; original generated
+files are preserved. The model archive contains no license/readme notice, and the
+Opus Git source revision/binary linkage remain unresolved. Original notices
 for the four verified inputs are retained under third-party/native-components;
 configuration inclusion or job mention alone does not prove every input is linked
 into the distributed DLL. No complete-source/distribution claim is made.
