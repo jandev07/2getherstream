@@ -7021,3 +7021,48 @@ comparison before copying; exact UTC DateTime identity comparison then passed.
 Exact receipts/journal/hashes via work/source-validation/surface-first-visible-directory.txt;
 earlier UI capture/lifecycle retained via surface-visible-source-directory.txt.
 No provider/phone/WAN/physical/new release test. Offered0.1.7 and75%/35% unchanged.
+
+## Reviewed Antigravity Windows input verifier integration — 16 October 2026
+
+Integrated six reviewed source files from contributor1897df5 (earlier6548e55,
+e1eeb00,459a052 retained), with final Codex corrections. Files copied onto current
+main; no private contributor ancestry merged/pushed. New offline verifier checks
+108package configurations,17toolchain/workflow members,1glad helper and4libplacebo
+version-source members against two retained whole-archive hashes:130associations
+passed. Exact embedded libplacebo version string at byte100866000 also independently
+matches. These are local integrity/source-association checks, not upstream checksum
+authenticity, compiler reproduction or full binary/distribution correspondence.
+
+Review corrected whole-libplacebo-archive hashing, pre-read ZIP declared bounds
+and bounded member reads, duplicate configuration conflicts, then2additional
+demonstrated helper/archive-record overwrites. Both latter negative cases fail
+against459a052 and pass after final guards. Main real archive verification still
+passes130. Existing notice bytes are unchanged; toolchain runtime/source gaps and
+complete_source_graph=false remain. Omitted mingw GIT_TAG is now distinguished
+from CMake's documented master default, rather than labelled an explicit recipe
+ref: https://cmake.org/cmake/help/latest/module/ExternalProject.html#git.
+
+Final Windows suite13cases:12passed/1skipped for unprivileged directory symlink
+WinError1314; no developer/security setting changed. Separate actual Linux/WSL
+synthetic case passed, using isolated temporary Git repositories, an annotated
+version tag and upstream's exact git describe --dirty invocation. Replacing the
+gitlink directory with an external symlink changed v1.0.0 to v1.0.0-dirty. Sanitized
+Git environment, per-command identity/30second bounds and GIT_OPTIONAL_LOCKS=0
+retain original repository HEAD/status/index/config bytes. WSL path adaptation is
+Windows-only. This establishes a synthetic mechanism, not all original CI dirty
+changes or the exact glad/fast_float overlays. Initial unsafe experiment's branch
+pollution and missing-hash failures remain in historical review snapshots/logs;
+they were not relabelled or imported as source history. Final logs/source hashes,
+initial/fixed comparisons and archive receipt through
+work/source-validation/antigravity-corrected-directory.txt; older evidence through
+antigravity-review-directory.txt. No upstream build scripts executed.
+
+Next scoped Antigravity task is read-only public clang_root cache lineage from
+producer-run candidate37391591956, at most two useful links, bounded requests and
+honest unavailable-log boundaries. It may write/commit a separate findings note;
+no main edit or push before review. Existing Windows keyring access stays private.
+Both-app maintainability review found no justified additional playback-loop work
+in this pass; these tools add no app dependencies, timers or production playback
+code. No Android/Windows app/native/provider/physical/WAN rerun or new Alpha.
+Offered0.1.7 and planning75%/35% unchanged. Native distribution completeness stays
+open; source work and review continue, rather than manufacturing runtime fixes.

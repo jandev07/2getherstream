@@ -207,3 +207,46 @@ resolve the actual cached HEAD files, glad override, dirty libplacebo working
 tree or complete native dependency graph. Existing binary-attributed revisions
 and incomplete-graph flags are unchanged. Whole-archive hashes here establish
 local integrity, not independent upstream checksums or binary reproduction.
+
+
+Windows libplacebo source tree analysis: the exact DLL embeds ASCII
+v7.374.0 (v7.360.0-152-g0d043c7-dirty) at offset 100866000. Upstream commit
+0d043c7f6f79cd3687c023454bdacbe615e4d96f is the base tree. Replacing tracked
+submodules with symlinks provides a demonstrated candidate mechanism for -dirty:
+packages/libplacebo.cmake removes the 3rdparty/glad and 3rdparty/fast_float
+directories and symlinks them to separately configured checkouts (${src_glad}
+and ${src_fast_float}). In upstream 0d043c7, both directories are tracked git
+submodules in .gitmodules. In synthetic mechanism tests, replacing a submodule
+gitlink with a symlink causes git describe --dirty to report -dirty, which Meson
+substitutes into BUILD_VERSION. While this accounts for the binary-reported string,
+it does not prove the absence of other build-tree modifications during CI. The
+collected upstream archive is the clean base commit; the exact dirty working tree
+was an uncommitted build-time state within the runner, not an upstream release tag
+or clean commit.
+
+
+Windows glad source override: packages/glad.cmake specifies GIT_TAG glad2 on
+Dav1dde/glad, tracking a floating branch rather than a pinned commit SHA. During
+libplacebo configuration, src/opengl/include/glad/meson.build invokes python -m glad
+to generate the OpenGL header gl.h. In the x86_64 build log, the job records
+Performing force-update step for 'glad' without git fetch output. Absent fetch
+output is consistent with an unchanged local ref or cached checkout, but does
+not independently prove the cached HEAD or why output was omitted; glad's exact
+checked-out commit remains unrecorded and unverified. Original MIT and Khronos
+notices are retained under third-party/native-components/glad/LICENSE; the exact
+commit remains an open gap.
+
+
+Windows compiler and runtime inputs: mpv-winbuild-cmake commit b2856ee includes
+toolchain recipes under toolchain/. toolchain/llvm/llvm.cmake configures LLVM Clang 23
+from llvm-project.git tag release/23.x with lld, compiler-rt, libc++ and libunwind.
+toolchain/mingw-w64.cmake configures mingw-w64-crt, headers and winpthreads with
+no explicit GIT_TAG. CMake ExternalProject defaults that missing ref to master
+(https://cmake.org/cmake/help/latest/module/ExternalProject.html#git).
+toolchain/rustup.cmake configures Rust nightly for gnullvm/gnu Windows targets.
+In the CI workflow (.github/workflows/mpv_clang.yml), the build restored pre-compiled
+toolchain binaries from the GitHub Actions cache clang_root (${{ secrets.CACHE_VERSION }}-clang_root),
+bypassing toolchain compilation during the DLL build. Toolchain recipes, component
+members and hashes are cataloged in WINDOWS-BUILD-INPUTS.json. The declared git refs
+are moving branches/tags, and the actual CI binaries came from an opaque cache key.
+Exact toolchain commit verification and toolchain reproduction remain unperformed.

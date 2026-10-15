@@ -347,7 +347,34 @@
       "declared_git_ref": "glad2",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "build_configuration_analysis": {
+        "project": "glad",
+        "configuration_member": "packages/glad.cmake",
+        "configuration_sha256": "ee80b01e4fce4561f1d9dfa9f51474cc4b48ef7ef739227db6099aed36016468",
+        "git_repository": "https://github.com/Dav1dde/glad.git",
+        "declared_git_ref": "glad2",
+        "declared_ref_type": "floating branch",
+        "build_helper_member": "cmake/custom_steps.cmake",
+        "build_helper_sha256": "b5dc88003f81d95e9a86c4befe1bac1472a4ec15c6d9a56a8bfd9c5fabf698a2",
+        "build_log_evidence": [
+          {
+            "lines": [
+              509,
+              1643,
+              2799,
+              3954
+            ],
+            "text": "Performing force-update step for 'glad'",
+            "observation": "Build log records 'Performing force-update step for glad' without git fetch output. Absent fetch output is consistent with an unchanged local ref or cached checkout, but does not independently prove cached HEAD identity or why output was absent; the exact checked-out commit remains unrecorded."
+          }
+        ],
+        "consumer_relation": "Symlinked into libplacebo 3rdparty/glad by packages/libplacebo.cmake. Invoked during libplacebo meson configuration via 'python -m glad' (src/opengl/include/glad/meson.build) to generate OpenGL header gl.h.",
+        "original_notices": [
+          "third-party/native-components/glad/LICENSE"
+        ],
+        "resolution_gap": "Candidate floating branch 'glad2' is specified in the recipe, but the exact commit SHA during the CI run remains unrecorded and unverified. Distinct from fast_float where the fetch destination was explicitly logged."
+      }
     },
     {
       "project": "glslang",
@@ -762,6 +789,14 @@
           {
             "member": "libplacebo-0d043c7f6f79cd3687c023454bdacbe615e4d96f/src/include/libplacebo/config.h.in",
             "sha256": "794973168952adf820920b189477cf021a6fc5e9ddd106ffef943dcd97f8d048"
+          },
+          {
+            "member": "libplacebo-0d043c7f6f79cd3687c023454bdacbe615e4d96f/src/version.py",
+            "sha256": "d7d640ef82532cc8ff6c63a326343bc3af28ca31eec28b38020007a7f40a2dec"
+          },
+          {
+            "member": "libplacebo-0d043c7f6f79cd3687c023454bdacbe615e4d96f/src/version.h.in",
+            "sha256": "0b16bdf6ffa97b37dd2f54235deda9803b0331dc702b23f2833fb7a2643438fb"
           }
         ],
         "original_notices": [
@@ -773,11 +808,13 @@
           "configuration_member": "packages/libplacebo.cmake",
           "sha256": "64c407a343a43bfe8b372b12d5dac4621d1362f094239cfb2c215e6ce213332f",
           "known_operations": [
-            "Replace glad submodule directory with separately configured source symlink",
-            "Replace fast_float submodule directory with separately configured source symlink"
+            "rm -rf <SOURCE_DIR>/3rdparty/glad && ln -s ${src_glad} <SOURCE_DIR>/3rdparty/glad",
+            "rm -rf <SOURCE_DIR>/3rdparty/fast_float && ln -s ${src_fast_float} <SOURCE_DIR>/3rdparty/fast_float"
           ],
+          "submodule_git_state_analysis": "In upstream commit 0d043c7, 3rdparty/glad and 3rdparty/fast_float are declared git submodules in .gitmodules. Replacing tracked submodule gitlinks with symlinks is a demonstrated mechanism for git status flagging working-tree modifications and git describe appending '-dirty' (reproduced in synthetic mechanism tests). This accounts for the '-dirty' suffix substituted into BUILD_VERSION in src/version.h.in and returned by pl_version() in src/common.c, without proving no other modifications were present in the CI build tree.",
           "all_dirty_changes_reconstructed": false,
-          "overlay_source_commits_resolved": false
+          "overlay_source_commits_resolved": false,
+          "exact_working_tree_provenance": "The clean upstream base archive is collected. The exact build tree was an uncommitted build-time state within the CI runner, not an upstream release tag or clean commit."
         }
       }
     },
@@ -1656,5 +1693,113 @@
     "build_log_sha256": "d1589d6b6d8d0e62dc3c911eb1b833091534ff0605fac30e98cb6ed2c8501d44",
     "evidence_kind": "x86_64 fetched branch destination plus pinned recipe, not actual cached HEAD/binary version attribution",
     "complete_source_graph": false
+  },
+  "toolchain_inputs": {
+    "status": "toolchain-recipes-inventoried-ci-cache-reproduction-unperformed",
+    "scope": "Toolchain configuration files in mpv-winbuild-cmake commit b2856ee. The Windows CI build consumed pre-built toolchain binaries from GitHub Actions cache clang_root. Exact toolchain commit hashes and compiler/runtime reproduction remain unresolved.",
+    "ci_workflow": {
+      "workflow_member": ".github/workflows/mpv_clang.yml",
+      "workflow_sha256": "15a8ced32b685a23baeb6be08b8b58d757056d43c7008386e88e2beea89e4e9f",
+      "toolchain_workflow_member": ".github/workflows/llvm_clang.yml",
+      "toolchain_workflow_sha256": "b674a482813ef5aefb93b1c6be66f597abd97fe16bd32232a2456229cd0827c8",
+      "container_image": "docker://ghcr.io/shinchiro/archlinux:latest",
+      "cache_key_prefix": "${{ secrets.CACHE_VERSION }}-clang_root",
+      "cache_consumption": "The mpv_clang.yml workflow restored pre-built clang_root from cache, bypassing toolchain compilation during the x86_64 DLL build."
+    },
+    "recipes": [
+      {
+        "name": "llvm",
+        "configuration_member": "toolchain/llvm/llvm.cmake",
+        "configuration_sha256": "3f51e7e8027575d13cdae6d5de4ca46ff597700bfab3737e946a2b76a3e2e372",
+        "git_repository": "https://github.com/llvm/llvm-project.git",
+        "declared_git_ref": "release/23.x",
+        "declared_ref_type": "release branch",
+        "configured_tools": "llvm-driver, lld, libc++, compiler-rt, libunwind",
+        "configured_defaults": {
+          "rtlib": "compiler-rt",
+          "unwindlib": "libunwind",
+          "cxx_stdlib": "libc++",
+          "linker": "lld"
+        },
+        "associated_members": [
+          {
+            "member": "toolchain/llvm/llvm-clang.cmake",
+            "sha256": "353795226d32b856d066d39b1d9c79f333fc70637551b6c57421a9186c321748"
+          },
+          {
+            "member": "toolchain/llvm/llvm-compiler-rt.cmake",
+            "sha256": "ebdf435a22270ce7adc7a4ffd54b3176a934f733b2d41731e9f993c8d5a0e01d"
+          },
+          {
+            "member": "toolchain/llvm/llvm-compiler-rt-builtin.cmake",
+            "sha256": "1a571a0a4f0ae0dcb0074428192fc2f3d47450b162d80ded32b822beb76e7094"
+          },
+          {
+            "member": "toolchain/llvm/llvm-libcxx.cmake",
+            "sha256": "3926fbe1fb01e70881800fd52089f67e3b47f83f5a8339f8a8ff68c34fbdf5d8"
+          },
+          {
+            "member": "toolchain/llvm/llvm-openmp.cmake",
+            "sha256": "ccaa2c0afded70245abb96bb8cd2e6eaa2ce0fb13f34b57af18bd2764ca58db7"
+          },
+          {
+            "member": "toolchain/llvm/llvm-openmp-0001-support-static-lib.patch",
+            "sha256": "a3bc1a9eae3bd4de831f092db4163ef7c3bfe490d3ece6d27630068acda506fa"
+          },
+          {
+            "member": "toolchain/llvm/llvm-wrapper.cmake",
+            "sha256": "0bc161b09762a5d8c7f7864f42c8c81fab08623a49e5b79c5cab1611e950477b"
+          }
+        ]
+      },
+      {
+        "name": "mingw-w64",
+        "configuration_member": "toolchain/mingw-w64.cmake",
+        "configuration_sha256": "55f2a2bb49ef17de05985beb0395c7a1acb44d613c50e048fce1e5a2c2fab8a3",
+        "git_repository": "https://github.com/mingw-w64/mingw-w64.git",
+        "declared_git_ref": null,
+        "effective_default_git_ref": "master",
+        "declared_ref_type": "GIT_TAG omitted; CMake ExternalProject default, not a pinned commit",
+        "default_ref_documentation": "https://cmake.org/cmake/help/latest/module/ExternalProject.html#git",
+        "associated_members": [
+          {
+            "member": "toolchain/mingw-w64-crt.cmake",
+            "sha256": "1310ebb259c4e25157698acd6647129c2f3607141c049a15ec5cc700e91ce9ec"
+          },
+          {
+            "member": "toolchain/mingw-w64-headers.cmake",
+            "sha256": "e7d778be8a438b385e96d62f56a0d987b899b8ba4c604c9be70006b2fe43fb74"
+          },
+          {
+            "member": "toolchain/winpthreads.cmake",
+            "sha256": "22895c0a7d15823aee4ca023d0c3d178bf9202a1e1b98ae81cf336448cf56248"
+          }
+        ]
+      },
+      {
+        "name": "rustup",
+        "configuration_member": "toolchain/rustup.cmake",
+        "configuration_sha256": "5ec4d394c320716e66215f0c83d62733e603a2e5d2e97e2bed7ebc427e8cf57f",
+        "installer_url": "https://sh.rustup.rs",
+        "declared_toolchain": "nightly",
+        "configured_targets": [
+          "aarch64-pc-windows-gnullvm",
+          "x86_64-pc-windows-gnullvm",
+          "i686-pc-windows-gnullvm",
+          "x86_64-pc-windows-gnu",
+          "i686-pc-windows-gnu"
+        ]
+      },
+      {
+        "name": "cppwinrt",
+        "configuration_member": "toolchain/cppwinrt.cmake",
+        "configuration_sha256": "b8d7b504b10c1e97e40304f5d06ed60500390a5b283889f423a8365fc6f02fea"
+      },
+      {
+        "name": "widl",
+        "configuration_member": "toolchain/widl.cmake",
+        "configuration_sha256": "b98116719762310a2cd83f5137c839363846544d7fd1ed7a52ff2a13fe897106"
+      }
+    ]
   }
 }

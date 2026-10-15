@@ -188,3 +188,17 @@ associations in PROVENANCE.json. These sources are fetched-branch candidates,
 not verified final cached/modified build trees; see WINDOWS-BUILD-INPUTS.json.
 This software is based in part on the work of the FreeType Team and the
 Independent JPEG Group. All original notices retain their individual terms.
+
+Windows glad source preparation retains original MIT and Khronos terms under
+third-party/native-components/glad/LICENSE. Pinned recipe configuration specifies
+branch candidate glad2; build logs record force-update without fetch output,
+leaving the exact commit unrecorded. Upstream terms are preserved without asserting
+binary reproduction.
+
+Windows compiler and runtime toolchain inputs (LLVM Clang, compiler-rt, libc++,
+libunwind, mingw-w64 CRT, and winpthreads) were consumed from prebuilt GitHub
+Actions cache artifacts (clang_root). Applicable upstream runtime licenses (LLVM
+Apache 2.0 with LLVM Exception and mingw-w64 permissive/public domain/ZPL terms)
+govern any statically linked runtime routines. Toolchain recipes and hashes are
+recorded in native/WINDOWS-BUILD-INPUTS.json; full toolchain reproduction and
+complete binary correspondence remain open release preparation work.

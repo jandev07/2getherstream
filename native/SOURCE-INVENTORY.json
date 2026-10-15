@@ -887,7 +887,17 @@
       "method": "Embedded version strings resolved through upstream commit APIs; corresponding source version APIs inspected. Not full build tree/binary reproduction attestation.",
       "dirty_source_projects": [
         "libplacebo"
-      ]
+      ],
+      "dirty_source_mechanisms": {
+        "libplacebo": "packages/libplacebo.cmake symlinks external glad and fast_float checkouts over git submodule directories, a demonstrated mechanism for git describe appending '-dirty'; upstream base archive is collected, while exact dirty working tree was an uncommitted build-time state."
+      }
+    },
+    "recipe_source_overrides": {
+      "glad": {
+        "configuration_member": "packages/glad.cmake",
+        "declared_git_ref": "glad2",
+        "status": "floating branch candidate without logged fetch commit SHA; absent fetch output leaves exact checked-out commit unverified"
+      }
     },
     "build_log_source_candidates": {
       "inventory": "WINDOWS-BUILD-INPUTS.json",
@@ -901,6 +911,22 @@
       ],
       "binary_source_correspondence_verified": false,
       "scope": "Fetched branch destination source candidates; separate from nine binary-reported source associations. Actual cached HEAD/modified build tree remains unverified."
+    },
+    "toolchain_inputs": {
+      "inventory": "WINDOWS-BUILD-INPUTS.json",
+      "recipes": [
+        "llvm",
+        "mingw-w64",
+        "rustup",
+        "cppwinrt",
+        "widl"
+      ],
+      "declared_llvm_ref": "release/23.x",
+      "declared_mingw_ref": null,
+      "cmake_default_mingw_ref": "master",
+      "ci_cache_restored": "clang_root",
+      "toolchain_reproduction_performed": false,
+      "scope": "mpv-winbuild-cmake commit b2856ee toolchain definitions. Windows DLL CI build consumed cached clang_root; exact compiler/runtime commit reproduction remains open release work."
     }
   }
 }
