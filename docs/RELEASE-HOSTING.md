@@ -71,3 +71,13 @@ DEVELOPMENT; they do not establish the public updater permission/installer flow.
 Real GitHub CDN delivery, public-host persistence and the normal in-app update
 sequence remain unverified. The actual public download is not ready until
 publication and end-to-end verification complete.
+
+
+Actual production UpdateControls has now run with seeded saved metadata and a
+staged signed higher-version archive on the owned emulator: grant install
+permission in Android Settings, return, recreate the Activity, re-verify the
+retained file, open the real system installer, then cancel. Three focused UI
+cases passed with the shared test-only saved-state fixture, including invalid and
+missing restored-file recovery. This does not test public metadata/download or
+confirm installation. The earlier adb upgrade/data-retention proof remains a
+separate boundary; do not combine these into a normal in-app update acceptance.

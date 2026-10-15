@@ -6287,3 +6287,39 @@ offered0.1.7 and candidate95181878 immutable; candidate does NOT include this fi
 Public/Desktop hold16Oct00:00IST, source-completeness and physical/WAN gates remain,
 planning75%/35% unchanged. Validated source commit is eligible for audited GitHub
 snapshot publication; this is not APK/metadata/Worker publication.
+
+
+## Android update permission return and system installer — 15 October 2026
+
+Current updater already re-verifies size/hash/package/higher version/installed
+signer on every Install action. New actual production UpdateControls test seeds
+only saved release metadata and owned UUID cache path, using an internally built
+signed version9 APK while version8 is installed. No public HTTP or release asset.
+Real Android Settings permission grant/return, real Activity recreation, retained
+archive re-verification and opening the system package installer passed. Installer
+was explicitly cancelled; installation confirmation remains unverified here.
+
+First run failed only at final screen wait requiring label Install; preceding
+permission/return/recreation/archive assertions completed. Test accepts the system
+upgrade label Update as well. Failed run and binary/log receipts remain intact;
+no updater implementation bug/fix claimed. Intermediate focused1 passed. Shared
+test-only SavedUpdateScreen removes duplicated registry/lifecycle setup from new
+permission and existing restore tests; real Activity registry handles recreation,
+production controls remain unstubbed. Final3 actual instrumentation cases passed,
+identities verified (1newpermission+2changedharnessrestore), after isolated builds.
+Higher archive reused by exact hash from first run, not rebuilt/relabelled.
+
+Only UUID-owned cache APKs and this emulator app's install permission fixture
+were staged. Prior app-op mode default restored successfully; emulator exited and
+serial absence confirmed. Normal pairing data/keys unchanged. No installer
+confirmation/package upgrade, public metadata/CDN, download verification, full
+normal Activity layout or physical-phone/WAN/native playback claim. Earlier adb
+package-upgrade proof stays separate. Exact immutable receipts/logs/APK hashes/
+source hashes via work/source-validation/update-permission-directory.txt.
+
+No product code/dependency/protocol/polling change; Windows runtime untouched.
+Offered0.1.7 and candidate95181878 remain immutable. Public/Desktop hold16Oct00:00IST,
+source completeness and physical/WAN gates, planning75%/35% unchanged. Twitch
+untouched. Next useful updater boundary is actual installer confirmation followed
+by separate post-upgrade identity/isolated settings and pairing checks, with test
+process termination treated as an expected handoff only after upgrade is observed.
