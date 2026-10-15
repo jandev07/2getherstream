@@ -350,7 +350,34 @@
       "declared_git_ref": null,
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "libass",
+        "embedded_version": "meson, commit: 0.17.5-11-gf61db567e6593df3470e91594bcd4ad2d0473aff",
+        "dll_byte_offsets": [
+          99604987
+        ],
+        "upstream_reported_commit": "f61db567e6593df3470e91594bcd4ad2d0473aff",
+        "upstream_commit_endpoint": "https://api.github.com/repos/libass/libass/commits/f61db567e6593df3470e91594bcd4ad2d0473aff",
+        "source_archive": "https://codeload.github.com/libass/libass/tar.gz/f61db567e6593df3470e91594bcd4ad2d0473aff",
+        "source_archive_sha256": "edb3e866ca9394152484bc9a83b68a395f5c9052ae0dc502e4100035c250330b",
+        "source_archive_bytes": 352592,
+        "version_source_evidence": [
+          {
+            "member": "libass-f61db567e6593df3470e91594bcd4ad2d0473aff/libass/ass_render.c",
+            "sha256": "20705ef4101c09080f4d27798bf6e04cce0fa40dbebd073c9c7480ca8ab36440"
+          },
+          {
+            "member": "libass-f61db567e6593df3470e91594bcd4ad2d0473aff/meson.build",
+            "sha256": "f7e7f35f7f68d9c03b640335a5155fd6d31c468eaf334e01fcd13490caa43ad4"
+          }
+        ],
+        "original_notices": [
+          "third-party/native-components/libass/COPYING"
+        ],
+        "dirty_working_tree_reported": false,
+        "scope": "Binary-reported upstream source base and collected archive, not proof of complete or unmodified build tree / full static dependency graph / reproducible binary."
+      }
     },
     {
       "project": "libbluray",
@@ -498,7 +525,44 @@
       "declared_git_ref": null,
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "libplacebo",
+        "embedded_version": "v7.374.0 (v7.360.0-152-g0d043c7-dirty)",
+        "dll_byte_offsets": [
+          100866000
+        ],
+        "upstream_reported_commit": "0d043c7f6f79cd3687c023454bdacbe615e4d96f",
+        "upstream_commit_endpoint": "https://api.github.com/repos/haasn/libplacebo/commits/0d043c7",
+        "source_archive": "https://codeload.github.com/haasn/libplacebo/tar.gz/0d043c7f6f79cd3687c023454bdacbe615e4d96f",
+        "source_archive_sha256": "fd72d09e83a7776f4ec5f2c2f13712ee085a97c75473de2041d09801c49db621",
+        "source_archive_bytes": 883884,
+        "version_source_evidence": [
+          {
+            "member": "libplacebo-0d043c7f6f79cd3687c023454bdacbe615e4d96f/src/common.c",
+            "sha256": "b44375136f96f9c94f4c05623f35f94f4b67821b732d1069f3cec5f3c592e867"
+          },
+          {
+            "member": "libplacebo-0d043c7f6f79cd3687c023454bdacbe615e4d96f/src/include/libplacebo/config.h.in",
+            "sha256": "794973168952adf820920b189477cf021a6fc5e9ddd106ffef943dcd97f8d048"
+          }
+        ],
+        "original_notices": [
+          "third-party/native-components/libplacebo/LICENSE"
+        ],
+        "dirty_working_tree_reported": true,
+        "scope": "Binary-reported upstream source base and collected archive, not proof of complete or unmodified build tree / full static dependency graph / reproducible binary.",
+        "source_overlay_configuration": {
+          "configuration_member": "packages/libplacebo.cmake",
+          "sha256": "64c407a343a43bfe8b372b12d5dac4621d1362f094239cfb2c215e6ce213332f",
+          "known_operations": [
+            "Replace glad submodule directory with separately configured source symlink",
+            "Replace fast_float submodule directory with separately configured source symlink"
+          ],
+          "all_dirty_changes_reconstructed": false,
+          "overlay_source_commits_resolved": false
+        }
+      }
     },
     {
       "project": "libpng",
@@ -547,7 +611,34 @@
       "declared_git_ref": "SDL2",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "libsdl2",
+        "embedded_version": "SDL-release-2.32.0-259-g4c2d9014",
+        "dll_byte_offsets": [
+          106096951
+        ],
+        "upstream_reported_commit": "4c2d9014afda49553c76f7045529207bb593f9b5",
+        "upstream_commit_endpoint": "https://api.github.com/repos/libsdl-org/SDL/commits/4c2d9014",
+        "source_archive": "https://codeload.github.com/libsdl-org/SDL/tar.gz/4c2d9014afda49553c76f7045529207bb593f9b5",
+        "source_archive_sha256": "04847c0c2803ea6fa5cb245c37bf0288e9c9471f57c059ec128554c4874e94e0",
+        "source_archive_bytes": 7913863,
+        "version_source_evidence": [
+          {
+            "member": "SDL-4c2d9014afda49553c76f7045529207bb593f9b5/src/SDL.c",
+            "sha256": "73bb8070994101e832d6bafcf65708efe0ca633cec345111f9932e6bfad87ddc"
+          },
+          {
+            "member": "SDL-4c2d9014afda49553c76f7045529207bb593f9b5/build-scripts/showrev.sh",
+            "sha256": "1dd6d6c03cd4eb6fe724fbed6d69b7dc28a8409546ca8cd4b10c5128e24d8c65"
+          }
+        ],
+        "original_notices": [
+          "third-party/native-components/windows-libsdl2/LICENSE.txt"
+        ],
+        "dirty_working_tree_reported": false,
+        "scope": "Binary-reported upstream source base and collected archive, not proof of complete or unmodified build tree / full static dependency graph / reproducible binary."
+      }
     },
     {
       "project": "libsixel",
@@ -923,7 +1014,44 @@
       "declared_git_ref": "main",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "opus",
+        "embedded_version": "libopus 1.6.1-68-g503d81b",
+        "dll_byte_offsets": [
+          107012711
+        ],
+        "upstream_reported_commit": "503d81b138d76621aae4b12786e90de48aa8db3a",
+        "upstream_commit_endpoint": "https://api.github.com/repos/xiph/opus/commits/503d81b",
+        "source_archive": "https://codeload.github.com/xiph/opus/tar.gz/503d81b138d76621aae4b12786e90de48aa8db3a",
+        "source_archive_sha256": "e34101b726c033be40e3f5a2695d086362d59069554ffd46800c38a13eade1f7",
+        "source_archive_bytes": 4957402,
+        "version_source_evidence": [
+          {
+            "member": "opus-503d81b138d76621aae4b12786e90de48aa8db3a/celt/celt.c",
+            "sha256": "d3c1b484c4d895bceda7c543534fc607bf4c6e2b1ca4b080dee8a5b8433a95d9"
+          },
+          {
+            "member": "opus-503d81b138d76621aae4b12786e90de48aa8db3a/meson/get-version.py",
+            "sha256": "178701fcd416cd7d0d2c1d47640c966cde0a931cd60e3065d53b7ed5035768c1"
+          }
+        ],
+        "original_notices": [
+          "third-party/native-components/windows-opus/COPYING",
+          "third-party/native-components/windows-opus/LICENSE_PLEASE_READ.txt"
+        ],
+        "dirty_working_tree_reported": false,
+        "scope": "Binary-reported upstream source base and collected archive, not proof of complete or unmodified build tree / full static dependency graph / reproducible binary.",
+        "source_overlay_configuration": {
+          "configuration_member": "packages/opus.cmake",
+          "sha256": "2762c05c3e2cabf4f3959fdf60ea88bca522151be5940bd454cc5d3a106aa428",
+          "known_operations": [
+            "Copy generated opus-dnn headers/C sources into dnn before configuration"
+          ],
+          "model_source_project": "opus-dnn",
+          "all_build_tree_changes_reconstructed": false
+        }
+      }
     },
     {
       "project": "opusfile",
@@ -1207,9 +1335,16 @@
       "aom",
       "libvpx",
       "dav1d",
-      "svt-av1"
+      "svt-av1",
+      "libass",
+      "opus",
+      "libsdl2",
+      "libplacebo"
     ],
     "complete_source_graph": false,
-    "method": "Exact embedded ASCII versions, upstream full commit resolution and corresponding source version APIs. Existing unresolved binary source fields stay null."
+    "method": "Exact embedded ASCII versions, upstream full commit resolution and corresponding source version APIs. Existing unresolved binary source fields stay null.",
+    "dirty_source_projects": [
+      "libplacebo"
+    ]
   }
 }

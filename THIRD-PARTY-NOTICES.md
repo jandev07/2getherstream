@@ -160,3 +160,11 @@ Their exact archive members and hashes are in PROVENANCE.json; upstream notices
 remain unchanged. Native version/source association evidence is recorded in
 native/WINDOWS-BUILD-INPUTS.json. Embedded version attribution and source collection
 do not establish the complete Windows build tree or corresponding-source graph.
+
+
+Later Windows source-base records retain original libass COPYING, Opus COPYING
+and LICENSE_PLEASE_READ.txt, SDL2 LICENSE.txt and libplacebo LICENSE. Identical
+libass/libplacebo notices reuse the existing retained files. PROVENANCE.json
+records each archive association independently. The libplacebo binary reports a
+modified source tree; its upstream base archive is explicitly not the full build
+tree. No original notice is replaced by the project's root license.

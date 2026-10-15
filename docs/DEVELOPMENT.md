@@ -6174,3 +6174,35 @@ archives remain ignored. Twitch untouched, offered0.1.7/private candidate receip
 preserved. Public/Desktop hold16Oct00:00IST, physical/WAN gates and75%/35% unchanged.
 Both-app maintainability review kept existing source owners; no new library,
 playback polling, schema, coordinator or speculative protocol rewrite.
+
+## Additional Windows runtime source bases and dirty-tree boundary — 15 October 2026
+
+Exact DLL embedded markers now associate libass0.17.5-11/fullf61db567..., Opus
+1.6.1-68-g503d81b, SDL-release-2.32.0-259-g4c2d9014 and libplacebov7.374.0 /
+v7.360.0-152-g0d043c7-dirty with full upstream commits. Collected4archives from
+configured project GitHub repositories, verified local SHA256 and inspected actual
+version source/API members. Original API JSON/archives and binary offsets retained.
+Source collection is local integrity, not independently published archive checksum
+or reproducible binary verification. Eight dependency source associations now
+recorded across the two source passes; original unresolved commit fields remainnull.
+
+Dirty libplacebo is specifically NOT marked fully reconstructed. Exact build
+recipe hash matches original pinned config; it replaces glad/fast_float submodule
+directories with separately configured symlinks. Those known operations may explain
+the marker but are not proof of all modifications; separate input revisions remain
+unresolved. Opus recipe's generated C/header overlay is tied to already verified
+opus-dnn archive. No model executed/unpickled and no upstream/app source modified.
+
+5new original notice associations use3new files; identical libass/libplacebo notices
+reuse existing files.51provenance entries now refer to48files; previous46entries
+unchanged. Staged Git blobs checked against original SHA256 before commit, preserving
+line endings/bytes. Exact collection/association receipt via
+work/source-validation/windows-runtime-source-directory.txt. Native SOURCE-INVENTORY,
+WINDOWS-BUILD-INPUTS, README and third-party notice index carry conservative scope.
+
+This is source preparation only: no application code/dependency change, compiler/
+JVM/native/emulator/provider/WAN test or release deployment. Candidate95181878 and
+source bundle239eb429 retain their original37notice scope/hashes. Latest source
+notice additions are later records, not retroactively patched validated payloads.
+Twitch untouched, offered0.1.7 preserved, publichold16Oct00:00IST and physical/WAN
+75%/35% unchanged. Both-app runtime paths untouched; no speculative loop/refactor.

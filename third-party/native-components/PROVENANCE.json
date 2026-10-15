@@ -320,5 +320,40 @@
     "member": "SVT-AV1-1394731134e0ca891e11db3cd98144d1aa9a7b72/PATENTS.md",
     "notice_file": "third-party/native-components/windows-svt-av1/PATENTS.md",
     "sha256": "20678ab10402659106dc4c147c97b2a6e94b5c0695415e15a8f195ebc3547922"
+  },
+  {
+    "project": "Windows libass",
+    "source_archive": "libass-f61db567e6593df3470e91594bcd4ad2d0473aff.tar.gz",
+    "member": "libass-f61db567e6593df3470e91594bcd4ad2d0473aff/COPYING",
+    "notice_file": "third-party/native-components/libass/COPYING",
+    "sha256": "f7e30699d02798351e7f839e3d3bfeb29ce65e44efa7735c225464c4fd7dfe9c"
+  },
+  {
+    "project": "Windows opus",
+    "source_archive": "opus-503d81b138d76621aae4b12786e90de48aa8db3a.tar.gz",
+    "member": "opus-503d81b138d76621aae4b12786e90de48aa8db3a/COPYING",
+    "notice_file": "third-party/native-components/windows-opus/COPYING",
+    "sha256": "01e1167d54a096d123cf6dfbbeb19587278845c6481d2d66d545669846079551"
+  },
+  {
+    "project": "Windows opus",
+    "source_archive": "opus-503d81b138d76621aae4b12786e90de48aa8db3a.tar.gz",
+    "member": "opus-503d81b138d76621aae4b12786e90de48aa8db3a/LICENSE_PLEASE_READ.txt",
+    "notice_file": "third-party/native-components/windows-opus/LICENSE_PLEASE_READ.txt",
+    "sha256": "7efb4989e0cd1b256229bdf2f09300c5d14e35db0e7476bfb87fac243498273d"
+  },
+  {
+    "project": "Windows libsdl2",
+    "source_archive": "libsdl2-4c2d9014afda49553c76f7045529207bb593f9b5.tar.gz",
+    "member": "SDL-4c2d9014afda49553c76f7045529207bb593f9b5/LICENSE.txt",
+    "notice_file": "third-party/native-components/windows-libsdl2/LICENSE.txt",
+    "sha256": "1c040b8271b37e5076359f8fd54240e371114112924d2df81ef87c7d6a1dfdfd"
+  },
+  {
+    "project": "Windows libplacebo",
+    "source_archive": "libplacebo-0d043c7f6f79cd3687c023454bdacbe615e4d96f.tar.gz",
+    "member": "libplacebo-0d043c7f6f79cd3687c023454bdacbe615e4d96f/LICENSE",
+    "notice_file": "third-party/native-components/libplacebo/LICENSE",
+    "sha256": "b3aa400aca6d2ba1f0bd03bd98d03d1fe7489a3bbb26969d72016360af8a5c9d"
   }
 ]

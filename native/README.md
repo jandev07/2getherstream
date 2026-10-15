@@ -128,3 +128,14 @@ provenance records use eight new notice files and the byte-identical existing
 dav1d COPYING. Notices inside the full archives are preserved as well. These later
 preparation records do not alter already hashed candidates or Android source bundles.
 The Windows dependency source graph and toolchain reproduction remain incomplete.
+
+
+Windows version attribution now also covers libass, Opus, SDL2 and libplacebo.
+The exact DLL reports a dirty libplacebo source tree. Its collected archive is an
+upstream base, not the modified build tree. The pinned build recipe replaces glad
+and fast_float subdirectories with separately configured sources; those operations
+are retained as evidence, without assuming they explain every modification or
+resolve those separate inputs. The Opus recipe copies generated model C/header
+files from the already checksum-verified opus-dnn archive. Source base/version
+members, recipe hashes and unresolved overlay boundaries are in the detailed
+inventory. None of these associations closes the complete Windows source graph.

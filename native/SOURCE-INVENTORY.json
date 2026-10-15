@@ -877,9 +877,16 @@
         "aom",
         "libvpx",
         "dav1d",
-        "svtav1"
+        "svtav1",
+        "libass",
+        "opus",
+        "libsdl2",
+        "libplacebo"
       ],
-      "method": "Embedded version strings resolved through upstream commit APIs; corresponding source version APIs inspected. Not full build tree/binary reproduction attestation."
+      "method": "Embedded version strings resolved through upstream commit APIs; corresponding source version APIs inspected. Not full build tree/binary reproduction attestation.",
+      "dirty_source_projects": [
+        "libplacebo"
+      ]
     }
   }
 }
