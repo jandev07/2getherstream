@@ -120,6 +120,15 @@ the saved validated /session endpoint; it cannot silently choose another path or
 origin. The separate, unauthenticated APK download redirect policy does not apply
 to pairing, control, media-capability requests or manual diagnostic uploads.
 
+Native media loads also require a direct URL: Windows disables redirects in both
+its curl backend and lavf fallback, while Android sets the lavf HTTP redirect
+limit to zero. TLS certificate verification remains enabled. This matches the
+resolver's existing no-redirect range probe. A CDN that starts returning redirects
+after preparation now fails through existing native source-error/recovery paths;
+HTTPS redirects are rejected too. This is a direct-file transport policy, not a
+general sandbox for every demuxer or embedded media reference. Current runtime
+evidence and Android validation limits are recorded in DEVELOPMENT.
+
 Snapshots now include `ended` (default false). Native EOF can end only current,
 active playback with no prepare/fault, after the scheduled anchor, from a connected
 participant. Reported position must be within 1 s of reported duration and the

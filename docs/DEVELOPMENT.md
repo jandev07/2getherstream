@@ -6559,3 +6559,62 @@ absent/lease free; Twitch untouched. Offered0.1.7 and packaged candidates unchan
 no Desktop/public APK/metadata/Worker delivery. Public hold16Oct00:00IST, native
 source correspondence work and planning75%/35% unchanged. Do not repeat this
 unchanged idle reconnect proof or describe it as media playback acceptance.
+
+
+## Native media redirects fail closed — 15 October 2026
+
+Independent current-source review found TLS verification does not itself enforce
+HTTPS after a native redirect. Actual muted Windows libmpv baseline
+a859fe86-620e-4e72-96fc-cfda489a2c86 loaded a direct verified HTTPS fixture and an
+HTTPS-to-HTTPS redirect, then followed HTTPS302 to plaintext HTTP. Exact local
+HTTP listener marker reproduced the boundary violation; native assertion failed.
+Synthetic self-signed loopback CA was supplied only through this player's
+tls-ca-file; no system trust store, user certificate, credential, proxy or network
+configuration changed. No provider URL/key or public network request involved.
+
+First attempted stream-lavf-o protocol whitelist did NOTfix the default Windows
+curl transport: failed run523b2eb6-2eaf-4615-ab84-0a9a82908920 retained. Inspected
+the exact pinned mpv stream_curl/stream_lavf source and FFmpeg http.c; curl follows
+redirects independently, so a lavf-only restriction cannot cover that backend.
+Abandoned whitelist removed. Final Windows startup sets curl-max-redirects=0 and
+stream-lavf-o=max_redirects=0. Android's pinned mpv0.41 has no curl source and its
+pinned FFmpeg9.0.1 exposes max_redirects; adapter sets the lavf limit through its
+existing checked option sink. Both retain tls-verify=yes, direct native delivery,
+source/entry/grant/fault fences and existing backend selection. No library,
+diagnostic allowlist, protocol/schema, owner or playback-loop change.
+
+This deliberately rejects HTTPS redirects too, matching the resolver's existing
+direct206range requirement; a CDN that starts redirecting later must fail and use
+the existing source recovery flow. No HTTPS-redirect compatibility claim remains.
+It is not a complete demuxer/subresource network sandbox. Revised real TorBox
+native delivery has NOTbeen rerun after this change.
+
+Initial default-backend revised runacefa937-4111-497a-8c78-1fa4ffe5169a passed.
+Expanded final run9d37e3c5-54b4-48ab-b93a-89e297b10def passed1 explicit ignored
+native test/13others filtered, completed08:43:13UTC. It exercises default curl and
+explicit curl-disabled lavf: each loads direct HTTPS paused with TLSverify yes,
+rejects HTTPS302 responses targeting HTTPS or HTTP with current-entry source failure/no readiness;
+plaintext listener receives zero requests. All fixtures stopped. Separate13adapter
+compatibility checks passed/1TLSfixture case ignored, plus non-test adapter check.
+Existing local fixture/native ownership paths retain behaviour in those tests;
+not full Windows controller, rendered UI, frame presentation or timing acceptance.
+
+Android3focused pinned options/result JVM checks passed after adding the redirect
+option to emission and checked-rejection expectations. Writes are synthetic;
+main/instrumentation Kotlin compiled ONLY. Actual Android JNI/network redirect
+behaviour on the revised adapter is NOTverified; the earlier session reconnect
+APK predates this media option. No new APK/EXE/candidate/device/provider/WAN test
+or public delivery. Exact original baseline source, failed attempt receipts,
+final native logs,6upstream member hashes, synthetic fixture/supplied CA inputs
+and final source/JUnit hashes via work/source-validation/native-https-redirect-directory.txt
+and its baseline/whitelist/first-pass pointer companions. Synthetic private key
+remains ignored, never in public source or packages.
+
+Windows pairing vault/claim review earlier this pass confirmed existing bounded
+DPAPI reads, non-overwriting publication, winner adoption and one-use claim
+guards; no speculative vault change or unchanged credential tests rerun. Both
+apps' changes are startup options only. Twitch untouched, offered0.1.7/candidates
+preserved, owners free; source correspondence/physical gates, public/Desktop hold
+16Oct00:00IST and planning75%/35% unchanged. Next distinct native boundary is the
+revised Android redirect policy on an owned TLS fixture, not another unchanged
+Windows/provider repetition or a public playback-tunnel retry.

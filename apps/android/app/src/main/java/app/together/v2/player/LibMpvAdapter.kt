@@ -100,7 +100,10 @@ class LibMpvAdapter internal constructor(context: Context, private val lifecycle
                         try {
                             // Raw decoder/HTTP messages can contain private media URLs.
                             // Keep typed EndFile/native status diagnostics instead.
-                            val options=mutableMapOf("pause" to "yes","tls-verify" to "yes","ytdl" to "no",
+                            // Match the resolver's direct-URL/no-redirect policy.
+                            // TLS verification alone does not reject HTTP downgrades.
+                            val options=mutableMapOf("pause" to "yes","tls-verify" to "yes",
+                                "stream-lavf-o" to "max_redirects=0","ytdl" to "no",
                                 "terminal" to "no","msg-level" to "all=no")
                             if(NativeTestAudio.muted) options["mute"]="yes"
                             MpvOptions(cacheDir=context.cacheDir,tlsCaFile=NativeTls.installSystemRoots(context.applicationContext),extra=options)

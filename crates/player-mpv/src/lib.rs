@@ -79,7 +79,9 @@ impl Mpv {
             let startup = StartupCore { handle, destroy };
             // HTTP/decoder messages may contain private URLs. Typed numeric
             // events still report failures with raw native messages disabled.
-            for (key, value) in [("config", "no"), ("input-default-bindings", "no"), ("input-vo-keyboard", "no"), ("terminal", "no"), ("msg-level", "all=no"), ("ytdl", "no"), ("tls-verify", "yes"), ("pause", "yes"), ("keep-open", "yes"), ("hwdec", "auto-safe")] {
+            // Resolver range checks require direct URLs. Enforce that at both
+            // native HTTP backends too; TLS verification alone permits downgrades.
+            for (key, value) in [("config", "no"), ("input-default-bindings", "no"), ("input-vo-keyboard", "no"), ("terminal", "no"), ("msg-level", "all=no"), ("ytdl", "no"), ("tls-verify", "yes"), ("stream-lavf-o", "max_redirects=0"), ("curl-max-redirects", "0"), ("pause", "yes"), ("keep-open", "yes"), ("hwdec", "auto-safe")] {
                 let key = CString::new(key)?; let value = CString::new(value)?;
                 if option(handle,key.as_ptr(),value.as_ptr()) < 0 { bail!("libmpv option initialization failed"); }
             }
@@ -395,5 +397,51 @@ mod native_startup_tests {
         assert_eq!(core.property("pause").unwrap(), "yes");
         assert_eq!(core.property("tls-verify").unwrap(), "yes");
         core.pause(true).unwrap();
+    }
+}
+
+#[cfg(all(test, windows))]
+mod native_https_redirect_tests {
+    use super::*;
+    use std::time::{Duration,Instant};
+    #[test]
+    #[ignore="Owned loopback TLS fixture and synthetic CA required; no public/provider requests"]
+    fn verified_https_redirects_cannot_downgrade_to_plain_http() {
+        let directory=std::path::PathBuf::from(std::env::var_os("TOGETHER_TLS_REDIRECT_PROOF_DIR").expect("owned fixture directory required"));
+        let base=std::fs::read_to_string(directory.join("https-origin.txt")).unwrap();
+        let ca=directory.join("certificate.pem");
+        let dll=Path::new(env!("CARGO_MANIFEST_DIR")).join("../../native/vendor/windows/libmpv-2.dll");
+        for disable_curl in [false,true] {
+            // Cover the default curl transport and explicit lavf fallback without
+            // changing the production backend or exposing a new diagnostic property.
+            let open=|| {
+                let mut extra=vec![("vo","null"),("ao","null"),("mute","yes"),("tls-ca-file",ca.to_str().unwrap())];
+                if disable_curl {extra.push(("curl-enabled","no"));}
+                Mpv::open_with_options(&dll,&extra).unwrap()
+            };
+            let mut direct=open();direct.prepare_url(&format!("{base}/direct"),1).unwrap();
+            let until=Instant::now()+Duration::from_secs(10);
+            while !direct.source_ready() && Instant::now()<until {
+                while let Some(event)=direct.poll() {assert!(!event.source_failure,"verified HTTPS fixture failed to load");}
+                std::thread::sleep(Duration::from_millis(5));
+            }
+            assert!(direct.source_ready(),"verified HTTPS fixture never became ready");
+            assert_eq!(direct.property("tls-verify").unwrap(),"yes");
+            assert_eq!(direct.property("pause").unwrap(),"yes");
+            drop(direct);
+            for route in ["secure","downgrade"] {
+                let mut core=open();core.prepare_url(&format!("{base}/{route}"),2).unwrap();
+                let until=Instant::now()+Duration::from_secs(10);let mut failed=false;
+                while Instant::now()<until {
+                    while let Some(event)=core.poll() {failed|=event.source_failure;}
+                    if failed || core.source_ready() {break;}
+                    std::thread::sleep(Duration::from_millis(5));
+                }
+                assert!(!core.source_ready(),"native redirect unexpectedly became ready");
+                assert!(failed,"native redirect did not report a source failure");
+            }
+            assert!(directory.join("downgrade-https-seen").is_file(),"TLS redirect route was never reached");
+            assert!(!directory.join("plain-http-seen").exists(),"native HTTPS load followed a plaintext HTTP redirect");
+        }
     }
 }

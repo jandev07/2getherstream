@@ -9,7 +9,8 @@ import java.io.File
 /** Actual pinned options/result types; write results are synthetic, no JNI or TLS session. */
 class NativeOptionsResultTest {
     private fun options()=MpvOptions(cacheDir=File("synthetic-cache"),tlsCaFile=File("synthetic-system-roots.pem"),
-        extra=linkedMapOf("pause" to "yes","tls-verify" to "yes","ytdl" to "no","terminal" to "no","msg-level" to "all=no","mute" to "yes"))
+        extra=linkedMapOf("pause" to "yes","tls-verify" to "yes","stream-lavf-o" to "max_redirects=0",
+            "ytdl" to "no","terminal" to "no","msg-level" to "all=no","mute" to "yes"))
     @Test fun checkedSinkPreservesExistingOptionSequenceAndRequiredValues() {
         val original=mutableListOf<Pair<String,String>>();val checked=mutableListOf<Pair<String,String>>()
         options().applyTo(MpvOptions.OptionSink {name,value ->original.add(name to value)})
@@ -17,12 +18,13 @@ class NativeOptionsResultTest {
         assertEquals(original,checked)
         val emitted=checked.toMap()
         for((name,value) in mapOf("config" to "no","vo" to "null","pause" to "yes","tls-verify" to "yes",
+            "stream-lavf-o" to "max_redirects=0",
             "ytdl" to "no","terminal" to "no","msg-level" to "all=no","mute" to "yes"))assertEquals(value,emitted[name])
         assertEquals(File("synthetic-system-roots.pem").absolutePath,emitted["tls-ca-file"])
         assertEquals(File("synthetic-cache").absolutePath,emitted["gpu-shader-cache-dir"])
     }
     @Test fun checkedOptionFailureStopsBeforeInitializationAndLaterOptions() {
-        for(target in listOf("tls-verify","tls-ca-file","pause","ytdl","terminal","msg-level")) {
+        for(target in listOf("tls-verify","tls-ca-file","stream-lavf-o","pause","ytdl","terminal","msg-level")) {
             val writes=mutableListOf<String>();var initialized=false
             val failure=runCatching {
                 options().applyTo(MpvOptions.OptionSink {name,_ ->
