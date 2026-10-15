@@ -34,6 +34,16 @@ $hostProcess=$null;$emulatorProcess=$null;$reverseOwned=$false;$emulatorStopped=
 try {
  $receipt | ConvertTo-Json | Set-Content $marker
  if(Get-NetTCPConnection -LocalPort 47822 -State Listen -ErrorAction SilentlyContinue){throw 'Isolated host port occupied'}
+ # Prior proof shutdown/nonce files are requests, not reusable startup state.
+ # Preserve any app using this exact candidate before clearing its test signals.
+ $candidateExe=[IO.Path]::GetFullPath((Join-Path $appRoot '2gether.exe'))
+ foreach($existing in @(Get-Process -Name '2gether' -ErrorAction SilentlyContinue)) {
+  if(!$existing.Path -or [IO.Path]::GetFullPath($existing.Path) -ieq $candidateExe){throw 'Candidate app is live or ownership uncertain; preserve proof signals'}
+ }
+ foreach($signal in @('startup-proof-stop.txt','pairing-code-proof.txt')) {
+  $signalPath=Join-Path $appRoot ('work/'+$signal)
+  if(Test-Path -LiteralPath $signalPath){Assert-WindowsProofPath -Root $appRoot -Path $signalPath;Remove-Item -LiteralPath $signalPath}
+ }
  if(!(Test-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)){throw 'Emulator inventory occupied or uncertain; preserve its owner'}
  Push-Location "$TogetherRoot/apps/android"
  try {& ./gradlew.bat --no-daemon --max-workers=1 --init-script "$candidate/candidate.init.gradle" :app:assembleDebugAndroidTest *> "$output/instrumentation-build.log";if($LASTEXITCODE){throw 'Instrumentation build failed'}} finally {Pop-Location}
@@ -107,7 +117,7 @@ finally {
  if($reverseOwned){& $adb -s $serial shell run-as app.together.v2 rm -f files/proof-pairing.json 2>$null;& $adb -s $serial reverse --remove tcp:47820 2>$null}
  if($emulatorProcess){
   if(!$emulatorProcess.HasExited){Invoke-AndroidProofCommand -Adb $adb -Arguments @('-s',$serial,'emu','kill') | Set-Content "$output/emulator-stop.log";$null=$emulatorProcess.WaitForExit(15000)}
-  $emulatorStopped=$emulatorProcess.HasExited -and (Test-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)
+  $emulatorStopped=$emulatorProcess.HasExited -and (Wait-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)
   $receipt.emulator_stopped=$emulatorStopped
   if(!$emulatorStopped){$receipt.status='failed';$receipt.cleanup_uncertain=$true}
  }

@@ -35,6 +35,21 @@ function Test-AndroidProofEmulatorAbsent {
     # Failed/timed-out inventory and an offline owned device both reserve resources.
     return -not [bool](($TogetherDevices -split "`r?`n") -match ('^'+[regex]::Escape($Serial)+'\s'))
 }
+# Emulator registration can outlive its exited launcher briefly. A successful
+# fresh inventory is still required; timeout/error/offline never means absent.
+# Each existing inventory command is separately bounded to three seconds.
+function Wait-AndroidProofEmulatorAbsent {
+    param([Parameter(Mandatory)][string]$Adb,[Parameter(Mandatory)][string]$Serial,
+        [ValidateRange(0,10000)][int]$TimeoutMilliseconds=6000)
+    if($Serial -notmatch '^emulator-\d+$'){throw 'Device absence accepts an isolated emulator only'}
+    $TogetherWait=[Diagnostics.Stopwatch]::StartNew()
+    do {
+        if(Test-AndroidProofEmulatorAbsent -Adb $Adb -Serial $Serial){return $true}
+        $TogetherRemaining=$TimeoutMilliseconds-$TogetherWait.ElapsedMilliseconds
+        if($TogetherRemaining -le 0){return $false}
+        Start-Sleep -Milliseconds ([int][math]::Min(100,$TogetherRemaining))
+    }while($true)
+}
 function Wait-AndroidProofReady {
     param([Parameter(Mandatory)][string]$Adb,[Parameter(Mandatory)][string]$Serial,
         [ValidateRange(1,180)][int]$TimeoutSeconds=120)

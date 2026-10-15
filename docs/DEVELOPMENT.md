@@ -6072,3 +6072,66 @@ policy in existing session source owner, no duplicate DTO/coordinator. Twitch
 untouched, no pairing/credential/provider/adapter/tunnel operations. Offered0.1.7,
 publichold16Oct00:00IST, physical/WAN gate and75%/35% unchanged. Source publication
 follows clean commit after validation; native/control ownership free/absent.
+
+## Source-associated internal candidate and runner lifecycle — 15 October 2026
+
+Candidate20261015-021605-95181878 compileda40d9bc contains current Stremio connect
+cancellation, PC relative-generation ownership and Android settled-source relative
+seek.164JVM/44suites passed0failures/errors/skips; Svelte0errors0warnings and embedded
+frontend build passed. APK verifies/same signer as offered0.1.7. All22APK native
+objects match attributed inventory; all37original upstream notices and rootLICENSE
+match both package and source ZIP byte-exact. Earlier20261015-021430-aa5c9aff build
+compiled7e36073 but was not runtime tested: proof source then aligned paused seek
+waits with new canSeek admission. Explicit paused recovery now requests absolute
+session seek0, preserving actual recovery assertions without forcing relative
+position calculation from failed native media. Main production APK behavior was
+unchanged by that test-only commit. Both builds/payloads preserved.
+
+Final complete actual hidden packaged/owned muted emulator run
+ed2d9ce1-c383-45f4-b01d-3bf2856e2c76 PASSED02:26:49UTC:12exact selected native cases
+plus1normal code-entry/encrypted save/newActivity restored pairing. Real fixture
+PC+Android playback includes pause/seek/rapid controls/background/reconnect,
+60second steady, EOF/replay, missing-start freeze/retry, invalid-format native
+failure/paused recovery and manual log upload. No decoded-driver crash claim.
+Normal startup uses DPAPI; no actual provider Watch/Prepare/catalog flow claimed.
+Both owned host and emulator exited, serial absence confirmed, no forced host
+cleanup. This is one complete passed receipt, not stitched earlier partial runs.
+No new150ms/frame accuracy or physical/WAN acceptance assertion.
+
+Failure history remains:5e8863e1 all12native+1normal passed but overallFAILED due
+immediate post-stop inventory uncertainty. Later separate process/serial absence
+confirmed before own uncertain marker release under exclusive lock; original
+failed receipt unchanged.48dae0df overallFAILED2native cases: previous proof's
+startup-proof-stop.txt remained in candidate work folder; next isolated host
+printed startup verification then exited, causing loopback pairing EOF and
+session ready timeout. Not a reproduced product/provider connection fault.
+Original logs/journals/receipts retained; no relabel. No app rebuild for runner fixes.
+
+Runner now waits for fresh confirmed serial absence after launcher exit, default
+6second retry budget plus at most one existing3second bounded command. Timeout,
+offline/error/uncertain inventory still preserves failed resource ownership.
+No extra emulator kill or changed system network/adb-server action. Shared by
+usability/archive runners.4wait fixtures+physicalserial rejection and6actual
+cleanup AST cases passed. Startup clears only own two proof request/nonce files
+after reserved-port/exact-candidate-process ownership checks; live/unknown candidate
+preserves signals.4actual startup AST fixture cases passed, unrelated file retained.
+Final real rerun validates startup reuse and eventual emulator retirement together.
+Archive upgrade path was not rerun; its3cleanup AST cases cover shared integration.
+No app dependency, playback poll or protocol change.
+
+New internal Android source-preparation bundle239eb429-4e60-4a6b-989c-82250f6c66f9
+contains exact candidate project ZIP plus24native source archives/notices/records.
+71input files checked during copy and after reopening (plusmanifest); all4upstream
+build records, including both ABI BUILD-INFO files, now inside this new bundle.
+320997291bytes/SHA256348ba06a1e40ea044eec553f67677419db8480867d4e0765de6098d8bdee2ab1.
+Older bundle/candidate/source receipts immutable; no signer/APK/credentials/private
+history included. No source rebuild/toolchain or Windows full-source graph claim.
+Exact build/failed/final logs/sourcehashes/same-signer/source-preparation association:
+work/source-validation/revised-candidate-directory.txt and revised-candidate-validation.json.
+
+Both-app review retains current relative seek guards, source/grant/fault ownership
+and updater verification; no additional speculative library or UI coordinator.
+Twitch untouched. No Desktop/public APK/release metadata/Worker deployment,
+provider retry, public playback tunnel or network adapter change. Public hold
+16Oct00:00IST/15Oct18:30UTC, offered0.1.7, physical two-hour/WAN gates and75%/35%
+remain unchanged. Native/control owners free/absent at final inventory.

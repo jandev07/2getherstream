@@ -81,7 +81,7 @@ finally {
   if(!$emulatorProcess.HasExited -and !$emulatorProcess.WaitForExit(15000)){
    $emulatorProcess.Kill($true);$null=$emulatorProcess.WaitForExit(5000);$receipt.forced_owned_emulator_cleanup=$true
   }
-  $emulatorStopped=$emulatorProcess.HasExited -and (Test-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)
+  $emulatorStopped=$emulatorProcess.HasExited -and (Wait-AndroidProofEmulatorAbsent -Adb $adb -Serial $serial)
   $receipt.emulator_stopped=$emulatorStopped
   if(!$emulatorStopped){$receipt.status='failed';$receipt.cleanup_uncertain=$true}
  }

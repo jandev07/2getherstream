@@ -9,8 +9,10 @@ $body=$tries[0].Finally.Extent.Text
 $cleanup=[scriptblock]::Create($body.Substring(1,$body.Length-2))
 $original=Get-Item Function:Test-AndroidProofEmulatorAbsent -ErrorAction SilentlyContinue
 $command=(Get-Item Function:Invoke-AndroidProofCommand).ScriptBlock
+$wait=(Get-Item Function:Wait-AndroidProofEmulatorAbsent).ScriptBlock
 function Invoke-AndroidProofCommand {param($Adb,$Arguments);if(($Arguments -join ',') -cne '-s,emulator-5580,emu,kill'){throw 'Cleanup issued an unexpected command'};return 'Fixture stop requested'}
 function Test-AndroidProofEmulatorAbsent {param($Adb,$Serial);return $script:cleanupAbsent}
+function Wait-AndroidProofEmulatorAbsent {param($Adb,$Serial);Test-AndroidProofEmulatorAbsent -Adb $Adb -Serial $Serial}
 $testRoot=Join-Path ([IO.Path]::GetTempPath()) ('together-alpha-cleanup-'+[guid]::NewGuid())
 [IO.Directory]::CreateDirectory((Join-Path $testRoot 'work'))|Out-Null
 try {
@@ -37,6 +39,7 @@ try {
  'Actual runner cleanup fragment passed: uncertain device/live process preserved; confirmed exited+absent releases owner.'
 }finally{
  Set-Item Function:Invoke-AndroidProofCommand $command
+ Set-Item Function:Wait-AndroidProofEmulatorAbsent $wait
  if($original){Set-Item Function:Test-AndroidProofEmulatorAbsent $original.ScriptBlock}else{Remove-Item Function:Test-AndroidProofEmulatorAbsent -ErrorAction SilentlyContinue}
  foreach($path in @('native-proof-running.json','receipt.json','alpha-usability-last-run.json','update-archive-last-run.json','emulator-stop.log')) { $file=Join-Path $testRoot ('work/'+$path);if(Test-Path $file){Remove-Item -LiteralPath $file} }
  Remove-Item -LiteralPath (Join-Path $testRoot 'work');Remove-Item -LiteralPath $testRoot

@@ -70,13 +70,13 @@ class SessionPlaybackTest {
                 await("both native start observations accepted") {controller.session.diagnostics.value.executionCount==2}
                 val generation=controller.session.diagnostics.value.generation
                 scenario.onActivity { controller.pause() }
-                await("authoritative pause") { controller.status.value.state=="Paused" && controller.session.diagnostics.value.generation>generation }
+                await("authoritative pause") { controller.status.value.state=="Paused" && controller.session.diagnostics.value.generation>generation && controller.canSeek() }
                 scenario.onActivity { controller.seek(20013-controller.status.value.positionMs) }
                 await("seek barrier completes") { !controller.session.diagnostics.value.preparing && abs(controller.status.value.positionMs-20013)<=100 }
                 scenario.onActivity { controller.play() }
                 await("scheduled resume") { controller.status.value.state=="Playing" && controller.status.value.positionMs>20700 }
                 scenario.onActivity { controller.pause() }
-                await("pause before spam") { controller.status.value.state=="Paused" }
+                await("pause before spam") { controller.status.value.state=="Paused" && controller.canSeek() }
                 val base=controller.status.value.positionMs
                 scenario.onActivity { controller.seek(5000);controller.seek(-3000);controller.seek(1000) }
                 await("latest rapid seek wins") { !controller.session.diagnostics.value.preparing && abs(controller.status.value.positionMs-(base+1000))<=100 }
@@ -155,7 +155,7 @@ class SessionPlaybackTest {
                 }
                 phase="recovery"
                 scenario.onActivity { controller.pause() }
-                await("final pause") {controller.status.value.state=="Paused"}
+                await("final pause") {controller.status.value.state=="Paused" && controller.canSeek()}
                 val duration=controller.status.value.durationMs
                 scenario.onActivity {controller.seek(duration-1500-controller.status.value.positionMs)}
                 await("prepare near end") {!controller.session.diagnostics.value.preparing && abs(controller.status.value.positionMs-(duration-1500))<=80}
@@ -191,7 +191,9 @@ class SessionPlaybackTest {
                     assertEquals("terminal failure retried itself",failedGeneration,controller.session.diagnostics.value.generation)
                     scenario.onActivity {controller.pause()}
                     await("explicit pause retains terminal fault") {controller.session.diagnostics.value.generation>failedGeneration && controller.session.diagnostics.value.fault=="player_failed_phone"}
-                    scenario.onActivity {controller.seek(0)}
+                    // Explicit absolute paused reload has no usable native position basis.
+                    // Keep exercising recovery without forcing a disabled relative control.
+                    scenario.onActivity {controller.session.intent("seek",0)}
                     await("reload recovery preserves explicit pause") {
                         val d=controller.session.diagnostics.value;val p=controller.status.value
                         d.fault==null && !d.preparing && d.executionCount==2 && p.failure==null && p.sourceReady && p.state=="Paused"
