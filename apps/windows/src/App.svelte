@@ -78,7 +78,7 @@ async function cancelStremioLookup(){
  } catch {if(request===stremioRequest){stremioCancelable=true;error='Could not cancel the lookup. Try again.'}}
  finally {if(request===stremioRequest)stremioBusy=false}
 }
-async function connectStremio(){await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_connect');if(request===stremioRequest){browser=next;catalogIndex='0';movieName=''}})}
+async function connectStremio(){await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_connect');if(request===stremioRequest){browser=next;catalogIndex='0';movieName=''}},true)}
 async function browseStremio(){if(!browser?.connected)return;await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_browse',{revision:browser!.revision,index:Number(catalogIndex),search:search.trim() || null});if(request===stremioRequest){browser=next;movieName=''}},true)}
 async function movieOptions(index:number){if(!browser?.connected)return;await stremioAction(async(request)=>{movieName=browser!.titles[index].name;const next=await invoke<Options>('stremio_options',{revision:browser!.revision,index});if(request===stremioRequest){options=next;browser!.revision=next.revision}},true)}
 async function chooseTitle(index:number){if(!browser?.connected)return;if(browser.titles[index].kind==='series' && !browser.episode_mode){await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_episodes',{revision:browser!.revision,index});if(request===stremioRequest){browser=next;movieName=''}},true)}else{await movieOptions(index)}}

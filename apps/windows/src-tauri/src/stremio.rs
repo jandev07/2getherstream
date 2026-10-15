@@ -64,6 +64,9 @@ impl Controller {
         let mut state=self.state.lock().await;Self::begin_locked(&mut state,expected)
     }
     pub async fn connect(&self)->Result<Browser,&'static str> {
+        self.read_only_lookup(self.connect_inner()).await
+    }
+    async fn connect_inner(&self)->Result<Browser,&'static str> {
         let (revision,existing)={let mut state=self.state.lock().await;
             let revision=Self::begin_locked(&mut state,None)?;(revision,state.client.clone())};
         let client:Result<Arc<Stremio>,&'static str>=async {
@@ -368,6 +371,28 @@ fn public_browser(state:&State)->Browser {Browser {connected:state.client.is_som
         let value=serde_json::to_value(controller.browser().await).unwrap();
         assert_eq!(value["connected"],false);
         assert!(!value.to_string().contains("vault"));
+    }
+    #[tokio::test] async fn connection_wait_has_cancellation_owner_before_state_admission() {
+        use std::{future::Future,task::Poll};
+        let vault=std::env::temp_dir().join(format!("missing-connection-cancel-{}",uuid::Uuid::new_v4()));
+        assert!(!vault.exists());
+        let controller=Controller::new(vault);
+        let state=controller.state.lock().await;
+        let mut connection=Box::pin(controller.connect());
+        // Explicitly poll the actual connect method into its held state lock.
+        std::future::poll_fn(|cx|{assert!(connection.as_mut().poll(cx).is_pending());Poll::Ready(())}).await;
+        assert!(controller.lookup.lock().unwrap().is_some(),"pending connection has no cancellation owner");
+        let mut cancel=Box::pin(controller.cancel_lookup());
+        std::future::poll_fn(|cx|{assert!(cancel.as_mut().poll(cx).is_pending());Poll::Ready(())}).await;
+        assert!(matches!(connection.await,Err("Stremio lookup cancelled")));
+        drop(state);
+        let browser=cancel.await.unwrap();
+        assert!(!browser.connected);assert_eq!(browser.revision,1);
+        assert!(controller.lookup.lock().unwrap().is_none());
+        // Cancellation stopped before credential/provider work; next explicit retry
+        // still follows the ordinary missing-vault error and clears its owner.
+        assert!(matches!(controller.connect().await,Err("Stremio PC credentials unavailable")));
+        assert!(controller.lookup.lock().unwrap().is_none());
     }
     #[tokio::test] async fn missing_credential_reconnect_clears_old_titles_and_explains_failure() {
         let path=std::env::temp_dir().join(format!("missing-stremio-vault-{}",uuid::Uuid::new_v4()));

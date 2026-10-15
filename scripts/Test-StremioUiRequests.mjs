@@ -24,10 +24,10 @@ function harness(series = false) {
 }
 const sources = revision => ({ revision, candidates: 1, unavailable_providers: 0, cache_available: true,
   ready: [{ index: 0, filename: 'movie.mp4', filesize: 4096 }], cached: [] });
-async function cancel(h) {
+async function cancel(h,connected=true) {
   const pending = h.run('cancelStremioLookup()');
   const call = h.calls.at(-1); assert.equal(call.command, 'stremio_cancel_lookup');
-  call.resolve(h.browser(2)); await pending;
+  call.resolve({...h.browser(2),connected}); await pending;
 }
 {
   const h = harness(); const old = h.run('movieOptions(0)');
@@ -69,6 +69,20 @@ async function cancel(h) {
   assert.equal(h.calls[0].command, 'stremio_browse'); await cancel(h);
   h.calls[0].resolve({ ...h.browser(99), titles: [{ id: 'old', kind: 'movie', name: 'Old result' }] }); await old;
   assert.equal(h.state().browser.revision, 2); assert.equal(h.state().browser.titles[0].name, 'Current title');
+}
+// Initial connection uses the same cancellation/late-reply owner as other reads.
+for(const connected of [false,true])for(const failure of [false,true]){
+ const h=harness();if(!connected)h.run('browser=null');const old=h.run('connectStremio()');
+ assert.equal(h.calls[0].command,'stremio_connect');
+ assert.equal(h.state().stremioCancelable,true,'pending connection must expose Cancel lookup');
+ await cancel(h,connected);
+ assert.equal(h.state().browser.connected,connected);
+ const current=h.run('connectStremio()');
+ if(failure)h.calls[0].reject(new Error('obsolete connect failure'));
+ else h.calls[0].resolve({...h.browser(99),titles:[{id:'old',kind:'movie',name:'Old account title'}]});
+ await old;assert.equal(h.state().stremioBusy,true);assert.equal(h.state().browser.revision,2);assert.equal(h.state().error,'');
+ h.calls[2].resolve(h.browser(3));await current;
+ assert.equal(h.state().browser.revision,3);assert.equal(h.state().stremioBusy,false);assert.equal(h.state().stremioCancelable,false);
 }
 // Cross-provider source actions must not compete with transmitted preparation
 // or publication. Exercise actual handlers, not a duplicate busy-policy model.
@@ -194,4 +208,4 @@ for (const busy of ['stremioBusy','torboxBusy',null]) {
  if(busy){assert.equal(h.state().options.revision,7);assert.equal(h.state().preparingMessage,'Preparing');}
  else{assert.equal(h.state().options,null);assert.equal(h.state().preparingMessage,'');}
 }
-console.log('6 metadata ordering,36 source admission/recovery,30 source rejection feedback,61 metadata/source admission and2 repeated preparation checks plus3 title-navigation checks passed (deferred IPC; no rendered UI).');
+console.log('4 connection cancellation and6 metadata ordering,36 source admission/recovery,30 source rejection feedback,61 metadata/source admission and2 repeated preparation checks plus3 title-navigation checks passed (deferred IPC; no rendered UI).');

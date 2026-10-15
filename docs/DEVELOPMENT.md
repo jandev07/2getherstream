@@ -5905,3 +5905,40 @@ change. Existing lease/marker ownership reused, no new coordinator. Worker patch
 37b04a1 already pushed separately in this session. Native/control owners free/
 absent; publichold/physicalWAN/75%35% unchanged. Source commits through guarded
 publisher; partial source bundle/Windows cached Git provenance gate still open.
+
+
+## Cancel initial Stremio connection/library refresh — 15 October 2026
+
+Current source review found connect/library refresh bypassed the existing bounded
+cancellable lookup owner, while catalog/episode/source reads already used it.
+Actual connect future polled into a held State mutex had no cancellation owner
+(baselinefailed); actual component connect left Cancel disabled (baselinefailed).
+Now connect wraps its existing inner flow in the same read_only_lookup, UI passes
+existing cancelable flag. No new owner/DTO/dependency/polling; TorBox transmitted
+preparation/creates and final Watch/source authority publication unchanged.
+The shared60second cooperative budget now includes connection's await/admission/
+credential/network stages. It cannot preempt synchronous DPAPI/blocking work or
+undo already received sign-in requests; no account/content mutation rollback
+claim. Existing source revision/error fences and explicit retry preserved.
+
+14Stremio backend unit tests passed/1real-provider proofignored/48other cases
+filtered; Windows non-test production check passed. New actual-method test uses
+explicit Pending polls, no sleeps: owner exists before State lock admission,
+cancel future stops connection before credential/provider work, registry clears,
+subsequent missing-vault retry reports ordinary fixed error. Existing lookup
+timeout/drop/abort/new-owner and preparation fencing tests remain passing.
+142actual component-script deferredIPC checks passed (4new initial/disconnected
+or refresh ×obsolete success/failure;138related existing). Svelte0errors0warnings.
+Actual button/DOM/Tauri/provider sign-in, revised native pair and actual60second
+connection timeout were not run. Exact logs/baselines/source hashes/receipt via
+work/source-validation/stremio-connect-cancel-directory.txt. No credentials read,
+displayed/exported; missing-vault retry uses unique nonexistent temp path.
+
+Both-app proportional review: Android has no Stremio selection path; native/control
+followers unchanged, no new loop work. Resolver Login already zeroizes credentials
+on Drop, so no speculative secret refactor added. Latest testedcandidate9a299959/
+30aa13d7 does NOT include this new Windows cancellation path; preserve receipt and
+candidate as historical until a later source-associated build. No APK/EXE release,
+provider/network-adapter/cloudflared/WAN/physical/GUI work this pass. Twitch untouched,
+offered0.1.7 preserved; publichold16Oct00:00IST/75%35% unchanged. Native/control
+locks held during cargo checks, released afterwards. Guarded source push follows.
