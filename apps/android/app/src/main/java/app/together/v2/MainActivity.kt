@@ -99,8 +99,8 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = controller::pause, enabled = state.initialized && (if(controller.sessionMode) sync.connected && sync.mediaAvailable else state.durationMs>0)) { Text("Pause") }
                         }
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                            OutlinedButton(onClick = { controller.seek(-10000) }, enabled = state.initialized && state.durationMs > 0 && (!controller.sessionMode || (sync.connected && sync.mediaAvailable))) { Text("−10 seconds") }
-                            OutlinedButton(onClick = { controller.seek(10000) }, enabled = state.initialized && state.durationMs > 0 && (!controller.sessionMode || (sync.connected && sync.mediaAvailable))) { Text("+10 seconds") }
+                            OutlinedButton(onClick = { controller.seek(-10000) }, enabled = controller.canSeek()) { Text("−10 seconds") }
+                            OutlinedButton(onClick = { controller.seek(10000) }, enabled = controller.canSeek()) { Text("+10 seconds") }
                         }
                         app.together.v2.update.UpdateControls()
                         app.together.v2.diagnostics.LogControls(controller.logs)

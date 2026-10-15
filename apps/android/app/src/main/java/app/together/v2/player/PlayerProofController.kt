@@ -37,9 +37,10 @@ class PlayerProofController(private val context: Context) {
     fun loadTest() {if(!sessionMode) localSource.request()}
     fun play() { if(sessionMode) session.intent("play") else player.pause(false) }
     fun pause() { if(sessionMode) session.intent("pause") else player.pause(true) }
+    fun canSeek():Boolean=if(sessionMode) session.canSeek() else status.value.initialized && status.value.durationMs>0
     fun seek(deltaMs: Long) {
-        val target=(status.value.positionMs+deltaMs).coerceIn(0,status.value.durationMs.coerceAtLeast(0))
-        if(sessionMode) session.intent("seek",target) else player.seek(target)
+        if(sessionMode) session.seekBy(deltaMs)
+        else player.seek((status.value.positionMs+deltaMs).coerceIn(0,status.value.durationMs.coerceAtLeast(0)))
     }
     fun background() {
         val wasBackgrounded=backgrounded;backgrounded=true;journalSampler.setActive(false)

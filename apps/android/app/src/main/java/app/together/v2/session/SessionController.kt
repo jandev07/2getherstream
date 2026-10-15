@@ -6,6 +6,7 @@ import android.util.Log
 import app.together.v2.BuildConfig
 import app.together.v2.network.closeOwned
 import app.together.v2.player.LibMpvAdapter
+import app.together.v2.player.PlayerStatus
 import app.together.v2.player.ProofMedia
 import app.together.v2.sync.*
 import kotlinx.coroutines.*
@@ -337,6 +338,22 @@ class SessionController(private val context: Context, private val player: LibMpv
             executionCount=executionCount,
             readyCount=prep?.getJSONArray("ready")?.length() ?: if(next.isNull("media") || !next.isNull("fault")) 0 else 2)
         return true
+    }
+    // A relative target may only use the settled native source for current
+    // authority. Internal absolute recovery/correction intentions stay separate.
+    private fun relativeSeekStatus():PlayerStatus? {
+        val snapshot=state ?: return null
+        if(!mutable.value.connected || socket==null || snapshot.isNull("media") ||
+            !snapshot.isNull("prepare") || !loaded || loading || seekPending) return null
+        val native=player.status.value
+        return native.takeIf {it.initialized && it.durationMs>0 && !it.seeking && it.failure==null &&
+            it.sourceReady && expectedSourceRevision>0 && it.sourceRevision==expectedSourceRevision &&
+            it.acceptedSourceRevision==expectedSourceRevision && it.sampledAtMs>0 && now()-it.sampledAtMs in 0..1000}
+    }
+    fun canSeek():Boolean=relativeSeekStatus()!=null
+    fun seekBy(deltaMs:Long) {
+        val native=relativeSeekStatus() ?: return
+        intent("seek",(native.positionMs+deltaMs).coerceIn(0,native.durationMs))
     }
     fun intent(type: String, positionMs: Long? = null) {
         require(type in listOf("play","pause","seek"))

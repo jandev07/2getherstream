@@ -6032,3 +6032,43 @@ remains separate. Public/Desktophold16Oct00:00IST and offered0.1.7 unchanged.
 Twitch untouched, no credentials/pairing-store changes/provider/tunnel test.
 Both-app review: desktop has public QR/link, no Android installer lifecycle; no
 speculative Windows abstraction or repeated native suite. Planning75%/35% unchanged.
+
+## Android relative seek uses settled current source — 15 October 2026
+
+Actual public PlayerProofController.seek baseline enqueued target25000 tagged
+current protocol generation8 using native source3 while session expected source4.
+This was a controller/queue reproduction with synthetic native/load/transport
+state, NOT observed decoded/user playback corruption. First old-source assertion
+failed; other baseline cases were not reached. Exact baseline source copies,
+failed receipt/logs retained.
+
+SessionController now owns relative seek position admission: connected/current
+media, no active prepare/load/pending authority seek, initialized positive-duration
+native source matching expected and accepted revisions, ready/not seeking/no
+pending native failure, existing1second native observation freshness bound.
+Public controller delegates paired relative seek here; both button enablement and
+click path share this check. Standalone proof target calculation/clamping and
+internal absolute correction/recovery intents unchanged. No new protocol field,
+owner, polling loop, diagnostic allowlist or dependency; source/generation/grant
+fences and one-inflight/latest-waiting queue/ACK carry unchanged. Main serialization
+protects admission/target computation; no new atomic native-API guarantee claimed.
+
+One actual Android instrumentation method passed all9 rejection setups plus
+ready-source target25000/generation8 queue acceptance. Uses real public UI
+controller/session methods and JSONObject/queue on Android Main; status/load
+flags are synthetic and socket is inert/inflight held. No native source load,
+decode, media timing, actual socket send or source-replacement playback claim.
+Main+instrumentation APK compilation passed. Button wiring compiled/reviewed,
+NOT rendered seek UI; no unchanged JVM/native/provider suites rerun. Both baseline
+and fixed owned emulator cleanup confirmed process+serial absent. Exact receipt,
+source hashes/payloads/identities/logs through
+work/source-validation/relative-seek-directory.txt.
+
+New isolated internal APK contains this source change, not a new offered package
+or full native-pair proof. Latest internal9a candidate and receipts remain immutable;
+no public/Desktop release/metadata. Windows matching-generation seek admission
+already addressed717c630; no Rust change/repeated checks. Proportional review kept
+policy in existing session source owner, no duplicate DTO/coordinator. Twitch
+untouched, no pairing/credential/provider/adapter/tunnel operations. Offered0.1.7,
+publichold16Oct00:00IST, physical/WAN gate and75%/35% unchanged. Source publication
+follows clean commit after validation; native/control ownership free/absent.
