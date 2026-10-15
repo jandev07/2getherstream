@@ -101,7 +101,9 @@ async function intent(action:string,positionMs?:number){
  try{await invoke('player_intent',{intent:action,positionMs,generation:action==='seek'?player.generation:undefined});if(request===intentRequest)error=''}
  catch(e){if(request===intentRequest)error=action==='seek' && String(e)==='stale generation'?'Playback changed. Wait for the controls to update, then try seeking again.':String(e)}
 }
-const canSeek=()=>player.initialized && Boolean(session?.media) && player.generation===session?.generation && player.duration_ms>0;
+const canSeek=()=>player.initialized && Boolean(session?.media) && player.generation===session?.generation
+ && !session?.prepare && !session?.fault && !player.buffering && !player.error
+ && ['Paused','Playing','Ended'].includes(player.state) && player.duration_ms>0;
 async function seek(deltaMs:number){
  if(!canSeek())return;
  const lastPosition=Math.max(0,player.duration_ms-500);

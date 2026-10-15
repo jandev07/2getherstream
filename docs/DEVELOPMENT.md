@@ -6408,3 +6408,31 @@ Both-app review leaves runtime paths untouched. Prior Android source bundle and
 candidate95181878 retain original hashes/notices; no retroactive package claim.
 Twitch untouched, offered0.1.7 preserved, public/Desktop hold16Oct00:00IST and
 physical/WAN/source-completeness gates remain; planning75%/35% unchanged.
+
+
+## Windows relative seek waits for settled playback — 15 October 2026
+
+Current actual component baseline admitted relative seek while current-generation
+session.prepare was present; first new assertion failed, remaining new cases not
+reached. Matching generation alone did not gate preparation/buffering/fault UI.
+Existing canSeek now also requires no prepare/room fault/native error/buffering
+and native state Paused/Playing/Ended. Both buttons and handler reuse this guard;
+settled ended media remains seekable. Play/Pause/explicit Load/recovery and backend
+intent/generation/Host source/grant fences unchanged; no new counter/owner/IPC or
+protocol field, native call, timer, library or playback-loop work.
+
+34actual component-script/button-expression cases passed:13new settled-state
+scenarios (10blocked states/3permitted states) and21previous bounds/generation/
+feedback cases. Svelte0errors0warnings. Exact baseline/final/log/sourcehash receipt
+via work/source-validation/seek-settled-directory.txt. No DOM/Tauri rendering,
+packaged EXE, native position jump or actual live preparation corruption proof.
+This guard uses observed status; it does NOTestablish timestamp/source freshness
+or atomic native-source ownership, nor replace final backend generation admission.
+
+Both-app review confirmed Android already gates relative seek on preparation,
+source readiness/fault/seeking and fresh sample; no Kotlin change or unchanged
+Android tests rerun. Windows native timing conversion already rejects invalid
+native times; no speculative numeric parser change or old native suite rerun.
+Twitch untouched, offered0.1.7/candidate95181878 unchanged; candidate does NOTinclude
+this later UI source change. Owners free, public/Desktop hold16Oct00:00IST and
+source completeness/physical/WAN gates unchanged, planning75%/35% unchanged.

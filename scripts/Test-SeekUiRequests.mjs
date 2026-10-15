@@ -8,11 +8,11 @@ const component=fs.readFileSync(new URL('../apps/windows/src/App.svelte',import.
 const script=component.match(/<script lang="ts">([\s\S]*?)<\/script>/)[1].replace(/^import .*;\r?\n/gm,'');
 const code=ts.transpileModule(script,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
 // Evaluate actual component button expressions and script, without a DOM/Tauri player.
-function harness(player,media=true,deferred=false,sessionGeneration=player.generation??0){
+function harness(player,media=true,deferred=false,sessionGeneration=player.generation??0,prepare=null,fault=null){
  const calls=[];
  const context=vm.createContext({$state:value=>value,onMount:()=>{},invoke:(command,args)=>new Promise((resolve,reject)=>{calls.push({command,args,resolve,reject});if(!deferred)resolve()})});
  vm.runInContext(code,context);
- vm.runInContext(`Object.assign(player,${JSON.stringify(player)});session=${JSON.stringify({generation:sessionGeneration,media:media?{provider:'fixture'}:null})}`,context);
+ vm.runInContext(`Object.assign(player,{state:"Paused",...${JSON.stringify(player)}});session=${JSON.stringify({generation:sessionGeneration,media:media?{provider:'fixture'}:null,prepare,fault})}`,context);
  const buttons=['−10 seconds','+10 seconds'].map(label=>{
   const markup=component.split('\n').find(line=>line.includes(`>${label}</button>`));
   return {disabled:()=>vm.runInContext(markup.match(/disabled=\{(.+?)\} onclick/)[1],context),
@@ -21,6 +21,23 @@ function harness(player,media=true,deferred=false,sessionGeneration=player.gener
  return {calls,buttons,run:expression=>vm.runInContext(expression,context),error:()=>vm.runInContext('error',context)};
 }
 let checks=0;
+for(const [label,player,prepare,fault] of [
+ ['preparing',{initialized:true,duration_ms:30000,position_ms:15000,generation:8},{ready:['pc']},null],
+ ['native buffering',{initialized:true,duration_ms:30000,position_ms:15000,generation:8,buffering:true},null,null],
+ ['native seeking',{initialized:true,duration_ms:30000,position_ms:15000,generation:8,state:'Seeking'},null,null],
+ ['pending native error',{initialized:true,duration_ms:30000,position_ms:15000,generation:8,error:'fixed native error'},null,null],
+ ['room fault',{initialized:true,duration_ms:30000,position_ms:15000,generation:8},null,'player_failed'],
+ ...['Starting player','Idle','Buffering','Failed','Stopped'].map(state=>[state,{initialized:true,duration_ms:30000,position_ms:15000,generation:8,state},null,null]),
+]){
+ const h=harness(player,true,false,8,prepare,fault);
+ for(const button of h.buttons){assert.equal(button.disabled(),true,`relative seek admitted ${label}`);await button.click()}
+ assert.equal(h.calls.length,0,`relative seek submitted while ${label}`);checks++;
+}
+for(const state of ['Paused','Playing','Ended']){
+ const h=harness({initialized:true,duration_ms:30000,position_ms:15000,generation:8,state});
+ assert.equal(h.buttons[1].disabled(),false);await h.buttons[1].click();assert.equal(h.calls[0].args.positionMs,25000);checks++;
+}
+
 for(const [nativeGeneration,sessionGeneration] of [[7,8],[9,8]]){
  const h=harness({initialized:true,duration_ms:30000,position_ms:15000,generation:nativeGeneration},true,false,sessionGeneration);
  for(const button of h.buttons){assert.equal(button.disabled(),true,'seek admitted mismatched native/session authority');await button.click()}
