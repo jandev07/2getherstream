@@ -114,3 +114,17 @@ exact scope. It contains no APK, signer, private credentials or diagnostics. The
 bundle remains private preparation material; unresolved Windows revisions and
 unexecuted toolchain reproduction are not silently marked complete. Additional
 source materials do not change the previously validated candidate binary/package.
+
+
+Four additional Windows dependency revisions are now identified from Git version
+strings embedded in the exact DLL (AOM, libvpx, dav1d, SVT-AV1). Original version
+bytes/offsets, upstream full commit resolution, source version API members and
+collected archive hashes are in WINDOWS-BUILD-INPUTS.json. These are binary-reported
+source associations, not attestations of an unmodified source tree or complete
+static linkage. Existing unresolved source-commit fields remain null. Four pinned
+source archives are retained locally; their SHA256 values establish local integrity,
+not an independently published upstream checksum. Nine original license/patent
+provenance records use eight new notice files and the byte-identical existing
+dav1d COPYING. Notices inside the full archives are preserved as well. These later
+preparation records do not alter already hashed candidates or Android source bundles.
+The Windows dependency source graph and toolchain reproduction remain incomplete.

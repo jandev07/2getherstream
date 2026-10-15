@@ -151,3 +151,12 @@ patch pins are recorded in native/SOURCE-INVENTORY.json. These licenses retain
 their original terms, including upstream exceptions; the project's root license
 does not replace them. Source collection and allocated-section correspondence do
 not assert a complete or reproducible NDK distribution.
+
+
+Additional Windows source preparation retains original AOM and libvpx LICENSE/
+PATENTS, dav1d COPYING/PATENTS, and SVT-AV1 LICENSE.md/LICENSE-BSD2.md/PATENTS.md.
+The dav1d COPYING bytes match the existing retained notice and share that file.
+Their exact archive members and hashes are in PROVENANCE.json; upstream notices
+remain unchanged. Native version/source association evidence is recorded in
+native/WINDOWS-BUILD-INPUTS.json. Embedded version attribution and source collection
+do not establish the complete Windows build tree or corresponding-source graph.

@@ -257,5 +257,68 @@
     "member": "LICENSE.TXT",
     "notice_file": "third-party/native-components/ndk-libunwind/LICENSE.TXT",
     "sha256": "b5efebcaca80879234098e52d1725e6d9eb8fb96a19fce625d39184b705f7b6d"
+  },
+  {
+    "project": "Windows aom",
+    "source_archive": "aom-4cea455cabe16fabad4a8020b4dee269d157f0ef.tar.gz",
+    "member": "LICENSE",
+    "notice_file": "third-party/native-components/windows-aom/LICENSE",
+    "sha256": "4764a286d8b2faeaf42f4418e7d7a28d58fc8fd4d00a3d0a7f44b0a4099de7f2"
+  },
+  {
+    "project": "Windows aom",
+    "source_archive": "aom-4cea455cabe16fabad4a8020b4dee269d157f0ef.tar.gz",
+    "member": "PATENTS",
+    "notice_file": "third-party/native-components/windows-aom/PATENTS",
+    "sha256": "661fb8e504744e95587b556b94a58343448300606a41bea8c7a9b97125696e61"
+  },
+  {
+    "project": "Windows libvpx",
+    "source_archive": "libvpx-0a6f769e44989222d99ded46daa1e9763637cc19.tar.gz",
+    "member": "LICENSE",
+    "notice_file": "third-party/native-components/windows-libvpx/LICENSE",
+    "sha256": "8267348d5af1262c11d1a08de2f5afc77457755f1ac658627dd9acf71011d615"
+  },
+  {
+    "project": "Windows libvpx",
+    "source_archive": "libvpx-0a6f769e44989222d99ded46daa1e9763637cc19.tar.gz",
+    "member": "PATENTS",
+    "notice_file": "third-party/native-components/windows-libvpx/PATENTS",
+    "sha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c"
+  },
+  {
+    "project": "Windows dav1d",
+    "source_archive": "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd.tar.gz",
+    "member": "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/COPYING",
+    "notice_file": "third-party/native-components/dav1d/COPYING",
+    "sha256": "dd92c3c2247c5651606fc23a5e2d6a1ebc5ace9a3e49cbde0e12f05ad1cb1ee5"
+  },
+  {
+    "project": "Windows dav1d",
+    "source_archive": "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd.tar.gz",
+    "member": "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/doc/PATENTS",
+    "notice_file": "third-party/native-components/windows-dav1d/PATENTS",
+    "sha256": "335eca574598bf4ca181b12f708d6669e5a5e78c8e1513e5b35fa1f03901484b"
+  },
+  {
+    "project": "Windows svt-av1",
+    "source_archive": "svt-av1-1394731134e0ca891e11db3cd98144d1aa9a7b72.tar.gz",
+    "member": "SVT-AV1-1394731134e0ca891e11db3cd98144d1aa9a7b72/LICENSE.md",
+    "notice_file": "third-party/native-components/windows-svt-av1/LICENSE.md",
+    "sha256": "0acc2fcb27472bdc9aaf8b71f37055bbdac4f54671b7d922f241bd7fcd0dd3e6"
+  },
+  {
+    "project": "Windows svt-av1",
+    "source_archive": "svt-av1-1394731134e0ca891e11db3cd98144d1aa9a7b72.tar.gz",
+    "member": "SVT-AV1-1394731134e0ca891e11db3cd98144d1aa9a7b72/LICENSE-BSD2.md",
+    "notice_file": "third-party/native-components/windows-svt-av1/LICENSE-BSD2.md",
+    "sha256": "c582fcbeb9cf972a60d298bfaf41dc5adff2dd14208946edcb9bb56a281e8438"
+  },
+  {
+    "project": "Windows svt-av1",
+    "source_archive": "svt-av1-1394731134e0ca891e11db3cd98144d1aa9a7b72.tar.gz",
+    "member": "SVT-AV1-1394731134e0ca891e11db3cd98144d1aa9a7b72/PATENTS.md",
+    "notice_file": "third-party/native-components/windows-svt-av1/PATENTS.md",
+    "sha256": "20678ab10402659106dc4c147c97b2a6e94b5c0695415e15a8f195ebc3547922"
   }
 ]

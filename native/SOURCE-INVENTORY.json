@@ -870,6 +870,16 @@
     "mpv_commit": "eb0ee1031590b3f369a5b783e8aa91eeaaded7e6",
     "ffmpeg_commit": "c0c7684d08d22d9b5c16c7beaf538f439d3f43bf",
     "dll_sha256": "872827614ed0adfca11e68def5273bcfcaea6acf38bbf1950c35980b59f43a5f",
-    "dependency_source_graph_complete": false
+    "dependency_source_graph_complete": false,
+    "binary_reported_source_attribution": {
+      "inventory": "WINDOWS-BUILD-INPUTS.json",
+      "projects": [
+        "aom",
+        "libvpx",
+        "dav1d",
+        "svtav1"
+      ],
+      "method": "Embedded version strings resolved through upstream commit APIs; corresponding source version APIs inspected. Not full build tree/binary reproduction attestation."
+    }
   }
 }

@@ -6135,3 +6135,42 @@ Twitch untouched. No Desktop/public APK/release metadata/Worker deployment,
 provider retry, public playback tunnel or network adapter change. Public hold
 16Oct00:00IST/15Oct18:30UTC, offered0.1.7, physical two-hour/WAN gates and75%/35%
 remain unchanged. Native/control owners free/absent at final inventory.
+
+## Windows embedded codec source attribution — 15 October 2026
+
+Source-selection publication/prepare review found existing revision/Host fences
+already in place; no further source-action fix claimed. Switched useful effort to
+unresolved Windows native source graph. Exact attributed DLL SHA256872827... contains
+AOM3.15.1-70-g4cea455c, libvpxv1.17.0-65-g0a6f769e, dav1d1.5.4-30-g7f12cf2 and
+SVT-AV1v4.2.0-176-g1394731. Full revisions resolved through primary project commit
+APIs (dav1d official VideoLAN GitHub mirror), with source version API members
+verified in each collected archive. Native/WINDOWS-BUILD-INPUTS records all offsets,
+URLs/full commits/archive hashes/API member evidence. Repeated AOM/libvpx markers
+also occur in encoder/decoder names. Initial single-occurrence assertion failed
+before any notice/inventory mutation; original comparison/failure retained. Later
+records retain every occurrence rather than calling duplicate strings ambiguity.
+Initial generic commit JSON extraction selected GitHub's nested commit object;
+corrected to top-level SHA before any source mapping. No application bug/fix claim.
+
+Collected4upstream commit source archives (~25MB), local SHA256 integrity only;
+no independent upstream archive-checksum or binary rebuild assertion. Original
+9license/patent records added:8new files, byte-identical dav1d COPYING reused.
+Now46PROVENANCE entries refer to45notice files. Existing37records/notices unchanged.
+Every staged Git blob must match its recorded original SHA256 before commit.
+No upstream source code compiled, modified or imported into app dependencies.
+
+Attribution remains conservative: binary-reported version associations do not
+attest to unmodified build working trees, all static linkage or full source graph.
+Existing resolved_binary_source_commit fields staynull; complete graph staysfalse.
+SOURCE-INVENTORY and native README point to detailed evidence. Both existing
+candidate95181878/package37notices and Android source bundle239eb429 remain
+immutable; new notices/source records are later preparation, not retroactive
+payload claims. Exact raw API/source collection/validation artifacts via
+work/source-validation/windows-embedded-directory.txt.
+
+No build/test/emulator/provider/control-tunnel/public download deployment in this
+pass. GitHub source push includes metadata/original notices only; local source
+archives remain ignored. Twitch untouched, offered0.1.7/private candidate receipts
+preserved. Public/Desktop hold16Oct00:00IST, physical/WAN gates and75%/35% unchanged.
+Both-app maintainability review kept existing source owners; no new library,
+playback polling, schema, coordinator or speculative protocol rewrite.

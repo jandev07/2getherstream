@@ -32,7 +32,30 @@
       "declared_git_ref": "main",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "aom",
+        "embedded_version": "3.15.1-70-g4cea455c",
+        "dll_byte_offsets": [
+          106989971,
+          107003740
+        ],
+        "upstream_reported_commit": "4cea455cabe16fabad4a8020b4dee269d157f0ef",
+        "upstream_commit_endpoint": "https://aomedia.googlesource.com/aom/+/4cea455c?format=JSON",
+        "source_archive": "https://aomedia.googlesource.com/aom/+archive/4cea455cabe16fabad4a8020b4dee269d157f0ef.tar.gz",
+        "source_archive_sha256": "7cfe63cf72e4d563ffcdec39e8118a14d4f0d289c96f253284973fa701ad2e38",
+        "source_archive_bytes": 6712781,
+        "version_api_source_members": [
+          "aom/aom_codec.h",
+          "aom/src/aom_codec.c",
+          "apps/aomenc.c"
+        ],
+        "original_notices": [
+          "third-party/native-components/windows-aom/LICENSE",
+          "third-party/native-components/windows-aom/PATENTS"
+        ],
+        "scope": "Binary embedded version attribution and upstream revision/source collection; not attestation of unmodified build tree, full static linkage or binary reproduction."
+      }
     },
     {
       "project": "avisynth-headers",
@@ -101,7 +124,34 @@
       "declared_git_ref": null,
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "dav1d",
+        "embedded_version": "1.5.4-30-g7f12cf2",
+        "dll_byte_offsets": [
+          108216112
+        ],
+        "upstream_reported_commit": "7f12cf23560430c02a83e67bb68eec74d93ce5fd",
+        "upstream_commit_endpoint": "https://api.github.com/repos/videolan/dav1d/commits/7f12cf2",
+        "source_archive": "https://codeload.github.com/videolan/dav1d/tar.gz/7f12cf23560430c02a83e67bb68eec74d93ce5fd",
+        "source_archive_sha256": "88b19b70009a1144ff804c0141b1c6cda2fca414ec5ede73021c2d17927586fd",
+        "source_archive_bytes": 1753731,
+        "version_api_source_members": [
+          "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/examples/dav1dplay.c",
+          "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/include/dav1d/dav1d.h",
+          "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/include/dav1d/version.h",
+          "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/src/lib.c",
+          "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/tests/libfuzzer/dav1d_fuzzer.c",
+          "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/tests/seek_stress.c",
+          "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/tools/dav1d.c",
+          "dav1d-7f12cf23560430c02a83e67bb68eec74d93ce5fd/tools/dav1d_cli_parse.c"
+        ],
+        "original_notices": [
+          "third-party/native-components/dav1d/COPYING",
+          "third-party/native-components/windows-dav1d/PATENTS"
+        ],
+        "scope": "Binary embedded version attribution and upstream revision/source collection; not attestation of unmodified build tree, full static linkage or binary reproduction."
+      }
     },
     {
       "project": "davs2",
@@ -605,7 +655,32 @@
       "declared_git_ref": "main",
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "libvpx",
+        "embedded_version": "v1.17.0-65-g0a6f769e",
+        "dll_byte_offsets": [
+          107567289,
+          107571008,
+          107572225,
+          108220693,
+          108221303
+        ],
+        "upstream_reported_commit": "0a6f769e44989222d99ded46daa1e9763637cc19",
+        "upstream_commit_endpoint": "https://chromium.googlesource.com/webm/libvpx/+/0a6f769e?format=JSON",
+        "source_archive": "https://chromium.googlesource.com/webm/libvpx/+archive/0a6f769e44989222d99ded46daa1e9763637cc19.tar.gz",
+        "source_archive_sha256": "b907f6f70191ee0f1f80acfe4e291fda0d949bab02436f167f3afeb125c6bd50",
+        "source_archive_bytes": 5725809,
+        "version_api_source_members": [
+          "vpx/src/vpx_codec.c",
+          "vpx/vpx_codec.h"
+        ],
+        "original_notices": [
+          "third-party/native-components/windows-libvpx/LICENSE",
+          "third-party/native-components/windows-libvpx/PATENTS"
+        ],
+        "scope": "Binary embedded version attribution and upstream revision/source collection; not attestation of unmodified build tree, full static linkage or binary reproduction."
+      }
     },
     {
       "project": "libwebp",
@@ -957,7 +1032,30 @@
       "declared_git_ref": null,
       "archive_url": null,
       "declared_archive_hash": null,
-      "resolved_binary_source_commit": null
+      "resolved_binary_source_commit": null,
+      "binary_reported_source": {
+        "project": "svt-av1",
+        "embedded_version": "v4.2.0-176-g1394731",
+        "dll_byte_offsets": [
+          107015690
+        ],
+        "upstream_reported_commit": "1394731134e0ca891e11db3cd98144d1aa9a7b72",
+        "upstream_commit_endpoint": "https://gitlab.com/api/v4/projects/AOMediaCodec%2FSVT-AV1/repository/commits/1394731",
+        "source_archive": "https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/1394731134e0ca891e11db3cd98144d1aa9a7b72/SVT-AV1-1394731134e0ca891e11db3cd98144d1aa9a7b72.tar.gz",
+        "source_archive_sha256": "dc844b5c0fa6e55d511e02ddc63004ec77479baa37135fc03af79a69e8275a2d",
+        "source_archive_bytes": 11165731,
+        "version_api_source_members": [
+          "SVT-AV1-1394731134e0ca891e11db3cd98144d1aa9a7b72/Source/API/EbSvtAv1Enc.h",
+          "SVT-AV1-1394731134e0ca891e11db3cd98144d1aa9a7b72/Source/App/app_config.c",
+          "SVT-AV1-1394731134e0ca891e11db3cd98144d1aa9a7b72/Source/Lib/Globals/enc_handle.c"
+        ],
+        "original_notices": [
+          "third-party/native-components/windows-svt-av1/LICENSE.md",
+          "third-party/native-components/windows-svt-av1/LICENSE-BSD2.md",
+          "third-party/native-components/windows-svt-av1/PATENTS.md"
+        ],
+        "scope": "Binary embedded version attribution and upstream revision/source collection; not attestation of unmodified build tree, full static linkage or binary reproduction."
+      }
     },
     {
       "project": "termcap",
@@ -1102,5 +1200,16 @@
       "declared_archive_hash": null,
       "resolved_binary_source_commit": null
     }
-  ]
+  ],
+  "binary_version_attribution": {
+    "dll_sha256": "872827614ed0adfca11e68def5273bcfcaea6acf38bbf1950c35980b59f43a5f",
+    "projects": [
+      "aom",
+      "libvpx",
+      "dav1d",
+      "svt-av1"
+    ],
+    "complete_source_graph": false,
+    "method": "Exact embedded ASCII versions, upstream full commit resolution and corresponding source version APIs. Existing unresolved binary source fields stay null."
+  }
 }
