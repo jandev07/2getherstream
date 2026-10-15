@@ -78,6 +78,12 @@ staged signed higher-version archive on the owned emulator: grant install
 permission in Android Settings, return, recreate the Activity, re-verify the
 retained file, open the real system installer, then cancel. Three focused UI
 cases passed with the shared test-only saved-state fixture, including invalid and
-missing restored-file recovery. This does not test public metadata/download or
-confirm installation. The earlier adb upgrade/data-retention proof remains a
-separate boundary; do not combine these into a normal in-app update acceptance.
+missing restored-file recovery. That permission-return-only case cancels installation. A subsequent owned run
+uses the same production UI flow and confirms the real system installer. Target
+replacement terminates its first instrumentation invocation; separate post-upgrade
+checks verify version9, the exact intended installed APK hash, retained isolated
+encrypted pairing/settings and unchanged normal pairing identity. Cleanup passes.
+The upgrade itself uses the system installer, not adb install. This starts with
+seeded saved metadata and a staged archive: public metadata/CDN download and the
+complete normal in-app update sequence remain unverified. Earlier adb and
+permission-cancel receipts remain separate historical evidence.

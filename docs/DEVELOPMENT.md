@@ -6323,3 +6323,40 @@ source completeness and physical/WAN gates, planning75%/35% unchanged. Twitch
 untouched. Next useful updater boundary is actual installer confirmation followed
 by separate post-upgrade identity/isolated settings and pairing checks, with test
 process termination treated as an expected handoff only after upgrade is observed.
+
+
+## Confirmed system update and post-upgrade data checks — 15 October 2026
+
+Distinct owned run65339738-5c75-4b96-81c1-6bee59b4ae21 passed06:18:18UTC.
+UpdatePermissionTest exercise is shared by its unchanged cancel test and explicit
+UpdateInstallHandoffTest confirmation. Real production UpdateControls begins
+with seeded saved public metadata and staged signed higher APK; starts on internal
+version8, grants actual Settings permission, returns/recreates, verifies archive,
+opens system installer and clicks its Update confirmation. Confirmation callback
+persists an owned submitted marker. Target replacement emits Process crashed in
+the first instrumentation output; this is EXPECTED HANDOFF, not a passed JUnit
+case or native crash reproduction. No assertion failure was relabelled passed.
+
+Fresh post-upgrade invocation passed1 exact-identity JUnit case: installedcode9,
+submitted marker present, installed base.apk SHA256 exactly30a42bae31c6b37db8fefcd1ffb05a494ceede7decef71695f2f0a6fc2a97f7d,
+isolated Keystore-encrypted pairing and committed setting retained, normal saved
+pairing identity unchanged. Separate cleanup1 passed; UUID-owned keys/files/prefs
+removed, prior install permission mode default restored successfully, emulator
+stopped/fresh serial absence confirmed. Runner installs lower app/test via adb
+only for setup; actual8to9 upgrade is system-confirmed, NOTadb-r. Exact higher APK
+reused hash-checked from prior run; matches earlier3bb82 pairing-fix internal APK.
+
+No product code changed or fix claimed. New test-only confirmation branch shares
+permission/restore/installer flow instead of duplicating production updater logic.
+Both app/test inputs compiled; final actual confirmation flow and post/cleanup
+checks executed. Previous3 permission-cancel/restore cases passed before branch
+extension, not silently counted as rerun. Exact runner/payload/source hashes and
+handoff/after/cleanup logs via work/source-validation/update-install-directory.txt.
+
+Boundary starts at a staged valid cache APK and seeded saved release record;
+public metadata/CDN download/normal check-download sequence NOTverified. It is
+owned emulator update/data retention, not physical phone, playback, WAN or two-hour
+acceptance. Source/provenance and public delivery gates remain. Earlier permission
+label failure and all candidate failures remain unmodified. Offered0.1.7 and
+candidate95181878 unchanged; no Desktop/public APK/metadata/Worker publication.
+Twitch untouched, owners free, planning75%/35% and16Oct00:00IST hold unchanged.

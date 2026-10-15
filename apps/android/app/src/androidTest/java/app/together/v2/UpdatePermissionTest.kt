@@ -37,7 +37,8 @@ class UpdatePermissionTest {
         assertTrue("Update flow click was rejected",button.performAction(AccessibilityNodeInfo.ACTION_CLICK))
     }
     private fun install()=click(screen().first {it.text?.toString()=="Install update"})
-    @Test fun verifiedArchiveSurvivesPermissionReturnAndRecreationThenOpensInstaller() {
+    @Test fun verifiedArchiveSurvivesPermissionReturnAndRecreationThenOpensInstaller() = exercise(false)
+    internal fun exercise(confirmUpgrade:Boolean,onSubmitted:()->Unit={}) {
         val run=checkNotNull(InstrumentationRegistry.getArguments().getString("permissionRun"))
         require(run.matches(Regex("[a-f0-9-]{36}")))
         val file=File(context.cacheDir,"updates/$run.apk")
@@ -66,10 +67,20 @@ class UpdatePermissionTest {
                 try {assertTrue(verifier.canInstall());verifier.verifyArchive(file,release)} finally {verifier.close()}
                 install()
                 waitFor {screen().any {it.packageName?.toString()?.contains("packageinstaller")==true} && screen().any {it.text?.toString()?.let {label -> label.equals("Install",true) || label.equals("Update",true)}==true}}
-                // Leave no installer pending and do not confirm an upgrade in this test.
-                instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
-                waitFor {text("Install update")}
-                assertTrue("Cancelled installer removed the verified archive",file.isFile)
+                if(confirmUpgrade) {
+                    click(screen().first {it.packageName?.toString()?.contains("packageinstaller")==true &&
+                        it.text?.toString()?.let {label ->label.equals("Install",true) || label.equals("Update",true)}==true})
+                    onSubmitted()
+                    // Replacement should terminate this instrumentation target.
+                    // The runner verifies the exact installed APK and retained state
+                    // in a separate invocation; termination alone is not success.
+                    SystemClock.sleep(30000)
+                    fail("Installer confirmation did not replace the running app")
+                } else {
+                    instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
+                    waitFor {text("Install update")}
+                    assertTrue("Cancelled installer removed the verified archive",file.isFile)
+                }
             }}
         } finally {file.delete()}
     }
