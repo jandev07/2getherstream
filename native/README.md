@@ -176,3 +176,23 @@ archive copies are accepted only after whole-file SHA256 equality; conflicting
 copies fail. URL-only associations are reported as unchecked, without network
 requests. This verifies notice bytes against the recorded provenance, not
 upstream authenticity, binary correspondence or distribution completeness.
+
+
+Native media transport rejects redirects, including HTTPS-to-HTTPS: Windows sets
+curl-max-redirects=0 and stream-lavf-o=max_redirects=0; Android sets the lavf limit.
+TLS verification remains enabled. This matches the resolver's direct-range URL
+policy; a later redirect fails through existing native fault/recovery handling.
+It does not sandbox every demuxer/subresource request. Actual owned loopback TLS
+fixtures verified Windows curl/lavf and Android JNI transport separately; these
+are not provider, full paired-session, frame timing or physical acceptance.
+
+Explicit Android NativeRedirectTest requires nativeTlsOrigin=https://127.0.0.1:PORT
+and an owned CA staged as cache/isolated-native-redirect-ca.pem in the debug app.
+The fixture serves the local clock-test.mp4 directly at /direct, /secure returns
+302 to the same HTTPS /direct, and /downgrade returns302 to a separately observed
+loopback HTTP listener. Own both reverse mappings and inspect both redirect hits
+and zero plaintext requests. The test verifies untrusted TLS rejection before
+using its per-player CA, then direct readiness and both redirect failures. It
+removes its CA and awaits each player cleanup. Run only with an isolated owned
+fixture and existing muted instrumentation runner; never change system trust.
+Exact successful run and failed setup/build history are in DEVELOPMENT.

@@ -6618,3 +6618,47 @@ preserved, owners free; source correspondence/physical gates, public/Desktop hol
 16Oct00:00IST and planning75%/35% unchanged. Next distinct native boundary is the
 revised Android redirect policy on an owned TLS fixture, not another unchanged
 Windows/provider repetition or a public playback-tunnel retry.
+
+
+## Android native HTTPS redirect runtime — 15 October 2026
+
+New explicit NativeRedirectTest exercises the actual Android LibMpvAdapter,
+pinned JNI/libmpv/FFmpeg network path and current production redirect option.
+Four independent muted players: untrusted direct TLS fails with decoder_failed;
+after admitting a synthetic CA only on that test player, direct HTTPS reaches
+sourceReady with positive duration and Paused state. HTTPS302 targeting HTTPS and
+HTTPS302 targeting HTTP both fail with decoder_failed/Failed and no readiness.
+Both redirect endpoints were requested; the separate plaintext listener received
+zero requests. This closes the Android runtime boundary left open at0a75c21;
+no new production behaviour or second fix is claimed.
+
+Test-only reflection obtains core inside the existing serial worker barrier,
+then checked native set tls-ca-file installs the owned CA for that player only.
+No Main-thread native access, product mutation API, trust-store/TLS weakening,
+real credential/provider URL, control tunnel or network configuration change.
+PC TLS/HTTP listeners use ephemeral loopback ports; exactly those two owned adb
+reverse mappings were removed before normal emulator shutdown. Certificate staging
+and app-cache CA removed; four independent native cleanup callbacks completed.
+Twitch untouched, no Activity/window shown and player mute set by existing runner.
+
+Runbddb68c6-7942-4cdf-a7d7-925d1e5f543b passed1 exact instrumentation identity
+in3.875seconds, completed09:00:22UTC. Internal mainAPK50a57d679190d41330e720010aaf6a84fb55e0cc1d9b6062ec6f846cf349009a,
+testAPK7fa8474b055526aaee9f35770614669fd6a0b81054d92adcbf155550d6132558.
+Android source aggregatee01aa04a.../124files matched before/after build/runtime.
+Initial runner launched under legacy PowerShell5 and failed before builds because
+Path.GetRelativePath is unavailable; retained, corrected to existing PowerShell7.
+Next build caught missing pinned getOrThrow extension import; failed source/build
+log/receipt retained, corrected before the successful runtime. Neither failure
+was relabelled. Exact receipts, fixture/certificate/source hashes, isolated build,
+install/instrumentation/reverse/stop logs via
+work/source-validation/android-native-redirect-directory.txt and validation.json.
+Synthetic private key remains ignored and absent from public source/packages.
+
+No rendered video/frame/clock/150ms/native-pair/provider/physical/WAN/two-hour
+claim; not a complete demuxer/subresource sandbox. Earlier session redirect retry
+and Windows native downgrade proofs remain separate. No unchanged native/provider
+or JVM suites rerun, dependency/loop/schema changes, public APK/Worker/Desktop
+publication or offered0.1.7 change. Owners free/emulator and fixture stopped.
+Both-app review: redirect options remain startup-only; no per-tick URL parsing,
+new polling or duplicate network coordinator introduced. Public delivery hold,
+partial corresponding-source inventory and planning75%/35% unchanged.
