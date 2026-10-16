@@ -32,6 +32,14 @@ internal fun readPairingBytes(input:InputStream):ByteArray {
     return bytes.copyOf(count)
 }
 
+/** Observe publication after AtomicFile closes its writer; never roll it back here. */
+internal fun verifyPairingCommit(file:File,expected:ByteArray) {
+    val published=try {
+        file.isFile && file.inputStream().use {readPairingBytes(it)}.contentEquals(expected)
+    } catch(_:Exception) {false}
+    check(published) {"Stored pairing could not be saved"}
+}
+
 /** No data-class toString: bearer credentials must never appear in diagnostics. */
 class Pairing(val baseUrl:String,val token:String) {
     init {validatePairingToken(token)}
@@ -61,6 +69,10 @@ class PairingStore(context:Context,private val alias:String="together2-pairing-v
             require(bytes.size<=MAX_PAIRING_BYTES) {"Pairing is too large"}
             val output=file.startWrite()
             try {output.write(bytes);file.finishWrite(output)} catch(e:Exception) {file.failWrite(output);throw e}
+            // finishWrite may only log a failed rename. Confirm the bounded
+            // ciphertext before setup opens the session. This is outside the
+            // rollback catch: failWrite must not undo an already finished write.
+            verifyPairingCommit(file.baseFile,bytes)
         } finally {plaintext.fill(0)}
     }
     }

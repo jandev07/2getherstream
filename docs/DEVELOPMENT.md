@@ -7258,3 +7258,36 @@ work/source-validation/surface-notice-native-directory.txt,
 native-source-notice-validation.json. No new app dependency, observer/timer,
 protocol/schema or native property allowlist. Offered Alpha0.1.7 and older user
 apps untouched; no Alpha/package/public metadata release. Estimates75%/35% unchanged.
+
+## Pairing save publication acknowledgment — 16 October 2026
+
+Current Android save treated AtomicFile.finishWrite returning as acknowledgment.
+Primary AOSP Android16 implementation can log failed sync/rename without throwing:
+https://raw.githubusercontent.com/aosp-mirror/platform_frameworks_base/android-16.0.0_r1/core/java/android/util/AtomicFile.java
+Save now verifies bounded exact ciphertext at the base path under its existing
+process-wide disk lock before setup opens the session. Verification is outside
+write rollback: failure after finish must not call failWrite or delete a possibly
+published record. Fixed error contains no path/bytes/cause. Encryption, key/AAD,
+file format, pairing admission and explicit retry remain unchanged. Readback
+confirms observable publication, NOT fsync/power-loss or multi-process durability.
+
+Four new actual production-helper JVM filesystem checks cover exact4096 bytes,
+staged-only file then explicit retry, nonempty target directory and unchanged
+staging, empty/truncated/stale/oversized base files without rollback. Controlled
+CURRENT helper omission passes1/fails3; this is not original AtomicFile/runtime
+failure reproduction. Exact source restored; final8JVM checks pass (4new,4related
+bounded-read/fixed-feedback cases). Main/instrumentation Kotlin compiled ONLY.
+Bytecode confirms finishWrite246, failWrite260 and verification287 outside the
+write catch range. Existing Activity save-before-session wiring source reviewed.
+Windows vault already propagates write/sync/hard-link failures and converges on
+persisted identity; source review only, no unchanged Windows tests rerun.
+
+Automatic approval review rejected the proposed emulator/Keystore storage-failure
+proof command with only "blocked by policy". It did not execute or write its
+runner/test; no retry through other tools. This pass used ordinary JVM files and
+compilation only: no APK, emulator, Keystore, AtomicFile runtime, pairing/device
+or UI claim. Keep that rejected proof unexecuted. Exact logs/JUnit comparison,
+bytecode, hashes and source-only receipt through
+work/source-validation/pairing-commit-source-directory.txt. No dependency, schema,
+background polling, credential/user-storage change or Alpha/package publication.
+Offered0.1.7 unchanged; physical/two-hour/WAN gates open, estimates75%/35% unchanged.
