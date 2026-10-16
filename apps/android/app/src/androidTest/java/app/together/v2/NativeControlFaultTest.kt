@@ -57,6 +57,82 @@ class NativeControlFaultTest {
         }
     }
 
+    /** Controlled native-worker delay, not a reproduced driver hang or session race. */
+    @Test fun pendingFreezeBurstIsBoundedWithoutLosingResumeOrEpochOrdering()=runBlocking<Unit> {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
+        val fixture=File(context.filesDir,"queued-freeze-backlog-proof.mp4")
+        val receipt=File(context.filesDir,"native-freeze-backlog-proof.json");val rows=JSONArray()
+        context.assets.open("clock-test.mp4").use {input ->fixture.outputStream().use {input.copyTo(it)}}
+        val cleaned=CountDownLatch(1);val closed=AtomicInteger();var owned:LibMpvAdapter?=null
+        var heldRelease:CountDownLatch?=null
+        try {
+            val player=withContext(Dispatchers.Main) {
+                LibMpvAdapter(context,NativeLifecycleProof({}, {}, {closed.incrementAndGet()}, {cleaned.countDown()})).also {owned=it}
+            }
+            assertTrue(withTimeout(15000) {player.status.first {it.initialized || it.error!=null}}.initialized)
+            val revision=withContext(Dispatchers.Main) {player.loadLocal(fixture,null)}
+            withTimeout(15000) {player.status.first {it.sourceReady && it.acceptedSourceRevision==revision}}
+            val scopeField=LibMpvAdapter::class.java.getDeclaredField("scope").apply {isAccessible=true}
+            val coreField=LibMpvAdapter::class.java.getDeclaredField("core").apply {isAccessible=true}
+            val ownerJob=(scopeField.get(player) as CoroutineScope).coroutineContext[Job]!!
+            for(replaceEpoch in listOf(false,true)) {
+                withContext(Dispatchers.Main) {player.pause(false)}
+                val playing=withTimeout(10000) {player.status.first {it.state=="Playing" && it.positionMs>=100}}
+                val entered=CountDownLatch(1);val release=CountDownLatch(1);heldRelease=release
+                withContext(Dispatchers.Main) {
+                    player.enqueueWorkerBarrierForProof {
+                        check(!(coreField.get(player) as Mpv).get(MpvProperties.Pause).getOrThrow()) {"native was not unpaused before hold"}
+                        entered.countDown();check(release.await(20,TimeUnit.SECONDS))
+                    }
+                }
+                assertTrue("freeze worker barrier",entered.await(10000,TimeUnit.MILLISECONDS))
+                val pending=withContext(Dispatchers.Main) {
+                    val before=ownerJob.children.count();repeat(1000) {player.pause(true)}
+                    ownerJob.children.count()-before
+                }
+                rows.put(JSONObject().put("phase","held_freeze_burst").put("replace_epoch",replaceEpoch)
+                    .put("requests",1000).put("additional_pending_jobs",pending).put("playing_position_ms",playing.positionMs))
+                receipt.writeText(rows.toString())
+                assertTrue("repeated identical freezes accumulate worker jobs: $pending",pending<=1)
+                val laterEntered=CountDownLatch(1);val laterRelease=CountDownLatch(1)
+                withContext(Dispatchers.Main) {
+                    // Let the older freeze finish, while a newer freeze remains
+                    // queued beyond this second barrier. Old completion must
+                    // not clear ownership of that newer pending request.
+                    player.enqueueWorkerBarrierForProof {laterEntered.countDown();check(laterRelease.await(20,TimeUnit.SECONDS))}
+                    if(replaceEpoch) player.invalidateCommands() else player.pause(false)
+                    player.pause(true)
+                }
+                release.countDown();heldRelease=laterRelease
+                assertTrue("old freeze completion barrier",laterEntered.await(10000,TimeUnit.MILLISECONDS))
+                val afterOldCompletion=withContext(Dispatchers.Main) {
+                    val before=ownerJob.children.count();repeat(1000) {player.pause(true)}
+                    ownerJob.children.count()-before
+                }
+                rows.put(JSONObject().put("phase","old_completion_retains_latest_freeze").put("replace_epoch",replaceEpoch)
+                    .put("requests",1000).put("additional_pending_jobs",afterOldCompletion))
+                receipt.writeText(rows.toString());assertEquals(0,afterOldCompletion)
+                laterRelease.countDown()
+                val observed=CountDownLatch(1);val paused=AtomicReference<Boolean?>();val observationError=AtomicReference<Throwable?>()
+                withContext(Dispatchers.Main) {
+                    player.enqueueWorkerBarrierForProof {
+                        try {paused.set((coreField.get(player) as Mpv).get(MpvProperties.Pause).getOrThrow())}
+                        catch(error:Throwable) {observationError.set(error)}
+                        finally {observed.countDown()}
+                    }
+                }
+                assertTrue("freeze completion",observed.await(10000,TimeUnit.MILLISECONDS));assertNull(observationError.get())
+                rows.put(JSONObject().put("phase","latest_freeze_observed").put("replace_epoch",replaceEpoch).put("paused",paused.get()))
+                receipt.writeText(rows.toString());assertEquals(true,paused.get());assertNull(player.status.value.failure)
+            }
+        } finally {
+            heldRelease?.countDown()
+            withContext(NonCancellable+Dispatchers.Main) {owned?.close()}
+            if(owned!=null) {assertTrue("freeze cleanup",cleaned.await(20,TimeUnit.SECONDS));assertEquals(1,closed.get())}
+            assertTrue("owned freeze fixture cleanup",fixture.delete())
+        }
+    }
+
     @Test fun pendingCommandFaultRejectsQueuedSeekStartAndCorrectionButAllowsFreezeAndRecovery()=runBlocking<Unit> {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         val fixture=File(context.filesDir,"queued-control-fault-proof.mp4")

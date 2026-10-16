@@ -7374,3 +7374,46 @@ source grant/worker cancellation unchanged, no duplicate implementation/tests.
 No Alpha/APK/EXE release or deployment, credentials/user logs/network settings
 untouched. Offered0.1.7 and estimates75%/35% unchanged; rejected storage proof stays
 unexecuted. Native/control locks free and no runner marker at completion.
+
+## Pending native freezes do not accumulate identical jobs — 16 October 2026
+
+Android follow's pending-fault path repeatedly calls pause(true); the adapter
+previously launched a separate coroutine for every request even while its serial
+native worker was held. New actual adapter baseline d486c527-b344-4149-ad20-6115200d12e8
+measures1000extra pending root jobs for1000identical requests and fails the new
+bound assertion. This is a test-induced worker delay/burst, NOT a reproduced
+native driver hang, full SessionController fault backlog or measured user delay.
+
+Adapter now shares only an identical still-pending same-command-epoch freeze.
+Private queue returns its Job so exact request completion/cancellation releases
+that ticket; native success is not cached. Resume clears the pending admission,
+new epochs cannot reuse old admission, and an older completion cannot clear a
+newer ticket. Uninitialized/closed non-admission also releases the ticket. Existing
+fault checks, source/grant/command epoch rules and independent cleanup remain.
+No new coordinator/dispatcher/timer, native property reads or dependency. This is
+not a global native queue bound and does not suppress steady-state JNI calls
+once each pause has completed; no CPU/battery/latency improvement is claimed.
+
+Revised run8b9370ca passes initial native case. Strengthened run81aa2d34 passes all
+4NativeControlFaultTest methods (one new plus3affected fault/recovery/healthy close
+checks). Final test-only setup additionally verifies actual native Pause=false
+before each hold; focused run7403b474 passes that strengthened method, main APK
+byte-identical to the four-method run. In both resume-order and epoch-replacement
+cases,1000requests add1job; after old completion with latest freeze still queued,
+another1000add0jobs. Final actual native Pause=true in both; source remains healthy.
+Existing native fault/queued-seek/recovery and immediate/steady close compatibility
+checks pass on this changed adapter. All owned native cores/fixtures/emulators
+cleaned; exact selected identities and payload hashes retained. Baseline stops at
+first burst assertion; later baseline cases were not run. Failures preserved.
+
+Exact per-phase source/build hashes, original adapter, payload copies, numerical
+native receipts/logs and verifier results through
+work/source-validation/native-freeze-backlog-directory.txt,
+native-freeze-backlog-validation.json. Owned internal debug validation APKs only,
+no Alpha/package/deployment or actual provider/pairing/socket/physical/WAN claim.
+Rejected storage/Keystore proof remains unexecuted. Antigravity actual UI read:
+earlier review complete/empty composer, no new task/prompt/review claimed. Windows
+worker issues native calls inline rather than spawning queued coroutines in this
+path; no speculative mirrored optimization/Rust change or unchanged suite rerun.
+Offered0.1.7 preserved; planning75%/35% unchanged; no user logs/credentials/system
+volume/network settings modified. Native/control ownership free at completion.

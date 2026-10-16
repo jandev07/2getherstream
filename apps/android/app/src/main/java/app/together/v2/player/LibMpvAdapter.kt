@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import java.io.File
 import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.atomic.AtomicReference
 
 data class PlayerStatus(val initialized: Boolean = false, val state: String = "Starting player",
                         val positionMs: Long = 0, val durationMs: Long = 0, val seeking: Boolean = false,
@@ -47,6 +48,8 @@ class LibMpvAdapter internal constructor(context: Context, private val lifecycle
     private var surface: Surface? = null
     private val surfaceGeneration = AtomicLong(0)
     private val commandEpoch = AtomicLong(0)
+    private class PendingFreeze(val epoch:Long)
+    private val pendingFreeze=AtomicReference<PendingFreeze?>(null)
     private val sourceRevision=AtomicLong(0)
     private var activeSourceRevision=0L
     @Volatile private var sourceEntry:Long?=null
@@ -177,10 +180,10 @@ class LibMpvAdapter internal constructor(context: Context, private val lifecycle
         mpv.attachSurface(nativeSurface,"gpu").getOrThrow()
         if(width>0 && height>0) mpv.set(MpvProperties.AndroidSurfaceSize,"${width}x$height").getOrThrow()
     }
-    private fun queue(tagged:Boolean=true,block:()->Unit) {
-        if(closed || !mutableStatus.value.initialized) return
+    private fun queue(tagged:Boolean=true,block:()->Unit):Job? {
+        if(closed || !mutableStatus.value.initialized) return null
         val epoch=commandEpoch.get()
-        scope.launch(calls) {
+        return scope.launch(calls) {
             if(closed || (tagged && epoch!=commandEpoch.get())) return@launch
             try {block()}
             catch(e:Exception) {
@@ -224,7 +227,31 @@ class LibMpvAdapter internal constructor(context: Context, private val lifecycle
     }
     // A healthy Main-thread observation can precede a fault on this serial
     // worker. Recheck at submission; freezing/resetting remains permitted.
-    fun pause(paused:Boolean) = queue {if(paused || (startEnabled && mutableStatus.value.failure==null)) checkNotNull(core).set(MpvProperties.Pause,paused).getOrThrow()}
+    fun pause(paused:Boolean) {
+        var admitted:PendingFreeze?=null
+        if(paused) {
+            val epoch=commandEpoch.get();val request=PendingFreeze(epoch)
+            while(true) {
+                val previous=pendingFreeze.get()
+                if(previous?.epoch==epoch) return
+                if(pendingFreeze.compareAndSet(previous,request)) {admitted=request;break}
+            }
+        } else {
+            // A later freeze must stay after this resume in the worker queue.
+            pendingFreeze.set(null)
+        }
+        val submitted=queue {
+            if(paused || (startEnabled && mutableStatus.value.failure==null))
+                checkNotNull(core).set(MpvProperties.Pause,paused).getOrThrow()
+        }
+        // Deduplicate only still-pending freezes, never cache native success.
+        // Exact ticket ownership keeps an older completion from clearing a new
+        // generation/resume's pending freeze; cancellation also releases it.
+        admitted?.let {request ->
+            if(submitted==null) pendingFreeze.compareAndSet(request,null)
+            else submitted.invokeOnCompletion {pendingFreeze.compareAndSet(request,null)}
+        }
+    }
     fun speed(rate:Double) {
         require(rate.isFinite() && rate in 0.95..1.005)
         queue {if(rate==1.0 || mutableStatus.value.failure==null) checkNotNull(core).set(MpvProperties.Speed,rate).getOrThrow()}
