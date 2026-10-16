@@ -7534,3 +7534,33 @@ empty composer, no task/permission; no new review claimed. No new Alpha/release/
 deployment, user credentials/logs/network/system-volume change. Rejected private
 Keystore storage proof remains unexecuted; previous paired4K0782308f stays failed.
 Offered0.1.7 and estimates75%/35% unchanged.
+
+
+## Android relative seek respects room faults and native buffering — 16 October 2026
+
+The current Android settled-source guard omitted room fault and native buffering,
+while the Windows relative-seek UI already blocked both. Baseline actual Android
+component runc16189e2 reproduces canSeek=true and a queued relative seek with a
+synthetic room fault (the test used pc:decoder_failed; final uses the actual Host
+label player_failed_pc). It fails there; later buffering baseline case not run.
+This is real public PlayerProofController/SessionController code with synthetic
+source/native statuses and an in-flight fake WebSocket, not a live native-pair
+fault/decoder failure or actual server acceptance demonstration.
+
+Existing relativeSeekStatus now also requires no room fault and no native
+buffering. Button capability and handler share it; absolute intent, Play/recovery,
+protocol, Host authority/source/grant and worker-side terminal-fault rules remain
+unchanged. No new helper/owner/native call/timer/dependency/diagnostic field.
+Revised e6031ea0 passes the one exact instrumentation method:11blocked scenarios
+show canSeek=false/queued=false (2new plus9existing), then healthy settled source
+remains enabled and queues gen8 target25000ms from current15000ms. Final test uses
+actual room fault label and additionally checks capability before queued result.
+
+Owned private debug main/test APKs built; phase payloads/source hashes, selected
+identities, actual rows and preserved failed history through
+work/source-validation/android-settled-seek-directory.txt and
+android-settled-seek-validation.json. Emulator stopped, native/control owners free.
+No socket IO/rendered UI/native playback/provider/Keystore/WAN/physical gate claim;
+no unchanged proof suite reruns, new Alpha/release/deployment or credential/user-log/
+network/system-volume change. Prior0782308f failed; rejected storage proof remains
+unexecuted. Offered0.1.7 and estimates75%/35% unchanged.

@@ -11,6 +11,8 @@ import okhttp3.Request
 import okhttp3.WebSocket
 import okio.ByteString
 import org.json.JSONObject
+import org.json.JSONArray
+import java.io.File
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,6 +25,8 @@ class RelativeSeekTest {
         val instrumentation=InstrumentationRegistry.getInstrumentation()
         instrumentation.runOnMainSync {
             val controller=PlayerProofController(instrumentation.targetContext)
+            val observations=JSONArray()
+            val receipt=File(instrumentation.targetContext.filesDir,"relative-seek-settled-proof.json")
             val session=controller.session
             fun field(owner:Any,name:String)=owner.javaClass.getDeclaredField(name).apply {isAccessible=true}
             @Suppress("UNCHECKED_CAST")
@@ -47,10 +51,16 @@ class RelativeSeekTest {
                     override fun close(code:Int,reason:String?)=true
                     override fun cancel() {}
                 })
-                fun rejected(label:String,status:PlayerStatus=ready,loaded:Boolean=true,loading:Boolean=false,pending:Boolean=false,prepare:Boolean=false) {
+                fun rejected(label:String,status:PlayerStatus=ready,loaded:Boolean=true,loading:Boolean=false,pending:Boolean=false,prepare:Boolean=false,fault:String?=null) {
                     native.value=status;field(session,"loaded").setBoolean(session,loaded);field(session,"loading").setBoolean(session,loading)
                     field(session,"seekPending").setBoolean(session,pending);snapshot.put("prepare",if(prepare) JSONObject() else JSONObject.NULL)
+                    snapshot.put("fault",fault ?: JSONObject.NULL)
+                    val enabled=controller.canSeek()
                     field(session,"wanted").set(session,null);controller.seek(10000)
+                    observations.put(JSONObject().put("case",label).put("can_seek",enabled)
+                        .put("queued",field(session,"wanted").get(session)!=null))
+                    receipt.writeText(observations.toString())
+                    assertFalse("Relative seek enabled from $label",enabled)
                     assertNull("Relative seek queued from $label",field(session,"wanted").get(session))
                 }
                 rejected("old native source",ready.copy(sourceRevision=3,acceptedSourceRevision=3))
@@ -62,14 +72,17 @@ class RelativeSeekTest {
                 rejected("unready native source",ready.copy(sourceReady=false))
                 rejected("stale native probe",ready.copy(sampledAtMs=SystemClock.elapsedRealtime()-1500))
                 rejected("pending native failure",ready.copy(failure="command_failed"))
+                rejected("room native failure",fault="player_failed_pc")
+                rejected("native buffering",ready.copy(state="Buffering",buffering=true))
                 native.value=ready.copy(sampledAtMs=SystemClock.elapsedRealtime());field(session,"loaded").setBoolean(session,true)
                 field(session,"loading").setBoolean(session,false);field(session,"seekPending").setBoolean(session,false)
                 snapshot.put("prepare",JSONObject.NULL);field(session,"wanted").set(session,null)
+                assertTrue("Settled healthy source remains seekable",controller.canSeek())
                 controller.seek(10000)
                 val queued=checkNotNull(field(session,"wanted").get(session))
                 assertEquals(8L,field(queued,"generation").getLong(queued))
                 assertEquals(25000L,(field(queued,"action").get(queued) as JSONObject).getLong("position_ms"))
-            } finally {controller.close()}
+            } finally {controller.close();receipt.writeText(observations.toString())}
         }
     }
 }

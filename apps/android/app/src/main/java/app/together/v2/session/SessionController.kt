@@ -344,9 +344,9 @@ class SessionController(private val context: Context, private val player: LibMpv
     private fun relativeSeekStatus():PlayerStatus? {
         val snapshot=state ?: return null
         if(!mutable.value.connected || socket==null || snapshot.isNull("media") ||
-            !snapshot.isNull("prepare") || !loaded || loading || seekPending) return null
+            !snapshot.isNull("prepare") || !snapshot.isNull("fault") || !loaded || loading || seekPending) return null
         val native=player.status.value
-        return native.takeIf {it.initialized && it.durationMs>0 && !it.seeking && it.failure==null &&
+        return native.takeIf {it.initialized && it.durationMs>0 && !it.seeking && !it.buffering && it.failure==null &&
             it.sourceReady && expectedSourceRevision>0 && it.sourceRevision==expectedSourceRevision &&
             it.acceptedSourceRevision==expectedSourceRevision && it.sampledAtMs>0 && now()-it.sampledAtMs in 0..1000}
     }
