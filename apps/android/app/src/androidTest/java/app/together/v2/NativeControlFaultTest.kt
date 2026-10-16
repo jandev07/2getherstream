@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.together.v2.player.LibMpvAdapter
 import app.together.v2.player.NativeLifecycleProof
+import app.together.v2.player.nativeTimeMillis
 import io.github.yuroyami.libmpvkt.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
@@ -56,7 +57,7 @@ class NativeControlFaultTest {
         }
     }
 
-    @Test fun pendingCommandFaultRejectsQueuedStartAndCorrectionButAllowsFreezeAndRecovery()=runBlocking<Unit> {
+    @Test fun pendingCommandFaultRejectsQueuedSeekStartAndCorrectionButAllowsFreezeAndRecovery()=runBlocking<Unit> {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         val fixture=File(context.filesDir,"queued-control-fault-proof.mp4")
         val receipt=File(context.filesDir,"native-control-fault-proof.json")
@@ -86,6 +87,7 @@ class NativeControlFaultTest {
                             result.set(JSONObject().put("phase",phase)
                                 .put("paused",core.get(MpvProperties.Pause).getOrThrow())
                                 .put("rate",core.get(MpvProperties.Speed).getOrThrow())
+                                .put("position_ms",nativeTimeMillis(core.get(MpvProperties.TimePos).getOrThrow()))
                                 .put("failure",player.status.value.failure ?: JSONObject.NULL))
                         } catch(error:Throwable) {failure.set(error)}
                         finally {done.countDown()}
@@ -106,7 +108,8 @@ class NativeControlFaultTest {
             load(null)
             for((initial,queued) in listOf(1.0 to 1.005,1.005 to 0.995)) {
                 withContext(Dispatchers.Main) {player.speed(initial)}
-                assertEquals(initial,observe("healthy_setup").getDouble("rate"),0.000001)
+                val healthy=observe("healthy_setup")
+                assertEquals(initial,healthy.getDouble("rate"),0.000001)
                 val entered=CountDownLatch(1);val release=CountDownLatch(1)
                 heldRelease=release
                 withContext(Dispatchers.Main) {
@@ -118,18 +121,24 @@ class NativeControlFaultTest {
                     }
                 }
                 assertTrue("fault barrier not entered",entered.await(10,TimeUnit.SECONDS))
-                withContext(Dispatchers.Main) {player.pause(false);player.speed(queued)}
+                withContext(Dispatchers.Main) {player.pause(false);player.speed(queued);player.seek(30000)}
                 release.countDown()
-                val fault=observe("pending_fault_queued_start_and_rate")
+                // Commands passed the held worker. Wait for ten subsequent real
+                // property samples, so async native seek completion is observable.
+                var sampled=player.status.value.sampledAtMs
+                repeat(10) {sampled=withTimeout(5000) {player.status.first {it.sampledAtMs>sampled}}.sampledAtMs}
+                val fault=observe("pending_fault_queued_seek_start_and_rate")
                 assertEquals("command_failed",fault.getString("failure"))
                 assertTrue("queued start ran after native command failure",fault.getBoolean("paused"))
                 assertEquals("queued correction ran after native command failure",initial,fault.getDouble("rate"),0.000001)
+                assertTrue("queued seek ran after native command failure",kotlin.math.abs(fault.getLong("position_ms")-healthy.getLong("position_ms"))<=200)
                 withContext(Dispatchers.Main) {player.pause(true);player.speed(1.0)}
                 val frozen=observe("fault_freeze_and_reset")
                 assertTrue(frozen.getBoolean("paused"));assertEquals(1.0,frozen.getDouble("rate"),0.000001)
                 assertEquals("command_failed",frozen.getString("failure"))
                 load("command_failed")
-                withContext(Dispatchers.Main) {player.pause(false);player.speed(queued)}
+                withContext(Dispatchers.Main) {player.seek(2000);player.pause(false);player.speed(queued)}
+                withTimeout(10000) {player.status.first {it.state=="Playing" && it.positionMs in 2000..5000}}
                 val recovered=observe("explicit_adapter_recovery")
                 assertFalse(recovered.getBoolean("paused"));assertEquals(queued,recovered.getDouble("rate"),0.000001)
                 assertTrue(recovered.isNull("failure"))

@@ -7291,3 +7291,40 @@ bytecode, hashes and source-only receipt through
 work/source-validation/pairing-commit-source-directory.txt. No dependency, schema,
 background polling, credential/user-storage change or Alpha/package publication.
 Offered0.1.7 unchanged; physical/two-hour/WAN gates open, estimates75%/35% unchanged.
+
+## Queued native seek after terminal fault — 16 October 2026
+
+Fresh source review found Android seek lacked the worker-side pending-fault check
+already used for start and nonunit speed. Extended existing actual native command
+fault test: a held serial worker rejects an unknown native command, then releases
+queued start/rate/seek30000. Original production adapter kept command_failed and
+paused state but native position moved0→30000 after ten fresh property samples.
+Baseline run e02d8f83-7707-48ad-87b4-fe0293b8fe03 fails the new position assertion;
+only first rate case reached. No unsafe unpause/fault loss or decoder crash claim.
+
+Seek now rechecks current failure inside its existing queued closure. No new
+helper/owner/fault/schema/dependency/poll or source/grant/recovery policy. Revised
+actual native run45566c44-ffd0-4e15-8643-524cfcc9bc1a passes the one selected
+instrumentation method, with two rate setups1.0/1.005: pending fault preserves
+native position0/2000 for ten fresh samples each, queued start/rate remain blocked,
+pause/reset permitted, matching explicit load recovery permits seek2000 and actual
+Playing/native rate1.005/0.995 again. Actual pinned native API unknown-command
+rejection is distinct from injected fault enum or decoder/GPU crash. The short
+check-to-native-call interval is not atomic against Main fault publication.
+
+Owned internal debug APKs built only for this playback test. Exact source/build,
+phase payload hashes, selected instrumentation identities, numerical native rows,
+failed baseline and successful revision retained separately through
+work/source-validation/queued-seek-fault-directory.txt,
+queued-seek-fault-validation.json. Both native cores close once; fixture cleanup
+and owned emulator shutdown complete. No pairing/store/Keystore operation, source
+provider/phone/socket/WAN/physical gate or new Alpha; rejected storage-failure
+proof remains unexecuted. No unchanged provider/native suites rerun.
+
+Windows review ruled out the initial analogous suspicion: source_ready requires
+native_failure.none and file_loaded carries this into pending seek admission.
+No Windows source change or test rerun. Antigravity actual UI showed earlier
+completed review; new draft focus/submission could not be verified, so no new
+review/pending task is claimed. Source review and this actual Android worker
+regression remain separate from full session/physical acceptance. Offered0.1.7
+untouched; planning75%/35% unchanged.

@@ -230,7 +230,8 @@ class LibMpvAdapter internal constructor(context: Context, private val lifecycle
         queue {if(rate==1.0 || mutableStatus.value.failure==null) checkNotNull(core).set(MpvProperties.Speed,rate).getOrThrow()}
     }
     fun seek(positionMs:Long) = queue {
-        checkNotNull(core).command(MpvCommand.of("seek",(positionMs.coerceAtLeast(0)/1000.0).toString(),"absolute+exact")).getOrThrow()
+        if(mutableStatus.value.failure==null)
+            checkNotNull(core).command(MpvCommand.of("seek",(positionMs.coerceAtLeast(0)/1000.0).toString(),"absolute+exact")).getOrThrow()
     }
     fun close() {
         if(closed) return
