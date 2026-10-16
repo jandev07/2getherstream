@@ -137,7 +137,11 @@ onMount(()=>{
     .finally(()=>{boundsBusy=false;if(!stopped && boundsAgain)bounds()});
   });
  };
- const observer=new ResizeObserver(bounds);observer.observe(surface);window.addEventListener('resize',bounds);window.addEventListener('scroll',bounds);
+ const observer=new ResizeObserver(bounds);observer.observe(surface);
+ // Notices and wrapping headings can move the video without resizing it.
+ // Reuse the same observer and coalesced delivery for container layout changes.
+ const layoutRoot=surface.closest('main');if(layoutRoot)observer.observe(layoutRoot);
+ window.addEventListener('resize',bounds);window.addEventListener('scroll',bounds);
  bounds();void refresh();const timer=setInterval(()=>void refresh(),250);
  return ()=>{stopped=true;if(boundsFrame!==null)cancelAnimationFrame(boundsFrame);clearInterval(timer);observer.disconnect();window.removeEventListener('resize',bounds);window.removeEventListener('scroll',bounds)};
 });

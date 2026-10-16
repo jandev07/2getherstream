@@ -7160,3 +7160,50 @@ callback ownership using git show, read-only and without builds/network/main
 mutations. Actual UI showed its new task running after the scoped prompt was
 submitted. Review findings before adopting any proposed fix. No new Alpha or
 release metadata; offered0.1.7 and planning75%/35% unchanged.
+
+
+## Video alignment after notices change page layout — 16 October 2026
+
+A distinct current-source investigation reproduced position-only layout loss.
+The actual App.svelte component/CSS rendered in an isolated headless Chromium
+with synthetic IPC/status: inserting player.error moves the video DOM rectangle
+from y187.875 to260.875, while width1036/height582.75 stay unchanged. Existing
+ResizeObserver(surface) sees no size change, so last video_bounds remains at
+187.875 through a3second bounded alignment wait. No actual Win32/native fault or
+native child movement was exercised by this reproduction.
+
+The existing ResizeObserver now also observes surface.closest('main'). Container
+height changes from notices/headings use the same frame coalescer, one in-flight
+IPC/latest flag and existing disconnect. No new observer owner, timer, application
+library, playback control, source/grant binding or authority change. No general
+layout-position tracking guarantee: this addresses the demonstrated container
+resize path; Win32 delivery/API failures remain a separate boundary.
+
+New actual rendered regression Test-VideoSurfaceLayout.mjs checks notice insertion,
+longer wrapping notice, and removal: submitted y follows187.875to260.875to323.875
+and back, video dimensions unchanged. Six unchanged status refreshes afterward
+add zero geometry submissions in this isolated layout. Process exit0 and server/
+browser cleanup completed. It uses existing optional external Playwright/browser
+via TOGETHER_PLAYWRIGHT_MODULE and TOGETHER_TEST_BROWSER; no application package
+or lockfile dependency added. Run node scripts/Test-VideoSurfaceLayout.mjs with
+those environment paths, or an already resolvable Playwright/default browser.
+It opens an isolated headless profile and aliases IPC only in its test server.
+No screenshots, user browser session or external provider requests.
+
+One additional actual-component test covers container-only movement and cleanup;
+all10cases pass. Controlled original component source fails that new case and the
+rendered notice alignment wait; exact revised bytes restored afterward. Svelte
+check0errors0warnings and production frontend build passed. No Rust/native/Android
+build or unchanged provider/native-pair test. Earlier source-app presentation
+receipts remain evidence of their earlier build, not this revised integration.
+Initial harness URL/browser-path/version setup failures and default-encoding edit
+failure (before mutation) are retained, not relabelled. Exact logs/observations/
+baseline and revised source digests through
+work/source-validation/surface-layout-directory.txt, surface-layout-validation.json.
+
+Antigravity corrected its earlier absolute geometry report as415328d; review
+remains source-only and is retained privately rather than importing another long
+note. Antigravity independently read this actual new main diff and both test scripts,
+reported no blockers, and did not edit files or run tests/builds. Its assessment
+is source review, not independent runtime evidence. Offered Alpha0.1.7 unchanged; no release build,
+APK/metadata deployment, physical/WAN or timing claim. Planning75%/35% unchanged.

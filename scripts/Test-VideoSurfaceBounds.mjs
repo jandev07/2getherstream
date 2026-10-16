@@ -11,24 +11,33 @@ const code=ts.transpileModule(script,{compilerOptions:{target:ts.ScriptTarget.ES
 // not rendered DOM, Tauri, Win32 positioning or a native player measurement.
 function harness(rect={x:20,y:120,width:640,height:360}){
  let mount;let resize;let nextFrame=0;let disposed=false;
- const frames=new Map();const events=new Map();const calls=[];
+ const frames=new Map();const events=new Map();const calls=[];const observed=new Set();const layoutRoot={};
  const context=vm.createContext({$state:x=>x,onMount:fn=>{mount=fn},
   invoke:(command,args)=>new Promise((resolve,reject)=>calls.push({command,args,resolve,reject})),
-  surfaceMock:{getBoundingClientRect:()=>({...rect})},
+  surfaceMock:{getBoundingClientRect:()=>({...rect}),closest:selector=>selector==='main'?layoutRoot:null},
   requestAnimationFrame:fn=>{const id=nextFrame++;frames.set(id,fn);return id},
   cancelAnimationFrame:id=>frames.delete(id),
-  ResizeObserver:class{constructor(fn){resize=fn}observe(){}disconnect(){disposed=true}},
+  ResizeObserver:class{constructor(fn){resize=fn}observe(target){observed.add(target)}disconnect(){disposed=true;observed.clear()}},
   window:{addEventListener:(name,fn)=>events.set(name,fn),removeEventListener:name=>events.delete(name)},
   document:{querySelector:()=>null,querySelectorAll:()=>[]},setInterval:()=>1,clearInterval:()=>{}});
  vm.runInContext(code,context);vm.runInContext('surface=surfaceMock',context);
  const cleanup=mount();
  return {calls,frames,events,cleanup,rect:r=>{rect=r},resize:()=>resize(),
+  layoutResize:()=>{if(observed.has(layoutRoot))resize()},
   moves:()=>calls.filter(c=>c.command==='video_bounds'),
   error:()=>vm.runInContext('error',context),disposed:()=>disposed,
   frame:async()=>{const pending=[...frames.values()];frames.clear();for(const fn of pending)fn();await new Promise(setImmediate)}};
 }
 const flush=()=>new Promise(setImmediate);
 const cases=[
+ ['container layout movement sends latest unchanged-size video rectangle',async()=>{
+  const h=harness();await h.frame();h.moves()[0].resolve();await flush();
+  h.rect({x:20,y:193,width:640,height:360});h.layoutResize();await h.frame();
+  assert.equal(h.moves().length,2,'container-only movement was not observed');
+  assert.equal(h.moves()[1].args.y,193);assert.equal(h.moves()[1].args.width,640);
+  h.moves()[1].resolve();await flush();h.cleanup();h.layoutResize();await h.frame();
+  assert.equal(h.moves().length,2,'container observer survived cleanup');
+ }],
  ['negative viewport coordinates stay negative',async()=>{
   const h=harness({x:-15,y:-120,width:640,height:360});await h.frame();
   assert.equal(h.moves().length,1);assert.equal(h.moves()[0].args.x,-15);assert.equal(h.moves()[0].args.y,-120);
