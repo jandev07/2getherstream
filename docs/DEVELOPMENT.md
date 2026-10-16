@@ -7125,3 +7125,38 @@ the claimed August producer/Clang22 identity. Requested a corrected facts/candid
 gap report using already-retained evidence, no unchanged network retries/builds.
 An unauthenticated403 is not proof authenticated public logs are unavailable.
 Existing source-audit/toolchain completeness flags stay false pending review.
+
+
+## Reviewed cache relay evidence and surface control follow-through — 16 October 2026
+
+Integrated Antigravity report47872f6 as reviewed source files, without merging its
+private ancestry. Independent retained log SHA256/line checks confirm the two
+October cache restore/save links; the third link was not followed. Corrected the
+August candidate full commit from API metadata to
+5bdf2f86d33589ac89649209813e2f2104e5119f, then read its small pinned LLVM recipe:
+Clang22/release22 is a recipe declaration, not identification of the compiler
+used for this DLL. Removed unsupported cache-size causal attribution and the
+unverified claim that this was the latest successful producer. Exact compiler
+and runtime source correspondence/distribution completeness stay unresolved.
+Existing manifest records preserved; all130retained archive-member associations
+still pass. Initial invocation incorrectly pointed to the dependency subfolder
+and failed for missing build ZIP; correct parent invocation passed, no archive
+changed. Primary metadata/recipe/log hashes and line checks, review corrections
+and final source digests are in lineage-integration-validation.json through
+work/source-validation/antigravity-corrected-directory.txt. No compiler/cache
+binary download, upstream script execution, app/native/provider suite rerun.
+
+Distinct actual UI follow-through reused the exact already-validated source debug
+EXE/frontend without another build. Native picture remained visible before and
+after HTML Pause and Try sample video reload. Journal confirms accepted pause
+generation5to6/revision7 and load6to7/revision8. Normal app close exit0, process
+absent,0IOerrors/0drops. Exact run1f79883e-9b0b-46a8-9f7b-b33f41120a6b/receipt/
+journal/hashes through work/source-validation/surface-control-focus-directory.txt.
+This is paused local-fixture focus/reload evidence, not Playing, seek, Android,
+provider, synchronization, physical or WAN acceptance. No additional app change.
+
+Antigravity is now independently reviewing current6df14a3 geometry/visibility
+callback ownership using git show, read-only and without builds/network/main
+mutations. Actual UI showed its new task running after the scoped prompt was
+submitted. Review findings before adopting any proposed fix. No new Alpha or
+release metadata; offered0.1.7 and planning75%/35% unchanged.

@@ -245,8 +245,15 @@ no explicit GIT_TAG. CMake ExternalProject defaults that missing ref to master
 (https://cmake.org/cmake/help/latest/module/ExternalProject.html#git).
 toolchain/rustup.cmake configures Rust nightly for gnullvm/gnu Windows targets.
 In the CI workflow (.github/workflows/mpv_clang.yml), the build restored pre-compiled
-toolchain binaries from the GitHub Actions cache clang_root (${{ secrets.CACHE_VERSION }}-clang_root),
-bypassing toolchain compilation during the DLL build. Toolchain recipes, component
-members and hashes are cataloged in WINDOWS-BUILD-INPUTS.json. The declared git refs
-are moving branches/tags, and the actual CI binaries came from an opaque cache key.
+toolchain binaries from GitHub Actions cache key ***-clang_root-37391591956.
+Two inspected upstream lineage links (run 37391591956 restoring clang_root-37245752254,
+which in turn restored clang_root-37163528702) demonstrate that both were intermediate
+daily mpv clang consumer/re-saver runs, not compiler producers. August toolchain run
+31022056534 (llvm_clang.yml) is an upstream producer candidate, but tracing to it was
+not established in these two links. Comparing candidate producer commit 5bdf2f8 (Clang 22,
+release/22.x) with Alpha build commit b2856ee (Clang 23, release/23.x) is a recipe
+comparison only; compiler binary identity and unchanged cache contents across intervening
+daily runs remain unproven. Minor compressed cache size variations do not establish which
+files changed. See native/WINDOWS-TOOLCHAIN-LINEAGE.md for exact records. Toolchain
+recipes, component members and hashes are cataloged in WINDOWS-BUILD-INPUTS.json.
 Exact toolchain commit verification and toolchain reproduction remain unperformed.

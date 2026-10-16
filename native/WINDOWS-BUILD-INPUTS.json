@@ -1704,7 +1704,86 @@
       "toolchain_workflow_sha256": "b674a482813ef5aefb93b1c6be66f597abd97fe16bd32232a2456229cd0827c8",
       "container_image": "docker://ghcr.io/shinchiro/archlinux:latest",
       "cache_key_prefix": "${{ secrets.CACHE_VERSION }}-clang_root",
-      "cache_consumption": "The mpv_clang.yml workflow restored pre-built clang_root from cache, bypassing toolchain compilation during the x86_64 DLL build."
+      "cache_consumption": "The mpv_clang.yml workflow restored pre-built clang_root from cache, bypassing toolchain compilation during the x86_64 DLL build.",
+      "cache_restored_key": "***-clang_root-37391591956",
+      "cache_lineage": {
+        "status": "two-cache-lineage-links-inspected-exact-compiler-unresolved",
+        "consumer_run_id": "37549585368",
+        "consumer_restored_run": "37391591956",
+        "consumer_evidence_lines": [
+          3666,
+          3674,
+          4517
+        ],
+        "links": [
+          {
+            "run_id": "37391591956",
+            "workflow": "mpv clang",
+            "workflow_member": ".github/workflows/mpv_clang.yml",
+            "workflow_id": 70358048,
+            "created_at": "2026-10-06T00:00:02Z",
+            "event": "workflow_dispatch",
+            "head_branch": "master",
+            "head_sha": "05a60b3cfd04e3e3b89918f4a27f3dde2935dff2",
+            "x86_64_cache_records": [
+              {
+                "line": 3650,
+                "action": "restored",
+                "cache_run_suffix": "37245752254"
+              },
+              {
+                "line": 4481,
+                "action": "saved",
+                "cache_run_suffix": "37391591956"
+              }
+            ],
+            "log_sha256": "31c19bf4dde5a0c17ae4ee9206347f2966260cf43c1312f9976007e5b0b72eaa",
+            "role": "intermediate cache consumer and re-saver, not toolchain producer"
+          },
+          {
+            "run_id": "37245752254",
+            "workflow": "mpv clang",
+            "workflow_member": ".github/workflows/mpv_clang.yml",
+            "workflow_id": 70358048,
+            "created_at": "2026-10-05T00:00:03Z",
+            "event": "workflow_dispatch",
+            "head_branch": "master",
+            "head_sha": "05a60b3cfd04e3e3b89918f4a27f3dde2935dff2",
+            "x86_64_cache_records": [
+              {
+                "line": 237,
+                "action": "restored",
+                "cache_run_suffix": "37163528702"
+              },
+              {
+                "line": 945,
+                "action": "saved",
+                "cache_run_suffix": "37245752254"
+              }
+            ],
+            "log_sha256": "5e004127eabd4346824bc1c623a98a35befdd089d0781f6a9d335f2a3ab2027c",
+            "role": "intermediate cache consumer and re-saver, not toolchain producer"
+          }
+        ],
+        "further_run_37163528702_followed": false,
+        "toolchain_producer_candidate": {
+          "run_id": "31022056534",
+          "workflow": "llvm toolchain",
+          "workflow_member": ".github/workflows/llvm_clang.yml",
+          "created_at": "2026-08-05T15:47:20Z",
+          "head_sha": "5bdf2f86d33589ac89649209813e2f2104e5119f",
+          "status": "unverified-upstream-candidate-not-established-in-two-link-chain",
+          "metadata_url": "https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/actions/runs/31022056534",
+          "recipe_url": "https://github.com/shinchiro/mpv-winbuild-cmake/blob/5bdf2f86d33589ac89649209813e2f2104e5119f/toolchain/llvm/llvm.cmake",
+          "recipe_sha256": "a1168b87c9ef663c40ce08f666219e3f668efb328429e4cea8704741b8cb31db"
+        },
+        "recipe_version_comparison": {
+          "build_tree_declared_recipe": "Clang 23 (release/23.x in commit b2856ee)",
+          "producer_candidate_declared_recipe": "Clang 22 (release/22.x in commit 5bdf2f8)",
+          "boundary": "Recipe comparison only. Direct linkage from run 31022056534 or unchanged binary cache contents across intervening daily runs is unproven."
+        },
+        "evidence_limits": "Both inspected runs restored earlier clang_root and saved it again. Build run source HEAD is build-workflow repository source, not evidence of exact cached compiler/runtime HEAD or unchanged contents. Minor compressed cache size variations do not establish which files changed."
+      }
     },
     "recipes": [
       {
