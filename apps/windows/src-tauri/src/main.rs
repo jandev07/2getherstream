@@ -162,7 +162,11 @@ fn video_bounds(window: tauri::WebviewWindow, player: tauri::State<'_,player::Pl
     let scale = window.scale_factor().map_err(|_| "Window scale unavailable")?;
     let hwnd = player.hwnd;
     window.run_on_main_thread(move || unsafe {
-        windows_sys::Win32::UI::WindowsAndMessaging::MoveWindow(hwnd as _, (x*scale) as i32, (y*scale) as i32, (width*scale) as i32, (height*scale) as i32,1);
+        use windows_sys::Win32::UI::WindowsAndMessaging::*;
+        // WebView2 owns a sibling child window. Keep the native video above it
+        // when updating geometry, without activating the app or its owner.
+        SetWindowPos(hwnd as _, HWND_TOP, (x*scale) as i32, (y*scale) as i32,
+            (width*scale) as i32, (height*scale) as i32, SWP_NOACTIVATE | SWP_NOOWNERZORDER);
     }).map_err(|_| "Video surface unavailable".into())
 }
 #[tauri::command]

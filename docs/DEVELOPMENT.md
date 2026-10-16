@@ -7066,3 +7066,62 @@ in this pass; these tools add no app dependencies, timers or production playback
 code. No Android/Windows app/native/provider/physical/WAN rerun or new Alpha.
 Offered0.1.7 and planning75%/35% unchanged. Native distribution completeness stays
 open; source work and review continue, rather than manufacturing runtime fixes.
+
+## Windows native video sibling visibility — 16 October 2026
+
+The earlier black capture is now narrowed by distinct actual source evidence.
+An owned native-only diagnostic used the same DLL/fixture, wid/gpu/d3d11 renderer,
+mute=yes and null audio output. Computer Use showed moving colour video and a
+retained paused frame. Numeric receipt:2459observations,15,000ms final position,
+native_ready=true,paused=true,core released,exit0. This demonstrates capture can
+see this native renderer, not a frame timing or paired-playback acceptance test.
+New examples/native-surface-proof.rs is a manual local-fixture diagnostic only,
+with50second window lifetime and native release before surface destruction.
+It has no server/provider/credential access and no new property allowlist/library.
+Caller must hold the existing native/control ownership leases. Exact example/
+EXE/DLL/fixture hashes and receipts via
+work/source-validation/standalone-surface-directory.txt.
+
+Actual Tauri source app then changed only the native geometry call from MoveWindow
+to SetWindowPos(HWND_TOP,...,SWP_NOACTIVATE|SWP_NOOWNERZORDER). WebView2 owns a sibling
+child window; geometry-only movement did not establish video above it. Raising
+the native child on the existing coalesced geometry update shows the paused0:00
+fixture. Actual visible checks: page scrolling moves the video; negative-y video
+clips at the parent client boundary; returning to top restores it; Discover hides
+it; Watch return restores it. The API flags request no activation/owner reordering,
+not a global topmost window. No new timer/polling, playback/grant/authority change
+or frontend source change. Microsoft documents sibling insertion and positioning:
+https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/icorewebview2environment
+and https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowpos.
+
+Controlled comparison restored the original MoveWindow source, rebuilt and opened
+the same UI with the identical frontend/DLL/fixture: paused125:00/source-ready,
+black video again. Earlier capture-only results remain historical/inconclusive;
+this later comparison supplies the application integration evidence. Fixed source
+bytes restored exactly afterward. Source digests c9c2047f(before)/b56fdb7a(after),
+identical frontend5fd5ad8b. Revised run7fb72c97 closed normally exit0. Controlled
+old runbcf6ca14 exceeded its unattended15minute review deadline and retained its
+failed lifecycle receipt/resource marker; later resumed review found the exact
+app process still live, closed only that owned app normally, verified disappearance
+and player/server/exit-permitted journal events, then released its marker. That
+deadline failure is NOT relabelled a pass, forced thread stop or application crash.
+Separate late-close receipt retained. Both journals have0IOerrors/0drops.
+
+Final production Windows check passed and2targeted geometry unit checks passed,
+65other tests filtered. Source/frontend hashes match the exact visually checked
+revised build after comparison restoration. No repeated Android/provider/native
+pair suites. No phone attached in the UI run: prepare timeout awaiting it is
+expected and is not a shared-playback proof. No all-DPI/window/driver claim or
+new synchronization measurement. Exact logs/receipts/before-after source files
+and validation through work/source-validation/surface-zorder-directory.txt.
+All validation players muted. No new Alpha/APK release/metadata deployment;
+offered0.1.7 and planning75%/35% unchanged.
+
+User explicitly authorizes Always allow for Antigravity's 2gether task permission
+prompts; selected and submitted it for github.com reads, then observed the agent
+working. Its cache-lineage report338caf2 is not integrated: direct API metadata
+disagrees with one exact SHA and actual logs establish October relay links, not
+the claimed August producer/Clang22 identity. Requested a corrected facts/candidate/
+gap report using already-retained evidence, no unchanged network retries/builds.
+An unauthenticated403 is not proof authenticated public logs are unavailable.
+Existing source-audit/toolchain completeness flags stay false pending review.
