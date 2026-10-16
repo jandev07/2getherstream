@@ -11,6 +11,13 @@ currently paired Windows app. On partial failure the phone keeps its local logs;
 retrying may repeat previously accepted records. PC acknowledgement means its
 userspace journal flush completed, not a power-loss durability guarantee.
 
+If a diagnostic write fails, Help with playback shows that the latest playback
+log could not be saved. Playback continues. The warning clears after a later
+successful append; it does not mean the missing sample was recovered. This
+in-memory status exposes no file path or raw storage error and adds no automatic
+upload, retries or sampling timer. Invalid sample input and lifecycle cancellation
+are not classified as disk-write failures.
+
 ## Location to inspect in later development sessions
 
 The normal Windows log folder on this user's PC is:

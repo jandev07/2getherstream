@@ -7464,3 +7464,35 @@ No native PC pair, rendered UI, frame timing, WAN, physical-phone or two-hour ga
 is passed. Prior paired4K timing0782308f remains failed. Rejected storage/Keystore
 proof stays unexecuted. No Alpha/release/deployment or credential/user-log/network/
 system-volume change; offered0.1.7 and estimates75%/35% remain unchanged.
+
+
+## Android reports diagnostic write failures — 16 October 2026
+
+Normal recording already contained disk exceptions so playback could continue,
+but Help with playback gave no indication that recording had failed. The existing
+journal owner now exposes read-only in-memory recordingFailed state, updated
+inside its existing disk mutex after an actual append outcome. LogControls shows
+a fixed warning for the latest failed write and clears it after a later successful
+append. No raw error/path/credential is shown or logged. Missing records are not
+recovered by clearing the warning. No log schema, retry, upload, timer, dependency,
+native playback or pairing-store change. Invalid input/cancellation does not set
+the disk-write flag; existing sampler exception containment remains unchanged.
+
+Focused ordinary JVM runf66a533a-d1fc-444f-9537-77308daa11b3 passes3journal storage
+tests (one new plus2related rotation/tail checks). New case uses an occupied
+previous-file directory to make actual temporary filesystem rotation fail,
+checks failure visibility and intact current records, removes only its owned
+blocker, then confirms successful rotation clears warning and retains both rows.
+Rejected multiline input does not classify as disk failure. Main Kotlin/Compose
+and instrumentation Kotlin compile; no APK build/emulator/Android rendered UI,
+private Keystore, real phone-storage failure or playback acceptance claimed.
+
+Controlled omissionfa98cd82-b834-4056-b9e5-e6577380970a removes only error-state
+publication:3tests run/1newtest fails/2related pass. Exact failure/JUnit/logs kept.
+Revised production bytes restored exactly; original passing input digest restored.
+Exact runner, receipts, XML/source hashes through
+work/source-validation/phone-log-health-directory.txt/phone-log-health-validation.json.
+No unchanged native/provider/source proof reruns, no new Alpha/release/deployment,
+user logs/credentials/network/system-volume changes. Rejected Keystore storage
+proof remains unexecuted and distinct from this ordinary JVM diagnostic fixture.
+Offered0.1.7 and estimates75%/35% unchanged; owners released normally.

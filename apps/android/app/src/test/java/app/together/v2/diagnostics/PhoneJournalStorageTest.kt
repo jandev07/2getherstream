@@ -7,6 +7,26 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class PhoneJournalStorageTest {
+    @Test fun failedAppendIsVisibleAndSuccessfulWriteClearsFailureWithoutLosingExistingRows()=runBlocking {
+        val directory=Files.createTempDirectory("phone-journal-health").toFile()
+        try {
+            val storage=PhoneJournalStorage(directory,4)
+            storage.appendApproved("123")
+            // Rotation cannot replace this occupied directory. This is an actual
+            // temporary filesystem failure, not an injected boolean outcome.
+            val previous=File(directory,"phone-previous.jsonl")
+            check(previous.mkdir());val blocker=File(previous,"blocker");blocker.writeText("owned fixture")
+            assertTrue(runCatching {storage.appendApproved("456")}.isFailure)
+            assertTrue(storage.recordingFailed.value)
+            assertEquals("123\n",File(directory,"phone-current.jsonl").readText())
+            check(blocker.delete());check(previous.delete())
+            storage.appendApproved("456")
+            assertFalse(storage.recordingFailed.value)
+            assertEquals(listOf("123","456"),storage.tail(2) {it})
+            assertTrue(runCatching {storage.appendApproved("invalid\nrow")}.isFailure)
+            assertFalse("Rejected input is not a disk write failure",storage.recordingFailed.value)
+        } finally {cleanup(directory)}
+    }
     private fun cleanup(directory:File) {
         check(directory.canonicalFile.parentFile==File(System.getProperty("java.io.tmpdir")).canonicalFile)
         check(directory.name.startsWith("phone-journal-"))

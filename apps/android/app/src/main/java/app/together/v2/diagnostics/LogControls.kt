@@ -9,7 +9,9 @@ import kotlinx.coroutines.*
     val context=LocalContext.current;val scope=rememberCoroutineScope()
     var busy by remember {mutableStateOf(false)}
     var message by remember {mutableStateOf("Recent playback logs stay on this phone. Send them when you need help.")}
+    val recordingFailed by logs.recordingFailed.collectAsState()
     Text("Help with playback",style=MaterialTheme.typography.titleMedium);Text(message)
+    if(recordingFailed) Text("The latest playback log could not be saved. Playback can continue.",color=MaterialTheme.colorScheme.error)
     OutlinedButton(enabled=!busy,onClick={scope.launch {
         busy=true
         try {

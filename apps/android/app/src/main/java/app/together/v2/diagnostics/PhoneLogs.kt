@@ -32,6 +32,7 @@ internal fun phoneSample(player:PlayerStatus,sync:SessionController.Diagnostics)
 
 class PhoneLogs(context:Context) {
     private val storage=PhoneJournalStorage(File(context.noBackupFilesDir,"diagnostics"))
+    val recordingFailed=storage.recordingFailed
     private val client=OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
         .connectTimeout(5,TimeUnit.SECONDS).readTimeout(5,TimeUnit.SECONDS).callTimeout(8,TimeUnit.SECONDS).build()
     suspend fun record(sample:JSONObject) {
