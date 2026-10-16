@@ -64,6 +64,25 @@ impl Host {
         if *stopping.borrow_and_update() {return;}
         let _=stopping.changed().await;
     }
+    /// Read-only source waits may stop when their original authority is replaced.
+    /// Subscribe before checking; ordinary revision updates do not cancel work.
+    /// No new cancellation owner, timer or mutation of the session is introduced.
+    pub async fn media_authority_changed(&self,epoch:&str,generation:u64)->&'static str {
+        let mut updates=self.updates.subscribe();let mut stopping=self.stopping.subscribe();
+        loop {
+            if *stopping.borrow_and_update() {return "server stopping";}
+            let current=tokio::select! {biased;
+                _=stopping.changed()=>return "server stopping",
+                current=self.session.lock()=>current,
+            };
+            if current.state.epoch!=epoch || current.state.generation!=generation {return "stale media resolution";}
+            drop(current);
+            tokio::select! {biased;
+                _=stopping.changed()=>return "server stopping",
+                update=updates.recv()=>if matches!(update,Err(broadcast::error::RecvError::Closed)) {return "stale media resolution";},
+            }
+        }
+    }
     /// Validated PC resolver output only. No network route accepts source URLs.
     /// An asynchronous resolution cannot overwrite a newer authoritative action.
     pub async fn load_resolved_media(&self, epoch:&str, generation:u64, streams:together_source_resolver::DeviceStreams)->Result<(), &'static str> {
@@ -557,6 +576,35 @@ async fn disconnect(host: &Host, role: &str) {
     async fn assert_pending<F:std::future::Future>(future:std::pin::Pin<&mut F>) {
         let mut future=future;
         assert!(std::future::poll_fn(|cx|std::task::Poll::Ready(future.as_mut().poll(cx))).await.is_pending());
+    }
+    #[tokio::test] async fn media_authority_waiter_handles_replacement_lag_and_dropped_waiters() {
+        let h=host();h.attach_local_pc().await.unwrap();
+        h.local_pc(None,Action::Load {media:MediaIdentity::fixture()}).await.unwrap();let before=h.snapshot().await;
+        let mut cancelled=Box::pin(h.media_authority_changed(&before.epoch,before.generation));
+        assert_pending(cancelled.as_mut()).await;drop(cancelled);
+        let mut waiting=Box::pin(h.media_authority_changed(&before.epoch,before.generation));
+        assert_pending(waiting.as_mut()).await;
+        h.local_pc(None,Action::Ready {position_ms:0}).await.unwrap();
+        assert_pending(waiting.as_mut()).await;
+        // Actual bounded broadcast lag; these are synthetic update notifications,
+        // and the waiter must consult current authority rather than payloads.
+        for _ in 0..70 {let _=h.updates.send(before.clone());}
+        assert_pending(waiting.as_mut()).await;
+        h.local_pc(None,Action::Pause).await.unwrap();
+        assert_eq!(waiting.await,"stale media resolution");
+        assert_eq!(h.media_authority_changed(&before.epoch,before.generation).await,"stale media resolution");
+        let latest=h.snapshot().await;
+        assert_eq!(h.media_authority_changed("foreign-authority",latest.generation).await,"stale media resolution");
+        let mut stopped=Box::pin(h.media_authority_changed(&latest.epoch,latest.generation));
+        assert_pending(stopped.as_mut()).await;h.request_shutdown();assert_eq!(stopped.await,"server stopping");
+        assert_eq!(h.media_authority_changed(&latest.epoch,latest.generation).await,"server stopping");
+    }
+    #[tokio::test] async fn media_authority_waiter_shutdown_does_not_wait_for_session_lock() {
+        let h=host();let before=h.snapshot().await;let held=h.session.lock().await;
+        let mut waiting=Box::pin(h.media_authority_changed(&before.epoch,before.generation));
+        assert_pending(waiting.as_mut()).await;h.request_shutdown();
+        assert_eq!(tokio::time::timeout(std::time::Duration::from_secs(1),waiting).await.unwrap(),"server stopping");
+        drop(held);
     }
     #[tokio::test] async fn shutdown_waiter_handles_pending_already_stopped_and_cancelled_waiters() {
         let h=host();

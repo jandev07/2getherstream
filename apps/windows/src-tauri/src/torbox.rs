@@ -12,10 +12,10 @@ async fn read_before<T>(deadline:tokio::time::Instant,work:impl std::future::Fut
     if tokio::time::Instant::now()>=deadline {return Err(READ_TIMEOUT);}
     tokio::time::timeout_at(deadline,work).await.map_err(|_|READ_TIMEOUT)?
 }
-// Use the existing Host shutdown watch, not a second cancellation owner or poll.
-async fn read_while_running<T>(host:&Host,work:impl std::future::Future<Output=Result<T,&'static str>>)->Result<T,&'static str> {
+// Reuse Host authority/shutdown notifications; no new owner or polling loop.
+async fn read_for_authority<T>(host:&Host,before:&together_sync_core::Snapshot,work:impl std::future::Future<Output=Result<T,&'static str>>)->Result<T,&'static str> {
     tokio::select! {biased;
-        _=host.shutdown_requested()=>Err("server stopping"),
+        reason=host.media_authority_changed(&before.epoch,before.generation)=>Err(reason),
         result=work=>result,
     }
 }
@@ -79,9 +79,9 @@ impl Controller {
         let before=host.snapshot().await;
         let choice=together_source_resolver::stremio::StreamChoice::from_copied_link(zeroize::Zeroizing::new(std::mem::take(&mut raw)))
             .map_err(|_|"This link is not a supported TorBox source reference. Use the Stremio catalog or your ready TorBox videos instead.")?;
-        read_before(deadline,read_while_running(host,self.client())).await?;
-        let (client,selection)=read_before(deadline,read_while_running(host,self.reserve())).await?;
-        let available=read_before(deadline,read_while_running(host,async {
+        read_before(deadline,read_for_authority(host,&before,self.client())).await?;
+        let (client,selection)=read_before(deadline,read_for_authority(host,&before,self.reserve())).await?;
+        let available=read_before(deadline,read_for_authority(host,&before,async {
             client.available_videos_fresh().await.map_err(|_|"Could not refresh ready TorBox videos")
         })).await?;
         let media=choice.canonical_media(&available).map_err(|_|"The copied source is not ready as one exact TorBox file. Let Stremio finish preparing it, then try again.")?;
@@ -111,11 +111,11 @@ impl Controller {
     /// Keep the snapshot from the beginning of the user's selection across all network work.
     pub(super) async fn resolve_canonical(&self,host:&Host,media:MediaIdentity,before:together_sync_core::Snapshot)->Result<ResolvedSelection, &'static str> {
         let deadline=tokio::time::Instant::now()+READ_DEADLINE;
-        let (client,selection)=read_before(deadline,read_while_running(host,self.reserve())).await?;
+        let (client,selection)=read_before(deadline,read_for_authority(host,&before,self.reserve())).await?;
         self.fetch_resolved(host,before,media,true,client,selection,deadline).await
     }
     async fn resolve_media(&self,host:&Host,before:together_sync_core::Snapshot,media:MediaIdentity,load:bool,deadline:tokio::time::Instant)->Result<(), &'static str> {
-        let (client,selection)=read_before(deadline,read_while_running(host,self.reserve())).await?;
+        let (client,selection)=read_before(deadline,read_for_authority(host,&before,self.reserve())).await?;
         self.fetch_publish(host,before,media,load,client,selection,deadline).await
     }
     async fn reserve(&self)->Result<(Arc<TorBox>,u64),&'static str> {
@@ -137,14 +137,14 @@ impl Controller {
     async fn fetch_resolved(&self,host:&Host,before:together_sync_core::Snapshot,media:MediaIdentity,load:bool,client:Arc<TorBox>,selection:u64,deadline:tokio::time::Instant)->Result<ResolvedSelection,&'static str> {
         let began=std::time::Instant::now();
         let record=|stage,outcome|host.record_source(selection,before.generation,!load,stage,outcome,began.elapsed().as_millis().min(u64::MAX as u128) as u64);
-        let streams=read_stage(deadline,SourceStage::CurrentFileAndLinks,record,read_while_running(host,async {
+        let streams=read_stage(deadline,SourceStage::CurrentFileAndLinks,record,read_for_authority(host,&before,async {
             self.still_current(host,&before,selection).await?;
             client.device_streams(&media,None,None).await
                 .map_err(|_|"TorBox could not provide playback links accepted by this build's delivery policy")
         })).await?;
         // Both probes share the remaining budget. Never return half a pair or
         // publish links after either role fails validation or the deadline expires.
-        read_stage(deadline,SourceStage::DirectRanges,record,read_while_running(host,async {
+        read_stage(deadline,SourceStage::DirectRanges,record,read_for_authority(host,&before,async {
             self.still_current(host,&before,selection).await?;
             tokio::try_join!(client.probe(&streams.pc),client.probe(&streams.phone))
                 .map_err(|_|"TorBox device playback links failed direct media validation")
@@ -176,13 +176,83 @@ impl Controller {
     use super::*;
     use std::future::Future;
     #[tokio::test]
+    async fn authority_replacement_drops_pending_read_without_waiting_for_deadline() {
+        struct Dropped(Arc<std::sync::atomic::AtomicBool>);
+        impl Drop for Dropped {fn drop(&mut self) {self.0.store(true,std::sync::atomic::Ordering::SeqCst);}}
+        let directory=std::env::var_os("TOGETHER_SOURCE_AUTHORITY_PROOF_DIR").map(PathBuf::from)
+            .unwrap_or_else(||std::env::temp_dir().join(format!("source-authority-{}",uuid::Uuid::new_v4())));
+        for (stage,label) in [(SourceStage::CurrentFileAndLinks,"links"),(SourceStage::DirectRanges,"ranges")] {
+            for change in ["pause","seek","load"] {
+                let host=Host::new("synthetic-authority-read-pc-00000000".into(),"synthetic-authority-read-phone-00000".into()).unwrap();
+                let case=directory.join(format!("{label}-{change}"));
+                host.enable_diagnostics(case.join("journal")).unwrap();
+                host.attach_local_pc().await.unwrap();
+                host.local_pc(None,together_session_server::Action::Load {media:MediaIdentity::fixture()}).await.unwrap();
+                let before=host.snapshot().await;
+                let dropped=Arc::new(std::sync::atomic::AtomicBool::new(false));let guard=Dropped(dropped.clone());
+                let record=|stage,outcome|host.record_source(1,before.generation,false,stage,outcome,0);
+                let mut read=Box::pin(read_stage(tokio::time::Instant::now()+READ_DEADLINE,stage,record,
+                    read_for_authority(&host,&before,async move {let _guard=guard;std::future::pending::<Result<(),&'static str>>().await})));
+                assert!(std::future::poll_fn(|cx|std::task::Poll::Ready(read.as_mut().poll(cx))).await.is_pending());
+                // READY changes revision without replacing this preparation generation.
+                host.local_pc(None,together_session_server::Action::Ready {position_ms:0}).await.unwrap();
+                assert_eq!(host.snapshot().await.generation,before.generation);
+                assert!(std::future::poll_fn(|cx|std::task::Poll::Ready(read.as_mut().poll(cx))).await.is_pending());
+                assert!(!dropped.load(std::sync::atomic::Ordering::SeqCst));
+                let action=match change {
+                    "pause"=>together_session_server::Action::Pause,
+                    "seek"=>together_session_server::Action::Seek {position_ms:2000},
+                    _=>together_session_server::Action::Load {media:MediaIdentity::fixture()},
+                };
+                host.local_pc(None,action).await.unwrap();
+                let current=host.snapshot().await;
+                let result=std::future::poll_fn(|cx|std::task::Poll::Ready(read.as_mut().poll(cx))).await;
+                let cancelled=matches!(result,std::task::Poll::Ready(Err("stale media resolution")));
+                let promptly_dropped=dropped.load(std::sync::atomic::Ordering::SeqCst);
+                drop(read);
+                let unchanged=serde_json::to_value(host.snapshot().await).unwrap()==serde_json::to_value(&current).unwrap();
+                let journal=host.export_diagnostics().await.unwrap();
+                std::fs::write(case.join("journal.jsonl"),&journal).unwrap();
+                std::fs::write(case.join("receipt.json"),serde_json::to_vec_pretty(&serde_json::json!({
+                    "stage":label,"change":change,"before_generation":before.generation,
+                    "current_generation":current.generation,"cancelled_on_next_poll":cancelled,
+                    "pending_read_dropped":promptly_dropped,"authority_preserved":unchanged,
+                    "provider_network_executed":false,"physical_gate_passed":false
+                })).unwrap()).unwrap();
+                host.request_shutdown();
+                assert!(cancelled,"superseded provider read remained pending until its deadline");
+                assert!(promptly_dropped);assert!(unchanged);
+                let text=String::from_utf8(journal).unwrap();
+                let rows:Vec<serde_json::Value>=text.lines().map(|line|serde_json::from_str(line).unwrap()).collect();
+                let source:Vec<_>=rows.iter().filter(|row|row["record"]["event"]=="source").collect();
+                assert_eq!(source.len(),2);assert_eq!(source[1]["record"]["sample"]["outcome"],"replaced");
+                assert!(!text.contains("https://") && !text.contains("Bearer "));
+            }
+        }
+    }
+    #[tokio::test]
+    async fn already_replaced_source_does_not_poll_work_or_reserve_a_selection() {
+        let host=Host::new("synthetic-old-source-pc-000000000000".into(),"synthetic-old-source-phone-000000000".into()).unwrap();
+        host.attach_local_pc().await.unwrap();
+        host.local_pc(None,together_session_server::Action::Load {media:MediaIdentity::fixture()}).await.unwrap();
+        let before=host.snapshot().await;host.local_pc(None,together_session_server::Action::Pause).await.unwrap();
+        let work=std::future::poll_fn(|_|->std::task::Poll<Result<(),&'static str>> {
+            panic!("already superseded source work was polled")
+        });
+        assert_eq!(read_for_authority(&host,&before,work).await,Err("stale media resolution"));
+        let controller=Controller::new(PathBuf::from("unused-superseded-source-vault"));
+        assert!(matches!(controller.resolve_canonical(&host,MediaIdentity::torbox(1,2),before).await,Err("stale media resolution")));
+        assert_eq!(controller.state.lock().await.selection,0);
+    }
+    #[tokio::test]
     async fn stopped_host_does_not_poll_source_work_or_reserve_another_selection() {
         let host=Host::new("synthetic-private-stop-pc-00000000000".into(),"synthetic-private-stop-phone-0000000".into()).unwrap();
         host.request_shutdown();
+        let before=host.snapshot().await;
         let work=std::future::poll_fn(|_|->std::task::Poll<Result<(),&'static str>> {
             panic!("stopped Host polled source work")
         });
-        assert_eq!(read_while_running(&host,work).await,Err("server stopping"));
+        assert_eq!(read_for_authority(&host,&before,work).await,Err("server stopping"));
         let controller=Controller::new(PathBuf::from("unused-synthetic-vault"));
         let result=controller.resolve_canonical(&host,MediaIdentity::torbox(1,2),host.snapshot().await).await;
         assert!(matches!(result,Err("server stopping")));
@@ -203,7 +273,7 @@ impl Controller {
             let dropped=Arc::new(std::sync::atomic::AtomicBool::new(false));let guard=Dropped(dropped.clone());
             let record=|stage,outcome|host.record_source(1,before.generation,false,stage,outcome,0);
             let mut read=Box::pin(read_stage(tokio::time::Instant::now()+READ_DEADLINE,stage,record,
-                read_while_running(&host,async move {let _guard=guard;std::future::pending::<Result<(),&'static str>>().await})));
+                read_for_authority(&host,&before,async move {let _guard=guard;std::future::pending::<Result<(),&'static str>>().await})));
             assert!(std::future::poll_fn(|cx|std::task::Poll::Ready(read.as_mut().poll(cx))).await.is_pending());
             host.request_shutdown();
             assert_eq!(tokio::time::timeout(std::time::Duration::from_secs(1),read).await.unwrap(),Err("server stopping"));
@@ -222,10 +292,11 @@ impl Controller {
     #[tokio::test]
     async fn cancelling_a_source_wait_does_not_shutdown_host_or_prevent_another_read() {
         let host=Host::new("synthetic-private-wait-pc-00000000000".into(),"synthetic-private-wait-phone-0000000".into()).unwrap();
-        let mut read=Box::pin(read_while_running(&host,std::future::pending::<Result<(),&'static str>>()));
+        let before=host.snapshot().await;
+        let mut read=Box::pin(read_for_authority(&host,&before,std::future::pending::<Result<(),&'static str>>()));
         assert!(std::future::poll_fn(|cx|std::task::Poll::Ready(read.as_mut().poll(cx))).await.is_pending());
         drop(read);
-        assert_eq!(read_while_running(&host,async {Ok(7)}).await,Ok(7));
+        assert_eq!(read_for_authority(&host,&before,async {Ok(7)}).await,Ok(7));
         host.attach_local_pc().await.unwrap();
     }
     #[tokio::test]

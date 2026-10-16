@@ -7328,3 +7328,49 @@ completed review; new draft focus/submission could not be verified, so no new
 review/pending task is claimed. Source review and this actual Android worker
 regression remain separate from full session/physical acceptance. Offered0.1.7
 untouched; planning75%/35% unchanged.
+
+## Superseded read-only source work cancels promptly — 16 October 2026
+
+Current source publication already rejected changed PC authority, but an in-flight
+provider read could keep a source-selection command busy until HTTP/deadline
+completion. New deterministic baseline against original shutdown-only read wrapper
+confirms a pending link-stage read remains pending after awaited PC Pause changes
+generation1→2. No unsafe publication/authority overwrite was reproduced or claimed.
+
+Host now offers a read-only authority-change wait using its existing bounded
+broadcast and shutdown watch: subscribe before checking epoch/generation; revision-
+only updates continue; dropped waiters do not stop Host; lag rechecks actual state.
+Shutdown also interrupts waiting for the session mutex. Existing TorBox read wrapper
+now selects this wait against cooperative read work using the original snapshot,
+including copied-source inventory, selection reservation, links and range stages.
+Existing60second budget remains. No new task/owner/polling/timer, protocol/diagnostic
+field or dependency. Provider create/preparation and final atomic publication/grant
+fences are unchanged; cancellation does not retract a transmitted provider action.
+
+Final11TorBox unit checks passed/1real proof ignored/58other Windows checks filtered;
+2newHost waiter checks passed/90filtered; Windows non-test production check passed.
+Four new tests total: six pending stage×Pause/Seek/Load combinations drop work on
+next poll, retain authoritative state and emit fixed Source/Replaced journal rows;
+READY revision-only updates keep reads active, already obsolete work is not polled
+or reserved, Host tests cover dropped/already stale/wrong epoch/shutdown/held mutex
+and actual broadcast lag with synthetic notifications. Both stage journals have
+Started/Replaced only, no publication. Privacy export checks pass. This exercises
+production wrapper with deterministic pending futures and real journal writer,
+NOT actual provider/HTTP body closure, account requests, app-rendered busy feedback,
+native playback, Android/phone/WAN or physical acceptance. No unchanged provider
+proof was retried or relabelled; earlier failure0782308f remains failed.
+
+Initial test compile failure (SourceStage lacks Debug) preserved; explicit test
+labels fix it without changing diagnostic types. Baseline-runtime cancellation
+failure preserved. First expanded-test setup omitted Load before Pause and got
+expected no media; corrected fixture setup final pass, not another app bug.
+Exact logs/receipts/journals/source hashes through
+work/source-validation/source-authority-cancel-directory.txt,
+source-authority-cancel-validation.json. Antigravity actual UI checked at final
+checkpoint: earlier review complete, empty composer and no current task/permission
+prompt; no new independent review claimed. Main source reviewed both caller paths:
+UI already maps stale resolution to actionable retry and releases busy; Android
+source grant/worker cancellation unchanged, no duplicate implementation/tests.
+No Alpha/APK/EXE release or deployment, credentials/user logs/network settings
+untouched. Offered0.1.7 and estimates75%/35% unchanged; rejected storage proof stays
+unexecuted. Native/control locks free and no runner marker at completion.
