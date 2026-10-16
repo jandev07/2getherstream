@@ -57,6 +57,7 @@ class NativeCommandFaultTest {
         val before=PlayerStatus(sourceRevision=10,sourceReady=true)
         val after=before.withDecoderFailure()
         assertEquals("decoder_failed",after.failure);assertFalse(after.sourceReady)
+        assertEquals("Native media playback failed",after.error)
         assertEquals(before.sourceRevision,after.sourceRevision)
     }
     @Test fun delayedDecoderEventCannotReplaceMainClassifiedEnd()=runBlocking {

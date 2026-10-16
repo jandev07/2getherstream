@@ -7207,3 +7207,54 @@ note. Antigravity independently read this actual new main diff and both test scr
 reported no blockers, and did not edit files or run tests/builds. Its assessment
 is source review, not independent runtime evidence. Offered Alpha0.1.7 unchanged; no release build,
 APK/metadata deployment, physical/WAN or timing claim. Planning75%/35% unchanged.
+
+
+## Native source-error notice and owned recovery — 16 October 2026
+
+Continued into an actual source-app boundary after the rendered layout fix.
+Owned muted internal build at b1dd0eb deliberately omitted only its isolated
+fixture copy. PC authority correctly recorded decoder_failed and the UI showed
+Failed/generic Retry, but no explanatory player error alert. END_FILE source
+failure had an existing code assignment without a status error string; no lost
+fault or unsafe recovery is claimed. Baseline run c7b3b299-d47d-45d8-9c0d-36fd8da634b8
+already recovered after restoring that own fixture and normal Try sample.
+
+First source_failure now also publishes fixed Native media playback failed,
+behind the existing pending-fault guard. No raw native messages/URLs, new fault
+code, authority/grant/source/explicit recovery change. Actual libmpv invalid local
+format event regression reproduced None notice under original production branch;
+final three focused Windows checks pass (one new, two related;65filtered), with
+first command failure still retained over a later format error. Core release and
+numeric/fixed-message receipts retained. This is format/source rejection, not a
+reproduced decoder/GPU crash. Actual non-test source executable built successfully.
+
+Revised actual source-app run d67f27b0-5147-4238-9096-ee79c25839ce showed the fixed
+alert on Discover and Watch. Restoring its isolated fixture and normal Try sample
+cleared the alert, recovered Paused0:00/125:00 and displayed the native colour frame.
+Both actual UI runs closed normally exit0, PC/native journals0IOerrors/0drops;
+PC decoder_failed then native source_ready observed. Existing fixture itself was
+only read; exact own-process PID/UTC start verified before restoring private copies.
+Initial string-vs-coerced-DateTime owner guard refused before copy; UTC ticks then
+matched. Initial offscreen button click refused; scrolled normally before click.
+
+This revised source-app video/recovery check exercises real native rendering and
+notice disappearance. Scrolling was necessary to reach the normal button: it is
+not an unscrolled native displacement/latency measurement, all-window/DPI proof,
+Playing/shared-phone/native timing or physical/WAN acceptance. Rendered position-
+only regression remains distinct. No synthetic phone or provider request here.
+
+Android's analogous first decoder-fault status helper also omitted error text.
+It now uses the same fixed notice while retaining its existing first-fault/CAS
+and explicit completion fences. One strengthened existing assertion fails on
+baseline (6pass/1fail); all7focused NativeCommandFault JVM checks pass after fix.
+Main and instrumentation Kotlin compiled only, instrumentation NOT executed;
+no Android native/runtime or UI fault/recovery claim, no APK built. Other Android
+fault-policy helpers and error categories remain unchanged. Antigravity performed
+read-only Windows diff review and found no blocker; it did not execute tests.
+
+Exact before/after source hashes, failed test/JUnit history, build logs, both UI
+receipts/payload hashes/journals and native format-event receipts through
+work/source-validation/surface-notice-native-directory.txt,
+native-source-notice-validation.json. No new app dependency, observer/timer,
+protocol/schema or native property allowlist. Offered Alpha0.1.7 and older user
+apps untouched; no Alpha/package/public metadata release. Estimates75%/35% unchanged.

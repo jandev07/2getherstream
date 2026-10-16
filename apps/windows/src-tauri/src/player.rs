@@ -87,7 +87,12 @@ fn capture_command_failure(player:&mut Mpv,failure:&mut Option<PlayerFault>,stat
 fn capture_event_failure(event:together_player_mpv::Event,generation:u64,failure:&mut Option<PlayerFault>,status:&Arc<Mutex<Status>>) {
     // Secondary events cannot rewrite the pending fault awaiting explicit recovery.
     if failure.is_some() {return;}
-    if event.source_failure {*failure=Some(PlayerFault::DecoderFailed);}
+    if event.source_failure {
+        *failure=Some(PlayerFault::DecoderFailed);
+        // END_FILE source failures may have a zero event-level error. Keep a
+        // fixed notice without exposing the native message or media address.
+        status.lock().unwrap().error=Some("Native media playback failed".into());
+    }
     else if event.error<0 && (event.generation==0 || event.generation==generation) {
         status.lock().unwrap().error=Some(format!("Native player event error {}",event.error));
         *failure=Some(PlayerFault::CommandFailed);
@@ -97,6 +102,39 @@ fn capture_event_failure(event:together_player_mpv::Event,generation:u64,failure
 #[cfg(all(test,windows))]
 mod command_failure_tests {
     use super::*;
+    #[test] fn current_native_source_failure_publishes_fixed_notice() {
+        let root=std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().unwrap();
+        let directory=root.join("work/source-validation").join(format!("native-source-notice-{}",uuid::Uuid::new_v4()));
+        std::fs::create_dir_all(&directory).unwrap();
+        let invalid=directory.join("invalid-format.mp4");std::fs::write(&invalid,b"NOT_A_PLAYABLE_MEDIA_FILE\n").unwrap();
+        let mut player=Mpv::open_with_options(&root.join("native/vendor/windows/libmpv-2.dll"),
+            &[("vo","null"),("ao","null"),("mute","yes")]).unwrap();
+        let status=Arc::new(Mutex::new(Status::default()));let mut failure=None;
+        player.prepare_local(&invalid).unwrap();
+        let deadline=std::time::Instant::now()+Duration::from_secs(3);let mut source_events=0;
+        while std::time::Instant::now()<deadline {
+            while let Some(event)=player.poll() {
+                if event.source_failure {source_events+=1;}
+                capture_event_failure(event,7,&mut failure,&status);
+            }
+            if source_events>0 {break;}
+            thread::sleep(Duration::from_millis(5));
+        }
+        let notice=status.lock().unwrap().error.clone();
+        capture_event_failure(together_player_mpv::Event {id:5,error:-99,generation:7,source_failure:false},7,&mut failure,&status);
+        let secondary_preserved=status.lock().unwrap().error==notice;
+        drop(player);
+        std::fs::write(directory.join("receipt.json"),serde_json::to_vec_pretty(&serde_json::json!({
+            "scope":"actual muted native format failure; controller event policy, not decoder crash",
+            "source_failure_events":source_events,"decoder_failed_recorded":failure==Some(PlayerFault::DecoderFailed),
+            "notice":notice,"secondary_event_preserves_notice":secondary_preserved,"core_released":true,
+            "physical_gate_passed":false
+        })).unwrap()).unwrap();
+        assert!(source_events>0,"no actual native source failure observed");
+        assert_eq!(failure,Some(PlayerFault::DecoderFailed));
+        assert_eq!(notice.as_deref(),Some("Native media playback failed"));
+        assert!(secondary_preserved);
+    }
     #[test] fn later_native_format_event_preserves_pending_command_failure() {
         let root=std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().unwrap();
         let directory=root.join("work/source-validation").join(format!("native-event-fault-{}",uuid::Uuid::new_v4()));

@@ -10,7 +10,7 @@ internal fun PlayerStatus.withCommandFailure():PlayerStatus =
 
 /** An entry-fenced native event still cannot replace a fault already awaiting recovery. */
 internal fun PlayerStatus.withDecoderFailure():PlayerStatus =
-    if(failure==null) copy(state="Failed",failure="decoder_failed",sourceReady=false) else this
+    if(failure==null) copy(state="Failed",error="Native media playback failed",failure="decoder_failed",sourceReady=false) else this
 
 /** Classify a fresh native observation without hiding the pending terminal fault. */
 internal fun nativePlaybackState(failure:String?,durationMs:Long?,buffering:Boolean,paused:Boolean):String =
