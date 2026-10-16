@@ -7564,3 +7564,30 @@ No socket IO/rendered UI/native playback/provider/Keystore/WAN/physical gate cla
 no unchanged proof suite reruns, new Alpha/release/deployment or credential/user-log/
 network/system-volume change. Prior0782308f failed; rejected storage proof remains
 unexecuted. Offered0.1.7 and estimates75%/35% unchanged.
+
+
+## Reject update metadata the downloader cannot open — 16 October 2026
+
+Android and the Windows compatibility metadata validator accepted HTTPS APK
+addresses on nonstandard ports, while existing awaitApkDownload rejected every
+initial address outside443 before a request. Metadata could therefore advertise
+an update that this downloader cannot fetch. Both validators now require default
+or explicit443, preserving the existing download policy. Ordinary HTTPS and
+explicit443 remain valid; redirect/signature/hash/size/credential policies unchanged.
+No metadata files, APKs, versions, signers, releases or hosting were changed.
+
+Baseline35a1117a preserves both failures: new Android unsupported-port assertion
+fails (3other metadata and7download tests pass); new Rust unsupported-port test
+fails (2other endpoint/validation cases pass). Revised d8986b71 passes11JVM tests
+(4metadata+7actual interceptor/owned loopback download mechanism checks) and3Rust
+metadata/compatibility endpoint tests,90filtered. Main Kotlin/Compose and
+instrumentation Kotlin compile; no APK/emulator/install/real release-host/signer/
+pairing/physical acceptance. Own temporary compatibility endpoint fixture only,
+not the user's release config. No unchanged native/provider/storage proof reruns.
+
+Exact source hashes, failed/passing JUnit and Rust logs/receipts through
+work/source-validation/update-download-port-directory.txt and its target's
+update-download-port-validation.json. An initial documentation patch context did
+not match and changed no bytes; corrected source edit applied normally.
+Native/control owners free; no Alpha0.1.7/network/system-volume/user-log/credential
+changes. Rejected storage proof unexecuted; estimates75%/35% unchanged.

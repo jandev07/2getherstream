@@ -4,6 +4,12 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class UpdateReleaseTest {
+    @Test fun unsupportedDownloadPortIsRejectedBeforeAdvertisingRelease() {
+        val unsupported=fields()+mapOf("apk_url" to "https://example.invalid:444/update.apk")
+        assertTrue("Metadata accepted an address the downloader refuses",runCatching {UpdateRelease.fromFields(unsupported::get)}.isFailure)
+        val explicitDefault=fields()+mapOf("apk_url" to "https://example.invalid:443/update.apk")
+        assertEquals(3L,UpdateRelease.fromFields(explicitDefault::get).code)
+    }
     private fun fields():Map<String,Any?> = mapOf("protocol" to 1,"package" to "app.together.v2",
         "version_code" to 3,"version_name" to "Alpha","apk_url" to "https://example.invalid/update.apk",
         "sha256" to "a".repeat(64),"size_bytes" to 4096)

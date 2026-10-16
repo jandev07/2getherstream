@@ -14,7 +14,7 @@ impl Release {
             || self.version_name.is_empty() || self.version_name.len()>64 || self.version_name.chars().any(char::is_control)
             || !(1..=536_870_912).contains(&self.size_bytes) || self.sha256.len()!=64
             || !self.sha256.bytes().all(|c|c.is_ascii_hexdigit())
-            || url.scheme()!="https" || url.host_str().is_none() || !url.username().is_empty()
+            || url.scheme()!="https" || url.port_or_known_default()!=Some(443) || url.host_str().is_none() || !url.username().is_empty()
             || url.password().is_some() || url.query().is_some() || url.fragment().is_some() || self.apk_url.len()>2048 {
             return Err("invalid release metadata");
         } Ok(())
@@ -29,6 +29,11 @@ impl Release {
 }
 #[cfg(test)] mod tests {
     use super::*;
+    #[test] fn unsupported_download_port_is_not_advertised() {
+        let mut candidate=release();candidate.apk_url="https://example.invalid:444/update.apk".into();
+        assert_eq!(candidate.validate(),Err("invalid release metadata"));
+        candidate.apk_url="https://example.invalid:443/update.apk".into();assert!(candidate.validate().is_ok());
+    }
     #[tokio::test] async fn private_release_endpoint_rejects_pc_and_distinguishes_missing_feed() {
         use axum::{extract::State,http::{HeaderMap,HeaderValue,StatusCode}};
         let host=crate::Host::new("pc-update-synthetic-000000000000000".into(),"phone-update-synthetic-00000000000".into()).unwrap();

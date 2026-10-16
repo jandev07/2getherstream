@@ -23,7 +23,7 @@ class UpdateRelease(val code:Long,val name:String,val url:String,val hash:String
         require(code in 1..Int.MAX_VALUE.toLong() && name.length in 1..64 && name.none {it.isISOControl()})
         require(bytes in 1..536870912 && hash.matches(Regex("[a-fA-F0-9]{64}")))
         val address=url.toHttpUrl()
-        require(url.length<=2048 && address.isHttps && address.username.isEmpty() && address.password.isEmpty() && address.query==null && address.fragment==null)
+        require(url.length<=2048 && address.isHttps && address.port==443 && address.username.isEmpty() && address.password.isEmpty() && address.query==null && address.fragment==null)
     }
 }
 
