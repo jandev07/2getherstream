@@ -16,7 +16,8 @@ function harness(series = false) {
   const context = vm.createContext({ $state: value => value, onMount: () => {},
     invoke: (command, args) => new Promise((resolve, reject) => calls.push({ command, args, resolve, reject })) });
   vm.runInContext(code, context);
-  const browser = revision => ({ connected: true, revision, catalogs: [], episode_mode: false,
+  const browser = revision => ({ connected: true, revision,
+    catalogs: [{name:'Movies',kind:'movie',searchable:false,search_required:false}], episode_mode: false,
     titles: [{ id: 'test-title', kind: series ? 'series' : 'movie', name: 'Current title' }] });
   vm.runInContext(`browser=${JSON.stringify(browser(1))}`, context);
   return { calls, browser, run: expression => vm.runInContext(expression, context),
@@ -24,6 +25,15 @@ function harness(series = false) {
 }
 const sources = revision => ({ revision, candidates: 1, unavailable_providers: 0, cache_available: true,
   ready: [{ index: 0, filename: 'movie.mp4', filesize: 4096 }], cached: [] });
+// Call the actual handler directly: disabled markup alone must not admit an
+// invalid query or clear the existing choices before its IPC guard runs.
+for(const [required,query] of [[true,''],[true,'🎬'],[false,'映']]){
+ const h=harness();h.run(`browser.catalogs[0]={name:'Movies',kind:'movie',searchable:true,search_required:${required}};search=${JSON.stringify(query)};options=${JSON.stringify(sources(1))}`);
+ await h.run('browseStremio()');
+ assert.equal(h.calls.length,0,'Invalid search reached IPC');
+ assert.equal(h.state().options.revision,1,'Invalid search cleared existing choices');
+ assert.equal(h.state().stremioBusy,false);
+}
 async function cancel(h,connected=true) {
   const pending = h.run('cancelStremioLookup()');
   const call = h.calls.at(-1); assert.equal(call.command, 'stremio_cancel_lookup');

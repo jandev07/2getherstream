@@ -7661,3 +7661,39 @@ text, then actual new user-message/Working state for future tasks.
 No new Alpha/release/deployment or user logs/credentials/network/system-volume
 change; offered0.1.7/75%35% unchanged. Ownership free; failed0782308f and rejected
 private Keystore proof remain unchanged/unexecuted respectively.
+
+## Optional Stremio search admission — 16 October 2026
+
+Antigravity received an actual pasted/submitted scoped implementation prompt;
+Working and then its completed local d712af03f9c44030fea88c6c1ce30f100d119dda
+response were observed. It edited its separate provenance branch based on415328d,
+using current479df69 as reference; no tests/builds/network/push by that agent.
+Codex reviewed the exact candidate files against current main and imported only
+App.svelte and the rendered search script. No old branch ancestry or unrelated
+geometry/provenance notes merged. Its two imported file blobs match the candidate.
+
+Independent rendered baseline56c10cad reproduced a one-character optional query
+leaving Show titles enabled despite backend2..160Unicode-scalar validation. Empty
+optional search had already submitted null successfully; later valid-query steps
+were not reached after baseline failure. Shared searchAdmitted now gates both
+button and handler before stremioAction: optional empty remains browsable, required
+empty and provided single-code-point queries are blocked; valid query and hidden
+searchless null dispatch/query retention are preserved. No backend policy change.
+
+Final0a97cbe1 passes Codex's pre-existing independent rendered harness and the
+contributed rendered cases (empty optional, single emoji disabled, two-character
+query submitted, existing160BMP/query-switch checks). Three direct actual-handler
+cases also prove invalid input emits no IPC and preserves existing choices. The
+existing handler fixture now supplies a real searchless catalog instead of an
+empty catalog list; affected cancellation/source admission/recovery checks pass.
+Svelte0errors0warnings/frontend build pass. Exact source hashes and all logs in
+optional-integrated/receipt.json through stremio-catalog-query-directory.txt;
+optional-search-validation.json records review and limits. A core.autocrlf=false
+diagnostic diff treated CRLF as whole-file whitespace; ordinary repository diff
+normalization confirms only the intended edits and clean whitespace check.
+
+Rendered tests use isolated synthetic IPC/local Vite and existing headless
+Chromium1243; handler tests use deferred IPC. No addon/provider account request,
+Tauri/native/physical-phone/WAN claim, APK/EXE/new Alpha or deployment. No unchanged
+native/provider/storage proofs repeated; previous failed timing and rejected
+private Keystore proof preserved. Offered0.1.7/estimates75%35% unchanged.

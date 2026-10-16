@@ -79,11 +79,20 @@ async function cancelStremioLookup(){
  finally {if(request===stremioRequest)stremioBusy=false}
 }
 async function connectStremio(){await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_connect');if(request===stremioRequest){browser=next;catalogIndex='0';movieName=''}},true)}
+function searchAdmitted(catalog?: Catalog, query = search){
+ if(!catalog)return false;
+ if(!catalog.searchable)return true;
+ const count=[...query.trim()].length;
+ if(!count)return !catalog.search_required;
+ return count>=2 && count<=160;
+}
 async function browseStremio(){
  if(!browser?.connected)return;
+ const index=Number(catalogIndex);
+ const catalog=browser.catalogs[index];
+ if(!searchAdmitted(catalog))return;
  await stremioAction(async(request)=>{
-  const index=Number(catalogIndex);
-  const query=browser!.catalogs[index]?.searchable ? search.trim() || null : null;
+  const query=catalog.searchable ? search.trim() || null : null;
   const next=await invoke<Browser>('stremio_browse',{revision:browser!.revision,index,search:query});
   if(request===stremioRequest){browser=next;movieName=''}
  },true);
@@ -188,7 +197,7 @@ onMount(()=>{
 {#if browser.catalogs.length}
 <div class="controls"><label>Catalog <select bind:value={catalogIndex} disabled={stremioBusy || torboxBusy}>{#each browser.catalogs as catalog,index}<option value={String(index)}>{catalog.name} · {catalog.kind}</option>{/each}</select></label>
 {#if browser.catalogs[Number(catalogIndex)]?.searchable}<label>Find a movie <input bind:value={search} maxlength="160" placeholder="Movie title" disabled={stremioBusy || torboxBusy}/></label>{/if}
-<button disabled={stremioBusy || torboxBusy || (browser.catalogs[Number(catalogIndex)]?.search_required && [...search.trim()].length < 2)} onclick={browseStremio}>Show titles</button></div>
+<button disabled={stremioBusy || torboxBusy || !searchAdmitted(browser.catalogs[Number(catalogIndex)])} onclick={browseStremio}>Show titles</button></div>
 {/if}
 {#if !browser.titles.length}<p>Your library or catalog is empty. Choose a catalog above to find movies.</p>{/if}
 {#if browser.episode_mode}<p>Choose the episode you want to watch.</p><button disabled={stremioBusy || torboxBusy} onclick={backToSeries}>Back to series titles</button>{/if}
