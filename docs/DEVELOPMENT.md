@@ -7496,3 +7496,41 @@ No unchanged native/provider/source proof reruns, no new Alpha/release/deploymen
 user logs/credentials/network/system-volume changes. Rejected Keystore storage
 proof remains unexecuted and distinct from this ordinary JVM diagnostic fixture.
 Offered0.1.7 and estimates75%/35% unchanged; owners released normally.
+
+
+## Skip native playback probes before the first source — 16 October 2026
+
+Android's100ms sampler entered native property reads even when no video had ever
+been submitted. It now skips that worker/probe path while sourceRevision is0;
+a normal submitted local/HTTPS load enables the existing sampler. Initialization
+still publishes Idle. No new loop, timer, dispatcher, dependency, readiness field,
+fault/recovery policy or source/command owner. The coroutine still wakes every
+100ms: no CPU/battery reduction or wake-up elimination is measured or claimed.
+This applies only before the first source, not all paused/background/empty states.
+
+First native run33ae4ec2 passes a timestamp-only case, but that case could NOT
+detect empty-player probe attempts: unavailable native properties keep the sample
+timestamp0. This initial measurement limitation is retained, not called proof that
+idle probes were absent. Added one instrumentation-only callback to the existing
+NativeLifecycleProof at actual worker probe entry, with no native handle/property
+or credential exposed. Counted baselinec51bf7ea fails the strengthened assertion:
+7probe entries during10observations spaced75ms, sourceRevision0/Idle. It stops at
+that assertion; later baseline load/play/pause steps are not run.
+
+Revised run04bdd4e8 passes the exact selected NativeIdleProbeTest method:0idle
+probe entries, then actual fixture load enables probes (2at load observation),
+sourceReady/accepted revision and125minute duration; native Playing position100ms,
+then newer Paused sample, no pending native fault. Native core closes exactly once,
+own UUID fixture removed, muted hidden emulator stopped, native/control owners
+free. Internal debug main/test APKs built and all phase payloads/hashes retained.
+No unchanged provider/control pressure/fault/storage proof was rerun. No native PC
+pair, rendered frame, timing, phone, WAN, two-hour or battery acceptance claimed.
+
+Exact runner/source/payload hashes, selected identity checks, initial passing but
+insufficient measurement, failed counted baseline and final native observations
+through work/source-validation/native-idle-probe-directory.txt and its target's
+native-idle-probe-validation.json. Actual Antigravity UI: prior review complete,
+empty composer, no task/permission; no new review claimed. No new Alpha/release/
+deployment, user credentials/logs/network/system-volume change. Rejected private
+Keystore storage proof remains unexecuted; previous paired4K0782308f stays failed.
+Offered0.1.7 and estimates75%/35% unchanged.

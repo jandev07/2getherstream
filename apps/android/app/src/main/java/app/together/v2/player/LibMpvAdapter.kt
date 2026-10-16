@@ -145,9 +145,12 @@ class LibMpvAdapter internal constructor(context: Context, private val lifecycle
         scope.launch {
             while(isActive) {
                 delay(100)
-                if(!probeEnabled) continue
+                // Before the first source there are no playback properties to
+                // observe. A submitted load enables the existing sampler.
+                if(!probeEnabled || sourceRevision.get()==0L) continue
                 withContext(calls) {
                     val mpv=core ?: return@withContext
+                    lifecycleProof?.beforeProbe?.invoke()
                     try {
                         val paused=mpv.get(MpvProperties.Pause).getOrThrow()
                         val seeking=mpv.get(MpvProperties.Seeking).getOrThrow()
@@ -294,4 +297,5 @@ internal class NativeLifecycleProof(
     val afterClose: () -> Unit,
     val afterCleanup: () -> Unit,
     val beforeSourceLoad: (Long) -> Unit = {},
+    val beforeProbe: () -> Unit = {},
 )
