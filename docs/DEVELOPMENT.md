@@ -7626,3 +7626,38 @@ No addon/provider/network account request, Tauri/Win32/native frame/phone/WAN or
 physical acceptance, APK/EXE/new Alpha/release deployment. Rejected storage proof
 unexecuted; prior0782308f failed. No user logs/credentials/network settings/system
 volume changed; offered0.1.7 and estimates75%/35% unchanged.
+
+
+## Catalog changes do not forward a hidden search — 16 October 2026
+
+While Antigravity reviewed the prior three pinned commits, reproduced a separate
+Windows browse failure: type a query, switch to a configured catalog with no
+search support, then Show titles. The input is hidden but browseStremio forwarded
+its retained search; resolver correctly rejects searches for unsupported catalogs.
+Request construction now sends null when the selected catalog is not searchable.
+Typed text remains available when switching back; no backend validation, source
+selection ownership, revision, callback, timer or addon credential change.
+
+Actual rendered baselinea9e1e9e2 records index1/hasQuery=true and fails. Revised
+e56d03e0 and final15587417 pass: selected searchless catalog index1 receives null;
+switching back restores160BMP query. Existing affected Unicode/minimum/submission
+checks pass in the same rendered script. Final changed function formatted locally
+for readability/pass label clarified; final exact bytes revalidated. Svelte0errors/
+0warnings and frontend build pass. Existing Chromium1243/temporary browser profile
+only; no add-on network request, Tauri/native pair/phone/WAN claim. No unchanged
+Rust/native/provider/storage tests repeated. Exact source hashes/failed/passed
+logs/receipts through work/source-validation/stremio-catalog-query-directory.txt
+and stremio-catalog-query-validation.json.
+
+Antigravity coordination recovered: indexed composer click plus actual type_text
+made scoped review prompt visibly appear; coordinate Send submitted it and actual
+Working/Stop execution observed. Its completed source-only review of pinned
+387b34e/a001ad6/0c9eb71 reported no concrete blockers, no edits/builds/tests/network.
+This is not independent runtime evidence. Codex qualified its phrase standard
+2048byte URL boundary: that is only a synthetic test-length assertion, not a
+universal URL limit. No imported long report or speculative production change.
+Prior set_value/accessibility focus alone did not prove delivery; verify visible
+text, then actual new user-message/Working state for future tasks.
+No new Alpha/release/deployment or user logs/credentials/network/system-volume
+change; offered0.1.7/75%35% unchanged. Ownership free; failed0782308f and rejected
+private Keystore proof remain unchanged/unexecuted respectively.

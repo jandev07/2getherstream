@@ -79,7 +79,15 @@ async function cancelStremioLookup(){
  finally {if(request===stremioRequest)stremioBusy=false}
 }
 async function connectStremio(){await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_connect');if(request===stremioRequest){browser=next;catalogIndex='0';movieName=''}},true)}
-async function browseStremio(){if(!browser?.connected)return;await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_browse',{revision:browser!.revision,index:Number(catalogIndex),search:search.trim() || null});if(request===stremioRequest){browser=next;movieName=''}},true)}
+async function browseStremio(){
+ if(!browser?.connected)return;
+ await stremioAction(async(request)=>{
+  const index=Number(catalogIndex);
+  const query=browser!.catalogs[index]?.searchable ? search.trim() || null : null;
+  const next=await invoke<Browser>('stremio_browse',{revision:browser!.revision,index,search:query});
+  if(request===stremioRequest){browser=next;movieName=''}
+ },true);
+}
 async function movieOptions(index:number){if(!browser?.connected)return;await stremioAction(async(request)=>{movieName=browser!.titles[index].name;const next=await invoke<Options>('stremio_options',{revision:browser!.revision,index});if(request===stremioRequest){options=next;browser!.revision=next.revision}},true)}
 async function chooseTitle(index:number){if(!browser?.connected)return;if(browser.titles[index].kind==='series' && !browser.episode_mode){await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_episodes',{revision:browser!.revision,index});if(request===stremioRequest){browser=next;movieName=''}},true)}else{await movieOptions(index)}}
 async function backToSeries(){if(!browser?.connected)return;await stremioAction(async(request)=>{const next=await invoke<Browser>('stremio_back',{revision:browser!.revision});if(request===stremioRequest){browser=next;movieName=''}})}
