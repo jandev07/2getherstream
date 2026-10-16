@@ -7417,3 +7417,50 @@ worker issues native calls inline rather than spawning queued coroutines in this
 path; no speculative mirrored optimization/Rust change or unchanged suite rerun.
 Offered0.1.7 preserved; planning75%/35% unchanged; no user logs/credentials/system
 volume/network settings modified. Native/control ownership free at completion.
+
+
+## Android queued controls across the actual socket — 16 October 2026
+
+Added one opt-in Android instrumentation case and an ignored owned-loopback Host
+bridge for the remaining SessionController socket/ACK integration boundary.
+This uses the real Kotlin controller, JSONObject parsing, OkHttp callbacks and
+muted native local fixture against the real Rust authenticated session endpoint.
+The test PC only reports synthetic Ready/Executed; it never decodes a video.
+No production behavior change was needed. No provider/account requests, saved
+pairing store, private Keystore fault injection or public tunnel test is involved.
+
+Passing run8bf93885-05ec-4c0e-9f04-f1db71c7b4c0 queues Play then Pause in the same
+Main block, verifying that Pause is waiting at the original generation before
+callbacks can process Play's ACK. Actual Host journal accepts Play seq3 at gen2
+(result gen3), followed by Pause seq4 at gen3 (result gen4). Android reaches gen4,
+paused/source-ready with no pending control. Native core closes exactly once,
+phone detaches, listener can rebind; zero journal I/O errors or dropped records.
+Exact selected instrumentation identity passes; main/test debug APKs built and
+preserved privately. Emulator and native/control owners are released normally.
+
+Controlled omission run670f96ff-5c2e-42e2-93dc-3eef42da5e21 removes only existing
+own-successful-ACK queued-control rebinding. Same test APK, changed main APK:
+Host accepts Play only, Pause never arrives, Android's final-state wait times out
+at25seconds. Failed instrumentation/Host receipts, journals and phase APKs are
+retained. Original source bytes restored exactly; complete Android input digest
+matches the previously passing run. No unchanged rerun was needed after restore.
+This is a negative control for this exact causal queue transition, not a new
+production bug or rejection/reconnect/external-authority runtime acceptance.
+
+Bridge requires TOGETHER_ANDROID_QUEUE_DIR/TOGETHER_ANDROID_QUEUE_RUN, writes a
+private host-ready config, and waits at most120seconds for client-done. Owned
+runner maps emulator loopback47820 to the ephemeral Host via its adb reverse,
+passes synthetic controlEndpoint/controlToken/proofRunId instrumentation args,
+copies the Android proof receipt to client.json, then signals client-done.
+Explicit method: QueuedControlSocketTest#rapidPlayPauseCrossesOnlyItsOwnSuccessfulAck;
+Rust ignored method: android_queue_loopback_host. Never run without native/control
+ownership, exact selected-test verification, per-player mute and owned cleanup.
+
+Exact runner, source and payload hashes, positive/negative receipts and journals
+through work/source-validation/android-queue-socket-directory.txt and its target's
+android-queue-socket-validation.json. Antigravity actual UI inspected: prior review
+complete, empty composer, no task/permission prompt; no new review claimed.
+No native PC pair, rendered UI, frame timing, WAN, physical-phone or two-hour gate
+is passed. Prior paired4K timing0782308f remains failed. Rejected storage/Keystore
+proof stays unexecuted. No Alpha/release/deployment or credential/user-log/network/
+system-volume change; offered0.1.7 and estimates75%/35% remain unchanged.
