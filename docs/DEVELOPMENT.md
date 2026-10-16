@@ -7697,3 +7697,41 @@ Chromium1243; handler tests use deferred IPC. No addon/provider account request,
 Tauri/native/physical-phone/WAN claim, APK/EXE/new Alpha or deployment. No unchanged
 native/provider/storage proofs repeated; previous failed timing and rejected
 private Keystore proof preserved. Offered0.1.7/estimates75%35% unchanged.
+
+## Preserve loaded media across JSON field ordering — 16 October 2026
+
+Android acceptance compared loadedIdentity with identity.toString(), even though
+the same-generation gate and TorBox reuse already use sameMediaIdentity. A valid
+revision-only snapshot with identical media fields in another order cleared the
+loaded flag. Reused the existing exact-field comparator at that boundary; epoch,
+generation, native source revision, grant/recovery and genuine replacement guards
+remain unchanged. Windows already compares a typed MediaIdentity with PartialEq;
+no analogous text comparison or Windows change was needed.
+
+Actual Android JSONObject/SessionController baselineb0b0e82e failed the new loaded
+flag assertion after first confirming the two JSON serializations differ. Later
+replacement assertions were not reached. Reviseddf174a10 passes both selected
+SessionIdentityTest methods (new ordering case plus existing malformed identity,
+authority/playback/envelope and unresolved/replacement checks). The new case also
+confirms a real identity/new-generation replacement still clears loaded. Same
+test APK hash in baseline/revised, changed main APK only;130source inputs hashed
+before/after each run. Private debug payloads retained per phase, owned emulator
+stopped, ownership free. Exact tests/logs/source/payload hashes/failure history
+through work/source-validation/android-identity-order-directory.txt and
+identity-order-validation.json.
+
+This is synthetic snapshots and a synthetic loaded flag through the actual
+Android controller/JSON runtime. It does not demonstrate a decoded reload, a frame
+or timing improvement, or an actual server emitting reordered fields. No socket,
+provider account request, pairing/Keystore storage proof, physical-phone/two-hour/
+WAN acceptance, new Alpha/release deployment. Offered0.1.7/estimates75%35% unchanged.
+
+Antigravity's scoped review prompt was visibly pasted/submitted and Working then
+completed response observed. Its source-only assessment found no blockers in
+identity equality, null handling, generation/source/fault recovery guards or test
+cleanup; no edits/tests/builds/network/commits by reviewer. It called the new case
+a unit regression, but this executed as Android instrumentation, with synthetic
+controller state. No review text imported as additional runtime evidence. Further
+bounded reads of local-source/lifecycle delivery, source-selection lease fencing
+and updater response/artifact ownership found no demonstrated issue; no speculative
+change or unchanged proof rerun made for those paths.

@@ -254,7 +254,7 @@ class SessionController(private val context: Context, private val player: LibMpv
         if (!next.isNull("media")) {
             val identity=next.getJSONObject("media")
             require(validMediaIdentity(identity))
-            if(loadedIdentity!=identity.toString()) loaded=false
+            if(loadedIdentity?.let {sameMediaIdentity(JSONObject(it),identity)}!=true) loaded=false
         }
         if (epoch != incomingEpoch) { epoch=incomingEpoch; generation=-1; resetClock(); loaded=false }
         if (generation != incomingGeneration) {

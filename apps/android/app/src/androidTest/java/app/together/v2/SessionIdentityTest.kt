@@ -15,6 +15,30 @@ import java.lang.reflect.InvocationTargetException
  */
 @RunWith(AndroidJUnit4::class)
 class SessionIdentityTest {
+    @Test fun reorderedIdentityDoesNotDiscardLoadedSource() {
+        val instrumentation=InstrumentationRegistry.getInstrumentation()
+        instrumentation.runOnMainSync {
+            val player=LibMpvAdapter(instrumentation.targetContext)
+            val session=SessionController(instrumentation.targetContext,player)
+            fun field(name:String)=SessionController::class.java.getDeclaredField(name).apply {isAccessible=true}
+            val accept=SessionController::class.java.getDeclaredMethod("accept",JSONObject::class.java).apply {isAccessible=true}
+            val original=JSONObject().put("provider","fixture").put("torrent_id",0).put("file_id",0)
+            val reordered=JSONObject().put("file_id",0).put("torrent_id",0).put("provider","fixture")
+            try {
+                assertNotEquals("Exercise distinct JSON ordering",original.toString(),reordered.toString())
+                field("epoch").set(session,"synthetic-source-identity-test");field("generation").setLong(session,1)
+                field("state").set(session,snapshot(original).put("revision",1))
+                field("loadedIdentity").set(session,original.toString());field("loaded").setBoolean(session,true)
+                assertEquals(true,accept.invoke(session,snapshot(reordered)))
+                assertTrue("Equivalent JSON field order discarded the loaded source",field("loaded").getBoolean(session))
+                assertEquals(2L,session.diagnostics.value.revision)
+                // A genuine source replacement must still invalidate the old load.
+                val replacement=JSONObject().put("provider","torbox").put("torrent_id",1).put("file_id",2)
+                assertEquals(true,accept.invoke(session,snapshot(replacement).put("generation",2).put("revision",3)))
+                assertFalse("New source reused the previous load",field("loaded").getBoolean(session))
+            } finally {session.close();player.close()}
+        }
+    }
     @Test fun unresolvedIdentityIsRejectedEvenWhenPreviousSourceIsLoaded() {
         val instrumentation=InstrumentationRegistry.getInstrumentation()
         instrumentation.runOnMainSync {
