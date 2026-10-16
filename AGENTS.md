@@ -1,4 +1,18 @@
-# Latest human instructions — 16 October 2026 IST
+# Latest human instructions — 17 October 2026 IST
+
+Work in longer, connected development sessions; do not stop after committing a
+small change. Aim for 30–60 minutes when meaningful independent work remains; do
+not manufacture issues, edge-case variants, tests or commits to fill time.
+Distinguish normal-use reproductions, defensive edge cases and hypotheses. Focus
+on consolidated current-source integration and practical reliability.
+
+Kosmi is CURRENTLY ACTIVE. Background work only: no window opening, activation,
+minimizing/moving, desktop input/capture or Antigravity UI interaction until the
+human says Kosmi has finished. Hidden, individually muted validation is allowed.
+Never change system volume or network settings. This supersedes older visible
+validation and Kosmi-finished instructions below. Existing no-new-Alpha remains.
+
+# Earlier human instructions — 16 October 2026 IST
 
 The user explicitly granted Antigravity's pending access themselves, authorized
 Codex to grant its security/privacy permission prompts while they sleep, then

@@ -140,3 +140,51 @@ examples only, not product browsing, account writes or normal source selection.
 Record exact selected identity and runtime codec/dimensions/decoder profile before
 comparing runs. In particular, a software-decoded4K emulator result and a lighter
 or hardware-decoded result are distinct evidence, not interchangeable passes.
+
+## Headless local session host
+
+The Windows `session-fixture-proof` example runs the production PC native follower
+and control Host with local synthetic media, without opening a Tauri window. It
+uses null video/audio output and player mute. This permits background session
+integration while the desktop is in use; it does not validate rendered Windows
+video, presentation timing, provider delivery or the packaged app.
+
+Build the example from the current source under the shared native/control proof
+ownership, using the existing toolchain. Its single argument is an owned runtime
+directory containing `work/media/clock-test.mp4` and
+`native/vendor/windows/libmpv-2.dll`. Record their hashes, the example source hash,
+the normal Windows source inventory, and the built executable hash. The normal
+Windows inventory excludes examples, so its digest alone does not identify this
+host. An isolated example build does not publish or replace the standard Windows
+proof build receipt. Use a fresh per-run directory with no previous ready/stop
+files or observations; retain prior run directories as evidence.
+
+Supply a fresh non-nil `TOGETHER_PROOF_RUN_ID`, a generated synthetic
+`TOGETHER_PHONE_TOKEN`, and `TOGETHER_SESSION_PROOF=1` through the owned process
+environment. Never print the token or reuse an account credential. The host binds
+only loopback port47822 and refuses an occupied listener. Its ready file is
+`work/fixture-host-ready.json`; verify both run ID and port before attaching the
+owned emulator. A debug fixture connection can use this temporary token without
+running pairing-storage tests. That connection is not evidence of normal pairing,
+encrypted save/restore or Keystore behavior.
+
+The existing selected `SessionPlaybackTest` method exercises real Android
+controller/socket/native playback against this PC follower. Record exact selected
+identities, both APK hashes, the Android source inventory and requested steady
+duration. Capture its raw result and run-bound phone/PC observation logs. Do not
+add unrelated test classes or treat a skipped instrumentation method as success.
+
+After instrumentation, create the owned runtime's `work/fixture-host-stop` file.
+The host requests Host shutdown, joins the native owner and control listener, then
+exports its private journal and `work/fixture-host-receipt.json`. Require successful
+process exit, matching run ID, stopped native/listener fields and zero journal
+errors/drops. Its internal deadline is65minutes; a runner must retain ownership
+until cleanup is established, preserve any failure and remove only its own
+emulator connection/configuration. The host's `requested_flow_completed` means it
+received the stop request before its deadline; the Android raw result separately
+establishes whether the requested session assertions passed.
+
+Analyze both all-eligible and explicit-steady native position samples with the
+same expected run ID. Record the provisional timing target separately from native
+assertion completion. A successful local fixture session is neither a physical
+phone/two-hour/WAN gate nor a substitute for the unresolved4K delivery evidence.

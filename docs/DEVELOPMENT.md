@@ -2,9 +2,17 @@
 
 The user explicitly asked to continue development while they sleep, without
 asking for a new continue message after each checkpoint. A thread heartbeat
-automation, `continue-together-2-0-development`, is active every 5 minutes.
+automation, `continue-together-2-0-development`, is active every 20 minutes.
 Keep working within this repository and its AGENTS.md. Do not create duplicates.
 Notify only for meaningful work, failure, completion or an unavoidable decision.
+
+Latest human direction,17October2026:work in longer connected sessions; do not
+stop after a small commit or manufacture changes to fill time. The existing
+automation was reactivated with that instruction as its first line. Kosmi is
+currently active:background hidden/muted work only, no desktop capture/input,
+window activation or Antigravity interaction. No new Alpha remains binding.
+The dated entries below retain their historical evidence scopes; later entries
+supersede their source/configuration status without relabelling older receipts.
 
 ## Current evidence and next constraints (9 October, 05:52 UTC)
 
@@ -7735,3 +7743,79 @@ controller state. No review text imported as additional runtime evidence. Furthe
 bounded reads of local-source/lifecycle delivery, source-selection lease fencing
 and updater response/artifact ownership found no demonstrated issue; no speculative
 change or unchanged proof rerun made for those paths.
+
+## Consolidated current-source local native session — 17 October 2026
+
+The human requested longer connected development sessions and reactivation of the
+existing automation. It is ACTIVE every20minutes with first line:Work in longer,
+connected development sessions; do not stop after committing a small change.
+Kosmi was protected throughout this session:background hidden/muted processes,
+no desktop input/capture, window activation, Antigravity interaction or system
+volume/network changes. The human subsequently granted full control; unrelated
+apps remained undisturbed. No new Alpha was built or published.
+
+Added session-fixture-proof, a headless Windows example using the production PC
+PlayerController and real Rust Host with local fixture identity. PC uses null
+video/audio and mute; Android runs its actual Activity/controller/JSONObject/
+OkHttp/native stack in the owned hidden SidecarTest emulator. This avoids launching
+a Tauri window while the desktop is in use. Fresh runtime directories and explicit
+ready/stop/run-ID files isolate the host; it joins native and listener owners and
+records journal health on exit. PROOF-BUILDS.md documents the artifact/ownership
+boundary. No new dependency or production playback/authority policy was added.
+
+First run3e114a3d FAILED after completing its1800second steady loop, at the later
+intentional invalid-media stage. SessionPlaybackTest's general await helper still
+asserted error==null, contradicting the fixed Native media playback failed notice
+introduced by the earlier source-failure fix. Its raw assertion identifies that
+exact conflict. The later fault-retention/reload/log-upload checks were not reached.
+This is a stale instrumentation expectation, not a newly demonstrated app defect.
+The original failed receipt/status, logs and payloads remain unchanged.
+
+The retained long trace has17798steady rows in one generation,1799951ms observed
+span, no reported steady fault or non-Playing sample, maximum authority-relative
+drift94ms and native observation age117ms. Raw same-run steady position analysis
+has17798matches, median78ms/p95150ms/max191ms:exactly the unchanged provisional
+150ms p95 boundary. These partial-run observations do not turn the overall failed
+instrumentation into a pass. The original runner did not reach its final source
+digest check after the assertion failure; pre/post-build inventories were checked.
+
+Repaired only the instrumentation helper:record before asserting; normal waits
+still reject errors; the three deliberate decoder-fault/recovery waits allow only
+decoder_failed paired with the exact fixed notice. The initial host-fault wait
+also explicitly asserts decoder_failed. Fault retention, explicit paused reload,
+timeouts, steady/drift/freshness thresholds and production app code are unchanged.
+
+Revised run6640cbbc PASSES the one exact selected SessionPlaybackTest method,
+raw start/success identity verified without skips,107.058seconds total including
+60steady seconds. It executes start/pause/exact and rapid seek, Activity background/
+reconnect, stale-probe freeze/user pause/recovery, rejected-send and transport-loss
+reconnect, EOF/replay, execution fault/retry, invalid-media terminal fault/retention/
+paused reload, and manual synthetic phone-log delivery.594explicit-steady matches:
+median57ms/p95129ms/max170ms;664all-eligible matches:p95140ms/max226.5ms. Strict
+clock analysis of this completed short run counts zero clock-age/history/state/
+connection violations or interval fallbacks. It is not a second30minute result.
+
+The main APK f28b3ce9 and headless EXE34280fed are byte-for-byte identical between
+phases; only test APK changed ddec754c→a8c7e9ac. Windows111input digest and explicit
+example-source hash match both phases; revised Android130inputs and Windows/example
+digests match before/after runtime. Fixture SHA54d4310d is the existing7500second,
+640×360 H.26410fps/AAC file, not4K/provider media. Both host receipts confirm native
+join/stopped and listener stopped, zero journal IO errors/dropped records. Both
+owned emulators stopped; final native/control locks free and loopback47822 rebound.
+Android Activity cleanup ran, but this method does not independently count exact
+native-core closes. No such close-count claim is added.
+
+Exact source/payload hashes, selected identities, both phase logs/receipts, separate
+timing scopes and68file evidence manifest are retained through
+work/source-validation/current-session-integration-directory.txt and
+current-session-integration-validation.json. Do not stitch the long failed test
+and short successful test into a single successful30minute full-flow receipt, or
+rerun the unchanged long phase merely to remove that failure from history.
+
+This validates local fixture native positions/session behavior with a headless PC,
+not rendered PC frames/audio alignment, packaged UX, real provider HTTP/body
+cancellation, safe general-release TorBox delivery, pairing/Keystore storage,
+physical phone, WAN or two-hour acceptance. The rejected private Keystore proof
+remains unexecuted, failed4K0782308f remains failed, offered0.1.7 is unchanged and
+planning estimates remain75%playback/35%full beta. PROGRESS.md now distinguishes
+those current estimates from its preserved10October60%/30% historical breakdown.

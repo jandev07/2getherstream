@@ -1,5 +1,14 @@
 # 2gether planning progress
 
+Updated 17 October 2026. Current planning estimates remain **75% playback milestone
+and 35% complete polished beta**, as recorded in MILESTONE-1.md and ROADMAP.md.
+They have not increased for the later source regressions, documentation or emulator
+validation. Physical-phone, safe general-release delivery, WAN and two-hour gates
+remain open. The earlier weighted breakdown below is retained as dated history;
+it is not a current area-by-area estimate or a calculation of 75%/35%.
+
+## Historical 10 October planning breakdown
+
 Updated10October2026. User requests sustained30–60minute connected development
 sessions; brief patch notes and estimated percentages follow meaningful work.
 Routine unchanged heartbeat polls stay quiet.

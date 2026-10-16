@@ -53,10 +53,13 @@ class SessionPlaybackTest {
                     .put("seeking",p.seeking).put("buffering",p.buffering).toString()+"\n");log.flush()
                 return d to p
             }
-            fun await(label:String, condition:()->Boolean) {
+            fun await(label:String, allowPendingDecoderFailure:Boolean=false, condition:()->Boolean) {
                 val until=SystemClock.elapsedRealtime()+25000
                 while(SystemClock.elapsedRealtime()<until) {
-                    assertNull(label,controller.status.value.error);record()
+                    val (_,p)=record()
+                    if(allowPendingDecoderFailure && p.failure=="decoder_failed")
+                        assertEquals(label,"Native media playback failed",p.error)
+                    else assertNull(label,p.error)
                     if(condition()) return
                     SystemClock.sleep(100)
                 }
@@ -185,16 +188,17 @@ class SessionPlaybackTest {
                 try {
                     invalid.writeText("invalid synthetic media for synchronized decoder failure proof")
                     scenario.onActivity {controller.session.failSourceForProof(invalid)}
-                    await("native decoder failure freezes room") {controller.session.diagnostics.value.fault=="player_failed_phone"}
+                    await("native decoder failure freezes room",allowPendingDecoderFailure=true) {controller.session.diagnostics.value.fault=="player_failed_phone"}
+                    assertEquals("decoder_failed",controller.status.value.failure)
                     val failedGeneration=controller.session.diagnostics.value.generation
                     SystemClock.sleep(800)
                     assertEquals("terminal failure retried itself",failedGeneration,controller.session.diagnostics.value.generation)
                     scenario.onActivity {controller.pause()}
-                    await("explicit pause retains terminal fault") {controller.session.diagnostics.value.generation>failedGeneration && controller.session.diagnostics.value.fault=="player_failed_phone"}
+                    await("explicit pause retains terminal fault",allowPendingDecoderFailure=true) {controller.session.diagnostics.value.generation>failedGeneration && controller.session.diagnostics.value.fault=="player_failed_phone"}
                     // Explicit absolute paused reload has no usable native position basis.
                     // Keep exercising recovery without forcing a disabled relative control.
                     scenario.onActivity {controller.session.intent("seek",0)}
-                    await("reload recovery preserves explicit pause") {
+                    await("reload recovery preserves explicit pause",allowPendingDecoderFailure=true) {
                         val d=controller.session.diagnostics.value;val p=controller.status.value
                         d.fault==null && !d.preparing && d.executionCount==2 && p.failure==null && p.sourceReady && p.state=="Paused"
                     }
