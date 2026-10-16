@@ -246,7 +246,8 @@ fn catalog_url(transport:&reqwest::Url,definition:&serde_json::Value,search:Opti
     let extras=definition["extra"].as_array();
     let query=search.map(str::trim).filter(|s|!s.is_empty());
     if let Some(query)=query {
-        ensure!((2..=160).contains(&query.len()) && !query.chars().any(char::is_control),"Search needs 2 to 160 characters");
+        // Count Unicode scalar values, not UTF-8 bytes; stop once over budget.
+        ensure!((2..=160).contains(&query.chars().take(161).count()) && !query.chars().any(char::is_control),"Search needs 2 to 160 characters");
         ensure!(extras.is_some_and(|items|items.iter().any(|extra|extra["name"]=="search")),"This catalog does not support search");
     }
     if let Some(extras)=extras {
@@ -355,6 +356,19 @@ fn parse_library(body:&[u8],secret:&str)->Result<Vec<LibraryTitle>> {
         assert!(url.query().is_none());
         assert!(catalog_url(&transport,&serde_json::json!({"type":"movie","id":".."}),None).is_err());
         assert!(catalog_url(&transport,&serde_json::json!({"type":"movie","id":"top"}),Some("movie")).is_err());
+    }
+    #[test] fn catalog_search_counts_unicode_characters_and_bounds_the_encoded_resource() {
+        let transport=reqwest::Url::parse("https://addon.invalid/config/manifest.json").unwrap();
+        let definition=serde_json::json!({"type":"movie","id":"search","extra":[{"name":"search","isRequired":true}]});
+        let query="映".repeat(160);
+        let url=catalog_url(&transport,&definition,Some(&query)).expect("160 search characters must be accepted");
+        assert_eq!(url.origin(),transport.origin());assert!(url.query().is_none());
+        assert!(url.as_str().len()<2048);
+        assert_eq!(percent_encoding::percent_decode_str(url.path()).decode_utf8().unwrap(),format!("/config/catalog/movie/search/search={query}.json"));
+        assert!(catalog_url(&transport,&definition,Some("映")).is_err());
+        assert!(catalog_url(&transport,&definition,Some(&"映".repeat(161))).is_err());
+        assert!(catalog_url(&transport,&definition,Some("🎬")).is_err());
+        assert!(catalog_url(&transport,&definition,Some("🎬映")).is_ok());
     }
     #[test] fn catalogs_expose_only_title_metadata_and_deduplicate_per_kind() {
         let body=br#"{"metas":[{"id":"tt1","type":"movie","name":"Movie","poster":"https://private.invalid"},{"id":"tt1","type":"movie","name":"duplicate"},{"id":"tt1","type":"series","name":"Series"},{"id":"private-account-key","type":"movie","name":"bad"}]}"#;

@@ -7591,3 +7591,38 @@ update-download-port-validation.json. An initial documentation patch context did
 not match and changed no bytes; corrected source edit applied normally.
 Native/control owners free; no Alpha0.1.7/network/system-volume/user-log/credential
 changes. Rejected storage proof unexecuted; estimates75%/35% unchanged.
+
+
+## Stremio search counts characters rather than UTF-8 bytes — 16 October 2026
+
+The resolver's2..160character search requirement used UTF-8 byte length. A
+160character BMP query accepted by the existing browser input failed in Rust;
+one non-ASCII character could conversely satisfy its byte minimum. The Windows
+required-search button used UTF-16 length, treating one supplementary character
+as two. Backend now counts at most161Unicode scalar values to enforce2..160;
+button minimum uses JS code points. Trimming, control-character rejection,
+configured origin and percent-encoded single-resource URL construction unchanged.
+Existing HTML maxlength160UTF-16-code-unit cap stays; this is not a grapheme count
+or a promise that160supplementary characters can be entered through that field.
+
+Baselinefdd69065 failed both new boundaries: Rust rejected160BMP search characters
+(1existing URL case passed); actual rendered App.svelte enabled Show titles for
+one emoji. Later baseline rendered submission steps were not reached. Revised
+f0d9f9b9 passes2focused Rust catalog URL tests (new Unicode boundary plus existing
+encoding/origin case),40filtered; actual headless rendered app disables single
+emoji, accepts160BMP characters and submits the exact query through synthetic
+IPC. Rust verifies decoded resource identity/no query, rejects1/161BMP characters
+and single emoji, accepts two mixed supplementary/BMP code points. Existing
+Playwright module and Chromium1243 reused, no browser download/profile/window.
+Svelte check0errors0warnings and frontend production build pass.
+
+Exact source hashes, private runner, baseline/revised Rust/rendered/check/build
+logs/receipts through work/source-validation/stremio-unicode-search-directory.txt
+and stremio-unicode-search-validation.json. Initial ad-hoc Windows absolute ESM
+import was rejected before execution; file URL corrected. Bundled browser default
+1234 absent, explicitly selected existing1243 without attempting a launch/download
+of missing payload. These are setup observations, not product failures.
+No addon/provider/network account request, Tauri/Win32/native frame/phone/WAN or
+physical acceptance, APK/EXE/new Alpha/release deployment. Rejected storage proof
+unexecuted; prior0782308f failed. No user logs/credentials/network settings/system
+volume changed; offered0.1.7 and estimates75%/35% unchanged.

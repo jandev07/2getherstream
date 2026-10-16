@@ -180,7 +180,7 @@ onMount(()=>{
 {#if browser.catalogs.length}
 <div class="controls"><label>Catalog <select bind:value={catalogIndex} disabled={stremioBusy || torboxBusy}>{#each browser.catalogs as catalog,index}<option value={String(index)}>{catalog.name} · {catalog.kind}</option>{/each}</select></label>
 {#if browser.catalogs[Number(catalogIndex)]?.searchable}<label>Find a movie <input bind:value={search} maxlength="160" placeholder="Movie title" disabled={stremioBusy || torboxBusy}/></label>{/if}
-<button disabled={stremioBusy || torboxBusy || (browser.catalogs[Number(catalogIndex)]?.search_required && search.trim().length < 2)} onclick={browseStremio}>Show titles</button></div>
+<button disabled={stremioBusy || torboxBusy || (browser.catalogs[Number(catalogIndex)]?.search_required && [...search.trim()].length < 2)} onclick={browseStremio}>Show titles</button></div>
 {/if}
 {#if !browser.titles.length}<p>Your library or catalog is empty. Choose a catalog above to find movies.</p>{/if}
 {#if browser.episode_mode}<p>Choose the episode you want to watch.</p><button disabled={stremioBusy || torboxBusy} onclick={backToSeries}>Back to series titles</button>{/if}
