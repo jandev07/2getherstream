@@ -6,11 +6,17 @@ not manufacture issues, edge-case variants, tests or commits to fill time.
 Distinguish normal-use reproductions, defensive edge cases and hypotheses. Focus
 on consolidated current-source integration and practical reliability.
 
-Kosmi is CURRENTLY ACTIVE. Background work only: no window opening, activation,
-minimizing/moving, desktop input/capture or Antigravity UI interaction until the
-human says Kosmi has finished. Hidden, individually muted validation is allowed.
-Never change system volume or network settings. This supersedes older visible
-validation and Kosmi-finished instructions below. Existing no-new-Alpha remains.
+The human paused development, then explicitly resumed it while going to sleep,
+granting full PC access and requesting the existing automation and longer work
+sessions. Scoped Computer Use/Antigravity collaboration may resume as useful;
+preserve unrelated apps, black wallpaper and dark window layout. Prefer hidden,
+individually muted validation and avoid unnecessary window disturbance. Never
+change system volume or network settings. No new Alpha remains binding.
+
+Earlier during17October, Kosmi was active and all development stayed in the
+background with no desktop capture/input or Antigravity interaction. That earlier
+restriction and the explicit development pause are historical after the latest
+sleep/resume authorization; they are not current instructions to stop work.
 
 # Earlier human instructions — 16 October 2026 IST
 

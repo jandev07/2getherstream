@@ -188,3 +188,37 @@ Analyze both all-eligible and explicit-steady native position samples with the
 same expected run ID. Record the provisional timing target separately from native
 assertion completion. A successful local fixture session is neither a physical
 phone/two-hour/WAN gate nor a substitute for the unresolved4K delivery evidence.
+
+### Replacing the PC host while Android stays open
+
+`SessionHostRestartTest.nativePhoneRejoinsNewPcEpochPaused` uses the same local
+fixture host and requires the explicit instrumentation argument
+`pcRestartProof=true`. It reads the controller's accepted epoch through test-only
+reflection; it does not inject snapshots or add a production diagnostic API.
+An owned external runner must coordinate the following sequence under the same
+native/control locks, using one proof run ID and a synthetic connection token:
+
+1. Start the first headless host and attach the owned emulator. The test publishes
+   `files/phone-host-restart-ready.json` after both native players acknowledge Play.
+2. Verify the signal's run ID, create the first host's stop file, wait for its exit
+   and require its native/listener cleanup receipt. Preserve its runtime directory.
+3. Wait for `files/phone-host-restart-frozen.json`, which the test publishes only
+   after Android observes disconnected control and paused native playback. Check
+   that its old epoch matches the ready signal. Check signal existence separately
+   before parsing; adb exec-out can return a missing-file message as output.
+4. Start a second process with a fresh runtime directory at the same owned loopback
+   port, reusing only the synthetic test token. The test requires a different
+   accepted epoch, a newer accepted native source revision, healthy ready/paused
+   state, and explicit Play followed by acknowledged Pause on the replacement.
+5. Collect the exact selected raw result, phone observations/result and both host
+   journals/cleanup receipts. Stop the second host and release only owned resources.
+
+Keep each process PID and exact UTC start time. Validate phone and native PC proof
+observations against the proof run ID. Each Host journal creates its own journal
+run ID:associate it with its fresh per-process directory; it is neither the proof
+run ID nor the authority epoch. Never rewrite these independent IDs to look equal.
+
+This is a real headless Host/native-player process replacement, with an Android
+Activity that remains open. It does not restart the Windows machine or packaged
+Tauri app, restore encrypted PC credentials, exercise Android pairing storage,
+provision a stable address, or establish provider/WAN/physical-phone acceptance.

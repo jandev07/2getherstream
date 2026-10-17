@@ -1,6 +1,6 @@
 # Milestone 1 acceptance
 
-Updated 2026-10-14 during source consolidation at131aafe. The physical release
+Updated 2026-10-17 with scoped local native session/restart evidence. The physical release
 gate has NOT passed. See ROADMAP.md for the full playback-to-beta sequence and
 DEVELOPMENT.md for exact histories. Planning estimates remain75%playback/35%full
 beta; these are not acceptance scores.
@@ -24,7 +24,7 @@ structured diagnostics and actual two-hour receipt.
 | Rapid seek | Newest request completes; obsolete queued native effects rejected | Historical native seek proof; later real PC capacity-one queue and held-authority regressions | Revised native pair and physical seek sequence |
 | Buffering | Either player stalls, both hold, recovery preserves explicit pause | Offered native pair recovery; later PC watchdog/buffer feedback regressions | Actual CDN/network stall and physical recovery |
 | Reconnect | Freeze on control loss, recalibrate, prepare and rejoin from PC authority | Offered native pair background/reconnect; later source transport ordering tests | Real Wi-Fi/WAN interruption on physical phone |
-| PC restart | New epoch rejects old effects; normal saved pairing/rejoin works | Model/transport evidence | Revised PC/native-phone restart sequence |
+| PC restart | New epoch rejects old effects; normal saved pairing/rejoin works | 17October real headless PC process replacement/native Android emulator:freeze, new epoch/source preparation, paused rejoin and explicit resume | Packaged PC restart, saved credential restoration, intended network and physical phone |
 | Phone lifecycle | Background/lock/unlock/surface recreation preserve correct authority | Historical emulator lifecycle/background proof | Target physical phone lifecycle, heat/battery and decoder behavior |
 | EOF/replay/fault recovery | Normal EOF/replay works; pending faults survive until PC records them and explicit recovery | Offered real TorBox sequence; later real PC premature-EOF/command rejection tests with controlled inputs | Revised Android worker integration and physical fault/recovery |
 | Persistent pairing | Normal code entry, encrypted save/restore and safe change-PC flow | Offered normal pairing screen/restore passed; later setup-admission JVM tests and Kotlin compilation only | Revised rendered Android clear/failure/retry flow and physical pairing |
@@ -52,6 +52,14 @@ structured diagnostics and actual two-hour receipt.
   work/source-validation/pairing-setup-validation.json and
   work/source-validation/update-artifact-validation.json, focused JVM checks
   passed; main/instrumentation compiled only, instrumentation not executed.
+- Current-source local fixture sessions and owned PC host process replacement:
+  work/source-validation/current-session-integration-validation.json and
+  work/source-validation/host-restart-directory.txt. The first long fixture run
+  failed after its steady phase; its corrected short full sequence passed.
+  Restart finalb70f1181 passes one exact selected native/socket method with two
+  distinct PC processes/epochs and an Android Activity that stays open.
+  These use synthetic credentials; they do not establish saved pairing or a
+  packaged Windows restart. See DEVELOPMENT.md for exact artifact boundaries.
 
 These are separate evidence scopes, not one composite native receipt. Prior failed
 0.1.6/0.1.7 candidates and controlled-comparison failures remain retained; successful

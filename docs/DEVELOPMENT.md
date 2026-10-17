@@ -7819,3 +7819,78 @@ physical phone, WAN or two-hour acceptance. The rejected private Keystore proof
 remains unexecuted, failed4K0782308f remains failed, offered0.1.7 is unchanged and
 planning estimates remain75%playback/35%full beta. PROGRESS.md now distinguishes
 those current estimates from its preserved10October60%/30% historical breakdown.
+
+## Native phone across owned PC host process replacement — 17 October 2026
+
+Continued with a distinct remaining boundary:the preceding consolidated session
+reconnected to the same Host, whereas PC process replacement creates a new epoch.
+Added SessionHostRestartTest.nativePhoneRejoinsNewPcEpochPaused using the actual
+Android Activity/controller/socket/native fixture and two sequential instances of
+the existing headless production PC follower/Host. Read-only reflection observes
+the accepted epoch; there is no injected snapshot or new production diagnostic
+field. This adds native integration coverage, not a production app fix.
+
+The initial private runner attempt8b9f41ab failed in orchestration before Android
+instrumentation emitted test packets:adb exec-out returned a missing-file message
+which the signal reader attempted to parse as JSON. It is not an app regression
+or an executed test failure. Original receipt/logs/payloads are preserved. The
+corrected reader first checks the owned signal file with shell test -s. Revised
+runner9e3b820c passes the selected method. Final source adds healthy-room/no-fault/
+no-error and exact accepted-source-revision assertions and records those fields;
+finalb70f1181 passes one exact raw-verified method without skips in14.17seconds.
+
+The test starts native playback on the first host, then publishes a run-bound
+ready signal. The external runner requests graceful stop, checks native/listener
+cleanup, waits for Android's actual disconnected/Paused signal, then starts a
+fresh process/runtime at the same owned loopback port with the same synthetic
+token. Final old/new PIDs1408/14172 and exact UTC start times are recorded. Phone
+accepted epochs4412979e→72f5fdb1 differ; native source revision1→2 is accepted and
+ready. The new room stays healthy and paused for602ms of recorded observation;
+explicit Play then acknowledged Pause succeeds on the new host.
+
+Independent retained-journal analysis confirms one accepted phone Play per host,
+one accepted phone Pause on the replacement, actual PC native playing samples in
+both, and no recorded room fault. Final phase has111phone rows, first/second
+PC91/62native samples and127/103journal records. Each Host journal uses its own
+independent journal run ID, associated with that fresh per-process directory;
+these are not relabelled as the proof run ID or authority epoch. Phone/native PC
+proof logs match the actual proof run ID. These are local associations rather
+than cryptographic or startup attestations.
+
+Both native/listener owners stop cleanly with zero journal IO errors/dropped
+records; owned emulator stopped and native/control locks are free. The app APK
+f28b3ce9 and headless executable34280fed are identical across initial/revised/final
+attempts and the preceding consolidated run. Final test APK457ddba2 differs from
+initial/revised9eb74bd8. Android131input digest e115dd1a, Windows111inputs and
+explicit example-source hash match before/after final execution and again after
+resumption. Failed, earlier passing and final phase payloads/source snapshots,
+selected identities, raw statuses and112file evidence manifest are retained via
+work/source-validation/host-restart-directory.txt and host-restart-validation.json.
+
+The human paused development before integration, then explicitly resumed it while
+going to sleep with full access and longer-session instructions. The existing
+automation was paused then reactivated at20minutes; there is no duplicate. The
+preserved completed test was inspected and integrated without rerunning it after
+resume. Earlier Kosmi background restrictions were respected during execution;
+scoped Antigravity inspection/review resumed only after the latest sleep/full-access
+authorization. Full source review response and its limitations are recorded below
+after completion; it is not additional runtime evidence.
+
+Antigravity's actual UI showed the new review prompt pasted into its composer,
+submitted as a new user message, Working and then a completed source-only
+no-blocker assessment of SessionHostRestartTest/SessionController/headless example.
+No edits/builds/tests/network were requested or reported. Its assertion that the
+handshake eliminates race conditions is too broad:Codex accepts only the controlled
+ordering established by the owned runner/signals, not a general race-free claim.
+Reflection reads the accepted epoch on Main; ActivityScenario closes the Activity,
+but this test does not independently count exact Android native-core closes.
+
+Scope remains local640×360H.26410fps fixture, Android emulator and a headless PC
+process replacement. This is not a Windows machine reboot or packaged Tauri restart,
+encrypted PC credential restoration, Android pairing-vault/Keystore proof, stable
+connection provisioning, provider delivery, WAN, physical phone, two-hour acceptance
+or rendered PC frame/audio timing. The deliberately held disconnected interval is
+not a measured natural restart/reconnect latency guarantee. Offered0.1.7 and75%/35%
+remain unchanged. Earlier4K failure and rejected private Keystore proof retain
+their failed/unexecuted status respectively. Do not rerun this unchanged case or
+manufacture queued-ACK variants merely to increase coverage counts.
