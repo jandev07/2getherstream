@@ -8,9 +8,11 @@ Notify only for meaningful work, failure, completion or an unavoidable decision.
 
 Latest human direction,17October2026:work in longer connected sessions; do not
 stop after a small commit or manufacture changes to fill time. The existing
-automation was reactivated with that instruction as its first line. Kosmi is
-currently active:background hidden/muted work only, no desktop capture/input,
-window activation or Antigravity interaction. No new Alpha remains binding.
+automation was reactivated with that instruction as its first line. The human
+subsequently resumed development while going to sleep and granted full PC access;
+the earlier Kosmi/background-only restriction is historical. Preserve unrelated
+apps and the dark desktop layout; prefer hidden, individually muted validation.
+Never change system volume or network settings. No new Alpha remains binding.
 The dated entries below retain their historical evidence scopes; later entries
 supersede their source/configuration status without relabelling older receipts.
 
@@ -8048,3 +8050,25 @@ The corrected test executable is retained privately. This evidence limitation is
 not relabelled as a preserved baseline payload or native runtime comparison.
 No application/Alpha package or release was built/published, and0.1.7/75%/35% stay
 unchanged. Native/control locks free; no unchanged native/provider proof reruns.
+
+### 17 October: keep the Windows room status consistent during recovery
+
+The rendered Watch page could show Ready to watch together beside its existing
+recovery notice and Retry playback button when both participants were connected
+but the room had a fault. The participant summary now gives the room fault
+priority and says Playback needs recovery. Clearing the fault restores the
+existing readiness text. This corrects a visible status contradiction; command
+admission, native playback and recovery policy are unchanged.
+
+Actual Svelte App rendering with synthetic IPC reproduced the contradiction in
+baseline1342cf62: both readiness and the recovery notice were present, failing the
+new assertion; later healthy assertions were not reached. Revised9f547c07 passes
+the faulted view and subsequent synthetic fault-clear view, including enabled
+Retry/Play controls and no page errors. Both owned browser/server pairs closed.
+Svelte check reports zero errors/warnings and the frontend build passes. The111
+Windows source inputs match before/after the revised run (237c2586); frontend
+digest3e1713e4 is recorded separately. Exact phase source, failed/passed output and
+receipts remain private through work/source-validation/recovery-status-directory.txt
+and recovery-status-validation.json. This was browser rendering, not a Tauri,
+native, Android, addon/provider or physical/WAN/two-hour playback test. No release
+package or new Alpha was built. Offered0.1.7 and75%/35% estimates stay unchanged.

@@ -175,7 +175,7 @@ onMount(()=>{
 <p>Generation {player.generation} · Drift {player.drift_ms} ms · Rate {player.rate.toFixed(3)}×</p>
 {#if session}
 <p>{#each Object.entries(session.participants) as [id,p]}{id === 'pc' ? 'Windows' : 'Android'}: {p.connected ? (p.buffering ? 'Buffering' : 'Connected') : 'Waiting'} · {/each}
-{!session.participants.phone?.connected ? 'Waiting for your phone. Playback starts when both players are ready.' : session.prepare ? 'Getting both players ready…' : session.media ? 'Ready to watch together' : 'Choose a movie to get started.'}</p>
+{session.fault ? 'Playback needs recovery.' : !session.participants.phone?.connected ? 'Waiting for your phone. Playback starts when both players are ready.' : session.prepare ? 'Getting both players ready…' : session.media ? 'Ready to watch together' : 'Choose a movie to get started.'}</p>
 {#if session.fault}<p class="error">Playback needs to recover. Select Retry playback to try again.</p>{/if}
 {/if}
 
