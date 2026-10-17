@@ -271,7 +271,16 @@ impl PlayerController {
         let worker_stop=native_stop.clone();
         let native=thread::Builder::new().name("together-native-player".into()).spawn(move || {
             let mut proof_log = if cfg!(debug_assertions) && std::env::var("TOGETHER_SESSION_PROOF").as_deref()==Ok("1") {
-                std::fs::File::create(root.join("work/native-session-proof.jsonl")).ok()
+                match std::fs::File::create(root.join("work/native-session-proof.jsonl")) {
+                    Ok(log)=>Some(log),
+                    Err(_)=>{
+                        // Requested proof mode must not silently become an
+                        // unrecorded, potentially audible ordinary player.
+                        let mut status=observed.lock().unwrap();
+                        status.state="Failed".into();
+                        status.error=Some("Session proof log unavailable".into());return;
+                    },
+                }
             } else {None};
             let proof_run_id=if proof_log.is_some() {
                 match std::env::var("TOGETHER_PROOF_RUN_ID").ok().and_then(|id|uuid::Uuid::parse_str(&id).ok()).filter(|id|!id.is_nil()) {
@@ -655,6 +664,35 @@ mod lifecycle_tests {
     use super::*;
     fn root()->PathBuf {PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().unwrap()}
     fn host()->Arc<Host> {Host::new("pc-player-lifecycle-test-0000000000".into(),"phone-player-lifecycle-test-0000000".into()).unwrap()}
+    #[tokio::test]
+    #[ignore="Requires an owned runner with explicit debug session-proof environment"]
+    async fn unavailable_proof_log_stops_before_native_initialization() {
+        assert_eq!(std::env::var("TOGETHER_SESSION_PROOF").as_deref(),Ok("1"));
+        let directory=root().join("work/source-validation").join(format!("proof-log-failure-{}",uuid::Uuid::new_v4()));
+        // An occupied directory deterministically rejects File::create without
+        // changing permissions. No DLL or playable source exists in this root.
+        std::fs::create_dir_all(directory.join("work/native-session-proof.jsonl")).unwrap();
+        let host=host();
+        let player=PlayerController::start(directory.clone(),1,host.clone());
+        let observed=tokio::time::timeout(Duration::from_secs(5),async {
+            loop {
+                let status=player.status.lock().unwrap().clone();
+                if status.error.is_some() {break status;}
+                tokio::time::sleep(Duration::from_millis(10)).await;
+            }
+        }).await;
+        let shutdown=player.shutdown().await;
+        let connected=host.snapshot().await.participants["pc"].connected;
+        std::fs::write(directory.join("receipt.json"),serde_json::to_vec_pretty(&serde_json::json!({
+            "status":observed.as_ref().ok(),"shutdown":shutdown,"pc_connected":connected,
+            "native_library_present":directory.join("native/vendor/windows/libmpv-2.dll").exists()
+        })).unwrap()).unwrap();
+        host.request_shutdown();
+        assert_eq!(shutdown,Ok(()));assert!(!connected);
+        let status=observed.unwrap();
+        assert!(!status.initialized);assert_eq!(status.state,"Failed");
+        assert_eq!(status.error.as_deref(),Some("Session proof log unavailable"));
+    }
     async fn loaded(player:&PlayerController,host:&Host) {
         host.local_pc(None,Action::Load {media:MediaIdentity::fixture()}).await.unwrap();
         tokio::time::timeout(Duration::from_secs(10),async {

@@ -236,10 +236,12 @@ public tunnel or provider request.
 
 Observe the actual owned Watch page/native surface before starting the selected
 Android session method, preserving the window's exact executable/PID/start time.
-Keep each automated player muted independently. For current Windows debug source,
-verify proof-log creation before allowing playback:the optional log handle also
-participates in native mute option selection. A missing log must not be treated as
-permission to continue audible validation. Do not use system volume as a substitute.
+Keep each automated player muted independently. Current Windows debug source
+rejects requested session-proof startup if its log cannot be created, before
+native initialization. Successful proof mode retains its native mute option.
+Earlier source silently discarded that log-open error, so retained older binaries
+still need explicit proof-log creation verification before playback. Do not use
+system volume as a substitute for player mute.
 
 Record visible checkpoints and any minimized intervals honestly. A native property
 position result does not count frames or establish screen/audio alignment. After

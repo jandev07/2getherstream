@@ -8014,3 +8014,37 @@ its broad zero-background-network/battery claim is not accepted.
 No provider request, pairing-vault/Keystore proof, physical-phone/WAN/two-hour or
 new Alpha/release delivery. Earlier failed evidence remains failed and the rejected
 Keystore proof remains unexecuted. Offered0.1.7 and75%/35% estimates unchanged.
+
+### 17 October: fail closed when a requested Windows proof log cannot open
+
+Defensive validation-mode defect, not a reproduced normal-user playback failure:
+the native worker previously converted File::create failure to None even when
+TOGETHER_SESSION_PROOF=1 was explicitly requested. The same optional handle enables
+proof logging, run association, fast proof polling and visible-window mute. A
+failed log could therefore silently fall through into ordinary initialization.
+The previous actual Tauri profile explicitly checked log creation before playback;
+there is no claim that it produced sound or lacked its recorded proof.
+
+Requested debug session-proof mode now reports fixed Session proof log unavailable
+and returns before native initialization on log-open failure. Ordinary startup and
+successful proof mode retain their options and behavior. No normal log policy,
+source fault handling, dependency, dispatcher, poll or diagnostic field changed.
+
+One explicitly ignored/opt-in Windows worker test occupies the log path with an
+owned directory, without changing permissions. Its isolated root contains no DLL
+or playable media. Baseline3ddc9693 failed the new assertion:the worker proceeded
+to the missing native library and reported Native libmpv initialization failed.
+Revisedb518e11d passes that exact test, stopping at the proof-log error, and passes
+the affected ordinary failed-startup test with proof environment removed. Both
+owners join and detach. Non-test Windows cargo check passes offline;111input
+digest32daef91 matches before/after. This does not exercise a native core, sound,
+decoder, GPU, emulator, provider or existing playback acceptance profile.
+
+Original failed output/receipts and source association are retained via
+work/source-validation/proof-log-admission-directory.txt and
+proof-log-admission-validation.json. The baseline unit-test executable was not
+archived before the shared cache rebuilt it; its binary identity is unavailable.
+The corrected test executable is retained privately. This evidence limitation is
+not relabelled as a preserved baseline payload or native runtime comparison.
+No application/Alpha package or release was built/published, and0.1.7/75%/35% stay
+unchanged. Native/control locks free; no unchanged native/provider proof reruns.
