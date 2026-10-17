@@ -58,6 +58,12 @@ structured diagnostics and actual two-hour receipt.
   failed after its steady phase; its corrected short full sequence passed.
   Restart finalb70f1181 passes one exact selected native/socket method with two
   distinct PC processes/epochs and an Android Activity that stays open.
+- Actual current debug Tauri/native surface and Android emulator fixture:
+  work/source-validation/rendered-native-pair-directory.txt. Run376af517 passes
+  the full selected session method with600steady seconds and normal window-close
+  cleanup. Visible native picture checkpoints with minimized intervals;5931
+  position matches,p95119ms. No continuous rendered-frame/audio, packaged release,
+  provider, pairing-storage, physical-phone or WAN acceptance is implied.
   These use synthetic credentials; they do not establish saved pairing or a
   packaged Windows restart. See DEVELOPMENT.md for exact artifact boundaries.
 

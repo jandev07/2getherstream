@@ -222,3 +222,31 @@ This is a real headless Host/native-player process replacement, with an Android
 Activity that remains open. It does not restart the Windows machine or packaged
 Tauri app, restore encrypted PC credentials, exercise Android pairing storage,
 provision a stable address, or establish provider/WAN/physical-phone acceptance.
+
+### Actual Tauri/native-surface session and normal window closure
+
+A distinct local fixture profile may use the current debug Tauri application
+instead of the headless example. Build its frontend first and record the generated
+frontend digest as well as Android/Windows input digests; use the existing offline
+toolchain and native assets under exclusive native/control ownership. Copy only
+owned internal debug payloads into a fresh runtime directory. Do not invoke Alpha
+packaging or normal user credentials. Debug session-proof mode uses a synthetic
+phone token, an owned loopback port and the local fixture; it does not authorize a
+public tunnel or provider request.
+
+Observe the actual owned Watch page/native surface before starting the selected
+Android session method, preserving the window's exact executable/PID/start time.
+Keep each automated player muted independently. For current Windows debug source,
+verify proof-log creation before allowing playback:the optional log handle also
+participates in native mute option selection. A missing log must not be treated as
+permission to continue audible validation. Do not use system volume as a substitute.
+
+Record visible checkpoints and any minimized intervals honestly. A native property
+position result does not count frames or establish screen/audio alignment. After
+the raw selected instrumentation completes, close only that owned Tauri window
+through its actual Close control, then check the exit code and retained lifecycle
+journal. Require shutdown_requested, player_stopped, server_stopped, exit_permitted
+and absence of failed cleanup stages; exit_permitted alone is insufficient.
+Verify source/frontend digests again, stop only owned emulator/reverse resources,
+check OS locks and rebind the loopback port. Preserve failure receipts and do not
+repeat an unchanged profile to replace a failure with a later pass.

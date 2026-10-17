@@ -7894,3 +7894,59 @@ not a measured natural restart/reconnect latency guarantee. Offered0.1.7 and75%/
 remain unchanged. Earlier4K failure and rejected private Keystore proof retain
 their failed/unexecuted status respectively. Do not rerun this unchanged case or
 manufacture queued-ACK variants merely to increase coverage counts.
+
+### 17 October: actual Tauri/native Windows and Android fixture session
+
+After the restart checkpoint83a6762, a distinct owned run376af517 exercised the
+actual debug Tauri application, its Watch page/native Windows video surface, and
+the Android native SessionController/socket player against the same local
+7500second640×360H.26410fps/AAC fixture. This replaces the headless PC executable
+for this run; it is not a new production fix, Alpha or packaged release.
+
+The exact selected SessionPlaybackTest method
+authoritativeStartPauseSeekSpamBackgroundReconnectAndResume passed without skips
+in652.251seconds, with600seconds requested steady playback. Existing start/pause/
+seek/background/socket reconnect, stale probe/send refusal, EOF/replay, deliberate
+execution/decoder failure retention and explicit paused reload assertions ran.
+The user-triggered synthetic phone diagnostic send also completed. No provider or
+pairing-store/Keystore test was selected. The previously failed1800second headless
+run remains failed; this separate completed600second sequence does not repair or
+replace that receipt.
+
+Actual Computer Use observations showed the initial Watch fixture, Playing1:21,
+and Playing5:39 after restoring the owned window. Both devices were connected and
+the native test pattern was visible at those checkpoints. The owned window was
+minimized between observations to preserve the sleeping desktop:there is no
+claim of600seconds continuously visible video, counted rendered frames or audio
+alignment. After instrumentation detached Android, the final UI was Paused0:00,
+Android Waiting with the fixed recovery notice; that post-detach observation is
+not relabelled as both devices still ready. The actual owned window Close button
+then initiated normal shutdown, exit code0, with journal stages shutdown_requested,
+player_stopped, server_stopped, exit_permitted in order, no failed stage and zero
+journal IO errors/dropped records. No forced app/emulator termination was needed.
+
+Independent retained-log analysis has6410phone rows,7228PC rows,7938journal rows
+and5931steady rows in generation23. Steady span599951ms/max gap110ms, with zero
+counted clock-age/history/disconnect/buffering/seeking/preparing/nonPlaying
+violations. Maximum reported authority drift113ms/native age111ms. Same-generation
+position interpolation matched5931samples:median49ms,p95119ms,max152ms. This meets
+the unchanged provisional150ms p95 position target for this fixture only; clock
+offset and property-sampling error remain, and it is not screen/audio timing.
+
+Android131inputs e115dd1a, Windows111inputs02f661c7 and generated frontend inputs
+c1d012b1 match before/after execution. Main APKf28b3ce9 and test APK457ddba2 match
+the restart phase; actual Tauri EXE773b12b2 is distinct from headless EXE34280fed.
+All payload hashes are retained and independently checked. Frontend check reports
+zero errors/warnings and its build passes; offline Rust debug/native app and
+internal Android debug compilation pass. Native/control OS locks are free, owned
+processes/emulator stopped, own reverse removed and47820 rebound. The unused
+owned synthetic pairing nonce was removed without display/export.
+
+Exact receipt, raw selected result, source/frontend/payload hashes, private
+runner, UI action observations, native/phone/journal logs and independent analyses
+are retained via work/source-validation/rendered-native-pair-directory.txt and
+rendered-native-pair-validation.json. No private evidence or binary is published.
+Physical phone, provider delivery, normal pairing/credential restore, WAN,
+packaged UX, two-hour acceptance and the earlier4K failure remain open. No new
+Alpha0.1.7 delivery or75%/35% estimate change. Do not rerun this unchanged sequence
+or add fault/ACK variants merely to increase activity.
