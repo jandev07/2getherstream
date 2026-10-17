@@ -45,7 +45,8 @@ class NativeHttpsTest {
                 assertTrue(controller.status.value.sourceReady)
                 assertEquals(receipt,controller.status.value.sourceRevision)
                 assertTrue(controller.status.value.durationMs>=59000)
-                scenario.onActivity {controller.play()}
+                // Direct adapter loads are native API tests, not a controller-owned local source.
+                scenario.onActivity {controller.player.pause(false)}
                 SystemClock.sleep(2000)
                 assertEquals(receipt,controller.status.value.sourceRevision)
                 assertTrue(controller.status.value.durationMs>=59000)
@@ -85,7 +86,7 @@ class NativeHttpsTest {
             assertEquals(revision,controller.status.value.sourceRevision)
             assertTrue(controller.status.value.sourceReady)
             assertEquals("Paused",controller.status.value.state)
-            scenario.onActivity {controller.play()}
+            scenario.onActivity {controller.player.pause(false)}
             await("HTTPS play advances") {val p=controller.status.value;p.positionMs>200 && p.state=="Playing"}
             scenario.onActivity {controller.pause()}
             await("HTTPS pause") {controller.status.value.state=="Paused"}

@@ -250,3 +250,22 @@ and absence of failed cleanup stages; exit_permitted alone is insufficient.
 Verify source/frontend digests again, stop only owned emulator/reverse resources,
 check OS locks and rebind the loopback port. Preserve failure receipts and do not
 repeat an unchanged profile to replace a failure with a later pass.
+
+### Session-to-local controller handoff
+
+`SessionExitTest.leavingSessionRequiresExplicitLocalSourceBeforeResume` needs an
+owned native fixture host and synthetic debug connection configuration. It starts
+real paired playback, calls the public forgetSession callback, then attempts the
+public local Play/Seek callbacks. It retains15fresh native observations before
+checking that the old session movie stayed paused at its frozen position. Explicit
+Load test video must then establish a new local source and permit local controls.
+The predicate assertions cover the canPlay value wired to MainActivity; they do
+not claim a rendered dialog tap or pairing-store clear. Never invoke pairing-store
+or Keystore failure tests as part of this profile.
+
+When selecting multiple instrumentation methods, preserve each expected identity
+as a nested two-string pair rather than a flattened PowerShell array. Check exact
+method completion and skips against raw output. Deliberate decoder-failure waits
+may allow only the expected fixed decoder_failed notice; ordinary stages must
+continue rejecting player errors. Preserve original failures and payloads when a
+test helper or orchestration error needs repair.

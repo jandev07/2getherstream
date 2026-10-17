@@ -17,13 +17,15 @@ class PlayerProofController(private val context: Context) {
     private var pairingUrl: String? = null
     private var pairingToken: String? = null
     private var backgrounded = false
+    private var localSourceRevision:Long?=null
     fun connectSession(url: String, token: String) {
         app.together.v2.session.sessionEndpoint(url)
         app.together.v2.session.validatePairingToken(token)
         localSource.cancel()
+        localSourceRevision=null
         sessionMode=true;pairingUrl=url;pairingToken=token;backgrounded=false;session.connect(url,token)
     }
-    fun forgetSession() {session.disconnect();sessionMode=false;pairingUrl=null;pairingToken=null;backgrounded=false}
+    fun forgetSession() {session.disconnect();localSourceRevision=null;sessionMode=false;pairingUrl=null;pairingToken=null;backgrounded=false}
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private suspend fun recordDiagnostic() {
         val sample=app.together.v2.diagnostics.phoneSample(status.value,session.diagnostics.value)
@@ -33,14 +35,23 @@ class PlayerProofController(private val context: Context) {
     init {journalSampler.setActive(true)}
     private val localSource=LocalSourceLoader(scope,
         prepare={withContext(Dispatchers.IO) {ProofMedia.prepare(context)}},
-        load={player.loadLocal(it)},failed={player.localPreparationFailed()})
+        load={localSourceRevision=player.loadLocal(it)},failed={player.localPreparationFailed()})
     fun loadTest() {if(!sessionMode) localSource.request()}
-    fun play() { if(sessionMode) session.intent("play") else player.pause(false) }
+    // Disconnect leaves the previous native file paused for teardown/reconnect.
+    // Its duration/readiness must not grant unpaired control of session media.
+    private fun localSourceReady():Boolean {
+        val revision=localSourceRevision ?: return false
+        val native=status.value
+        return native.initialized && native.failure==null && native.sourceReady &&
+            native.sourceRevision==revision && native.acceptedSourceRevision==revision
+    }
+    fun canPlay():Boolean=if(sessionMode) session.diagnostics.value.let {it.connected && it.mediaAvailable} else localSourceReady()
+    fun play() { if(sessionMode) session.intent("play") else if(localSourceReady()) player.pause(false) }
     fun pause() { if(sessionMode) session.intent("pause") else player.pause(true) }
-    fun canSeek():Boolean=if(sessionMode) session.canSeek() else status.value.initialized && status.value.durationMs>0
+    fun canSeek():Boolean=if(sessionMode) session.canSeek() else localSourceReady() && status.value.durationMs>0
     fun seek(deltaMs: Long) {
         if(sessionMode) session.seekBy(deltaMs)
-        else player.seek((status.value.positionMs+deltaMs).coerceIn(0,status.value.durationMs.coerceAtLeast(0)))
+        else if(canSeek()) player.seek((status.value.positionMs+deltaMs).coerceIn(0,status.value.durationMs.coerceAtLeast(0)))
     }
     fun background() {
         val wasBackgrounded=backgrounded;backgrounded=true;journalSampler.setActive(false)

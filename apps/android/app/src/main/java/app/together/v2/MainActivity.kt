@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
                         }
                         Button(onClick = controller::loadTest, enabled = state.initialized && !controller.sessionMode) { Text("Load test video") }
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Button(onClick = controller::play, enabled = state.initialized && (if(controller.sessionMode) sync.connected && sync.mediaAvailable else state.durationMs>0)) { Text(if(sync.fault!=null) "Retry playback" else if(sync.ended) "Replay" else "Play") }
+                            Button(onClick = controller::play, enabled = state.initialized && controller.canPlay()) { Text(if(sync.fault!=null) "Retry playback" else if(sync.ended) "Replay" else "Play") }
                             Button(onClick = controller::pause, enabled = state.initialized && (if(controller.sessionMode) sync.connected && sync.mediaAvailable else state.durationMs>0)) { Text("Pause") }
                         }
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {

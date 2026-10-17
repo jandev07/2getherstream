@@ -7950,3 +7950,67 @@ Physical phone, provider delivery, normal pairing/credential restore, WAN,
 packaged UX, two-hour acceptance and the earlier4K failure remain open. No new
 Alpha0.1.7 delivery or75%/35% estimate change. Do not rerun this unchanged sequence
 or add fault/ACK variants merely to increase activity.
+
+### 17 October: leaving a session cannot grant local control of its movie
+
+Concrete controller handoff defect reproduced on current Android/native source:
+after the normal change-PC flow calls forgetSession(), sessionMode becomes false
+but the native session file remains loaded and paused. Local Play and relative
+Seek previously used that retained file/duration, allowing playback without the
+former PC authority. This is a reproduced public-callback defect, not a speculative
+queue variant. The fixture reproduction bypasses PairingStore.clear and the dialog;
+it does not establish encrypted storage removal or rendered change-PC UX.
+
+PlayerProofController now retains a local source revision only after its explicit
+local loader submits that source. Session connect/forget clears local eligibility.
+Local Play/Seek and their enablement predicates require that revision to match the
+current accepted, healthy native source. MainActivity uses canPlay for its Play
+button. Pausing stays available; paired intent/relative-seek policy, background
+disconnect, native worker fault handling and session grants are unchanged. A native
+session file is still paused rather than forcibly unloaded; this fixes ordinary
+controller/UI authority admission, not native API access or provider URL revocation.
+
+New SessionExitTest uses actual Activity/controller/socket/libmpv, a real headless
+Rust PC native follower and the local synthetic fixture. Baseline6cdf6afa failed:
+after session Play, forgetSession and local Play/Seek callbacks,15 fresh native
+samples were Playing, moving1100→11100ms and then12000ms. The later local recovery
+assertions were not reached. Revised092f0042 uses the same test APKef78ba62 with
+only main APKf28b3ce9→e16b10f3 changed:all15samples remain Paused at1100ms, then
+explicit Load test video creates revision2 and local Play/Pause/Seek succeed.
+
+The stronger final test also checks the actual canPlay predicate used by the UI
+before/after explicit local loading. Compatibility phase885f4e67 preserved a failure
+in the existing NativePlayerTest helper:its unconditional null-error assertion
+rejected the expected fixed notice during deliberately induced decoder failure.
+The new exit method passed in that phase. The private runner also flattened the
+expected-identity list; its failed receipt/raw output remain unchanged. Repair is
+test-only:allow exactly decoder_failed plus the fixed native notice in the two
+deliberate failure/recovery waits, retaining ordinary error checks/timeouts. Two
+direct-adapter NativeHttpsTest Play calls now use adapter.pause(false), consistent
+with their injected adapter sources; these HTTPS methods compiled but were not run.
+
+Corrected454bb67e raw-verifies exactly two selected methods without skips in18.425s:
+SessionExitTest.leavingSessionRequiresExplicitLocalSourceBeforeResume and affected
+NativePlayerTest.loadPlayPauseExactSeekRotateAndResume, including native fixture
+bitmap, local seek/rotation/resume and explicit decoder recovery. Main APKe16b10f3
+is identical to the earlier revised/compatibility phases; final test APK145008c6
+reflects test-only repairs/stronger assertions. Five affected LocalSourceLoader JVM
+tests pass in the retained compatibility phase. Android132input digest6fd50ebc
+matches before/after final runtime; Windows111inputs02f661c7 and exampledeb44c22
+still match the retained headless EXE34280fed. No unchanged Windows rebuild or
+earlier full playback profile was rerun to inflate coverage.
+
+All four phases retain exact payloads/hashes/raw identities/native observations/
+host journals and cleanup receipts. Each owned PC native/listener stopped with
+zero journal IO errors/drops, emulators stopped, reverse removed, native/control
+OS locks free and47822 rebound. Evidence pointer work/source-validation/
+session-exit-directory.txt and session-exit-validation.json distinguish failed
+baseline, first passing revision, failed compatibility and corrected final phases.
+Antigravity's actual UI showed both scoped prompts pasted/submitted/Working and
+completed source reviews. Its first no-issue review missed this reproduced defect;
+its later focused diff review found no blocker. Neither is runtime evidence, and
+its broad zero-background-network/battery claim is not accepted.
+
+No provider request, pairing-vault/Keystore proof, physical-phone/WAN/two-hour or
+new Alpha/release delivery. Earlier failed evidence remains failed and the rejected
+Keystore proof remains unexecuted. Offered0.1.7 and75%/35% estimates unchanged.

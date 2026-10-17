@@ -146,11 +146,13 @@ class NativePlayerTest {
         ActivityScenario.launch<MainActivity>(launch).use { scenario ->
             lateinit var controller: PlayerProofController
             scenario.onActivity { controller = it.controller }
-            fun await(label: String, timeoutMs: Long = 20000, condition: (PlayerStatus) -> Boolean): PlayerStatus {
+            fun await(label: String, timeoutMs: Long = 20000, allowPendingDecoderFailure:Boolean=false, condition: (PlayerStatus) -> Boolean): PlayerStatus {
                 val until = SystemClock.elapsedRealtime() + timeoutMs
                 while (SystemClock.elapsedRealtime() < until) {
                     val state = controller.status.value
-                    assertNull("$label: ${state.error}", state.error)
+                    if(allowPendingDecoderFailure && state.failure=="decoder_failed")
+                        assertEquals(label,"Native media playback failed",state.error)
+                    else assertNull("$label: ${state.error}", state.error)
                     if (condition(state)) return state
                     SystemClock.sleep(40)
                 }
@@ -191,9 +193,9 @@ class NativePlayerTest {
             try {
                 invalid.writeText("invalid synthetic media for decoder failure proof")
                 scenario.onActivity {controller.player.failSourceForProof(invalid)}
-                await("terminal decoder failure") {it.failure=="decoder_failed" && !it.sourceReady}
+                await("terminal decoder failure",allowPendingDecoderFailure=true) {it.failure=="decoder_failed" && !it.sourceReady}
                 scenario.onActivity {controller.loadTest()}
-                await("native decoder recovers after new source") {it.failure==null && it.sourceReady && it.durationMs>59000 && it.state=="Paused"}
+                await("native decoder recovers after new source",allowPendingDecoderFailure=true) {it.failure==null && it.sourceReady && it.durationMs>59000 && it.state=="Paused"}
             } finally {invalid.delete()}
         }
     }
